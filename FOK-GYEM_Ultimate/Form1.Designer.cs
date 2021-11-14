@@ -190,6 +190,7 @@ namespace FOK_GYEM_Ultimate
             this.textEditStrip.Name = "textEditStrip";
             this.textEditStrip.Size = new System.Drawing.Size(180, 22);
             this.textEditStrip.Text = "Text...";
+            this.textEditStrip.Click += new System.EventHandler(this.TextGen);
             // 
             // symbolEditStrip
             // 
@@ -295,8 +296,6 @@ namespace FOK_GYEM_Ultimate
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel containerPanel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
@@ -323,6 +322,7 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.ToolStripMenuItem textEditStrip;
         private System.Windows.Forms.ToolStripMenuItem symbolEditStrip;
         private System.Windows.Forms.ToolStripMenuItem clearEditStrip;
+        public System.Windows.Forms.Panel containerPanel;
     }
 }
 

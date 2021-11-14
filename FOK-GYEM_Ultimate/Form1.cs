@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using zsotroav;
 
@@ -211,6 +214,13 @@ namespace FOK_GYEM_Ultimate
                 if (c is Panel) c.BackColor = c.BackColor == Color.DarkGray? Color.Black : Color.DarkGray;
             }
         }
+
+        public void TextGen(object sender, EventArgs e)
+        {
+            var formText = new FormText(this);
+            formText.Show();
+        }
+
 
         #endregion
     }

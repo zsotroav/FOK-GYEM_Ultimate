@@ -7,4 +7,18 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="resources\fonts\FOK-GYEM_thin.bmp" />
+    <None Remove="resources\fonts\FOK-GYEM_thin_structure.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="resources\fonts\FOK-GYEM_thin.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="resources\fonts\FOK-GYEM_thin_structure.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>

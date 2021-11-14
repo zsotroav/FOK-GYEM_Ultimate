@@ -26,6 +26,8 @@ namespace zsotroav
 
         public static string NameFromPath(string path) => Path.GetFileName(path);
 
+        public static string NameNoExtFromPath(string path) => Path.GetFileNameWithoutExtension(path);
+
         public static string ExtFromPath(string path) => Path.GetExtension(path);
     }
 }
