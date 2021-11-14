@@ -217,8 +217,17 @@ namespace FOK_GYEM_Ultimate
 
         public void TextGen(object sender, EventArgs e)
         {
-            var formText = new FormText(this);
-            formText.Show();
+            if (Directory.Exists(@"resources/fonts/"))
+            {
+
+                var formText = new FormText(this);
+                formText.Show();
+            }
+            else
+            {
+                MessageBox.Show(@"Couldn't find the resources/fonts directory.", @"Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 

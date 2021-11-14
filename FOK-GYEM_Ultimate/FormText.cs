@@ -16,23 +16,36 @@ namespace FOK_GYEM_Ultimate
             formMain = main as FormMain;
             InitializeComponent();
 
-            string[] fonts = Directory.GetFiles(@"resources\fonts\", "*.bmp");
+            string[] fonts = Directory.GetFiles(@"resources/fonts/", "*.bmp");
+            var n = 0;
             foreach (var font in fonts)
             {
+                if (!External.FileExists($@"resources/fonts/{External.NameNoExtFromPath(font)}_structure.txt")) continue;
                 fontCombo.Items.Add(External.NameNoExtFromPath(font));
+                n++;
             }
+            if (n == 0)
+            {
+                MessageBox.Show(@"Couldn't find a single font!", @"Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+            fontCombo.SelectedIndex = 0;
             OffModNumeric.Maximum = formMain.ModCnt;
             OffPxNumeric.Maximum = formMain.ModCnt * 24;
             endModNumeric.Maximum = formMain.ModCnt;
             endPxNumeric.Maximum = formMain.ModCnt * 24;
             endModNumeric.Value = formMain.ModCnt;
             endPxNumeric.Value = formMain.ModCnt * 24;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            TextGenFun(fontCombo.Text, textBox.Text, (int)OffPxNumeric.Value, centerCheckBox.Checked);
+            if (!string.IsNullOrEmpty(fontCombo.Text) && External.FileExists($@"resources/fonts/{fontCombo.Text}.bmp"))
+                TextGenFun(fontCombo.Text, textBox.Text, (int) OffPxNumeric.Value, centerCheckBox.Checked);
+            else MessageBox.Show(@"Font not found", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Close();
         }
 
@@ -58,6 +71,12 @@ namespace FOK_GYEM_Ultimate
             n = 0;
             foreach (var c in ch)
             {
+                if (!chars.ContainsKey(c))
+                {
+                    MessageBox.Show($@"Character '{c}' is not supported in the selected font. Aborting...", @"Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 n += chars[c][1] - chars[c][0] - 1;
                 if (n <= (int)endPxNumeric.Value - offset) continue;
                 MessageBox.Show(@"This much text would overflow. Please try again with a shorter text.", @"Error",
@@ -71,12 +90,6 @@ namespace FOK_GYEM_Ultimate
             n = offset;
             foreach (var c in ch)
             {
-                if (!chars.ContainsKey(c))
-                {
-                    MessageBox.Show($@"Character '{c}' is not supported. Aborting...", @"Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
 
                 for (int i = 0; i < chars[c][1] - chars[c][0]; i++)
                 {
