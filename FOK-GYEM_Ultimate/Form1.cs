@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 using zsotroav;
 
@@ -112,20 +113,10 @@ namespace FOK_GYEM_Ultimate
             {
                 MessageBox.Show(@"This bin file is either too large or in an not processable format.", @"Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
-            for (int i = 0; i < primary.Length; i++)
-            {
-                var t = 0;
-                for (int j = 0; j < 8; j++)
-                {
-                    t *= 2;
-                    t += primary[i] % 2;
-                    primary[i] >>= 1;
-                }
-
-                primary[i] = Convert.ToByte(t);
-            }
+            primary = Utils.ReverseBytes(primary);
 
             var bits = new BitArray(primary);
 
@@ -134,6 +125,35 @@ namespace FOK_GYEM_Ultimate
             for (var i = 0; i < bits.Length; i++)
             {
                 c.Find(i.ToString(), false)[0].BackColor = bits[i] ? Color.Black : Color.DarkGray;
+            }
+        }
+
+        private void LoadFromBmp(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = @"Bitmap files|*.bmp|Portable Network Graphics|*.png";
+            openFileDialog1.ShowDialog();
+            var loc = openFileDialog1.FileName;
+            if (string.IsNullOrEmpty(loc) || !External.FileExists(loc)) return;
+
+            var bmp = new Bitmap(Image.FromFile(loc));
+
+            if (bmp.Width % 24 != 0 || bmp.Height != 7)
+            {
+                MessageBox.Show(@"Bitmap dimensions are incorrect", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (bmp.Width / 24 != ModCnt) GenModules(bmp.Width / 24, bmp.Width / 24);
+            
+            var c = containerPanel.Controls;
+            for (int x = 0; x < 24 * ModCnt; x++)
+            {
+                for (int y = 0; y < 7; y++)
+                {
+                    var col = bmp.GetPixel(x, y);
+                    var gs = (Int32)(col.R * 0.3 + col.G * 0.59 + col.B * 0.11);
+                    c.Find((x + y * 24 * ModCnt).ToString(), false)[0].BackColor =
+                        Color.FromArgb(gs, gs, gs) == Color.FromArgb(0, 0, 0) ? Color.DarkGray : Color.Black;
+                }
             }
         }
         #endregion
@@ -155,7 +175,30 @@ namespace FOK_GYEM_Ultimate
                 output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
             }
 
-            External.SaveBin(saveDialog.FileName, External.ToByteArray(output));
+            External.SaveBin(saveDialog.FileName, Utils.ToByteArrayFlip(output));
+        }
+
+        private void ExportBmp(object sender, EventArgs e)
+        {
+            saveDialog.Filter = @"Bitmap file|*.bmp";
+            saveDialog.DefaultExt = ".bmp";
+            var dr = saveDialog.ShowDialog();
+            if (dr != DialogResult.OK) return;
+
+            Bitmap bmp = new(24*ModCnt, 7);
+            var c = containerPanel.Controls;
+            for (int x = 0; x < 24*ModCnt; x++)
+            {
+                for (int y = 0; y < 7; y++)
+                {
+                    bmp.SetPixel(x, y,
+                        c.Find((x + y * 24 * ModCnt).ToString(), false)[0].BackColor == Color.DarkGray
+                            ? Color.Black
+                            : Color.White);
+                }
+            }
+
+            bmp.Save(saveDialog.FileName);
         }
         #endregion
     }
