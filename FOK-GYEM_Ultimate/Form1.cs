@@ -71,31 +71,7 @@ namespace FOK_GYEM_Ultimate
             p.BackColor = (p.BackColor == Color.DarkGray) ? Color.Black : Color.DarkGray;
         }
         #endregion
-
-        #region Panel menu strip
-
-        public void ResetPanel(object sender, EventArgs e)
-        {
-            foreach (Control c in containerPanel.Controls)
-            {
-                if (c is Panel) c.BackColor = Color.DarkGray;
-            }
-        }
         
-        private void setNewBreakpointToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var formReCut = new FormReCut(this, ModCnt);
-            formReCut.Show();
-        }
-
-        private void newSizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var formNewSize = new FormNewSize(this);
-            formNewSize.Show();
-        }
-
-        #endregion
-
         #region Load/Import
         
         private void LoadFromBin(object sender, EventArgs e)
@@ -200,6 +176,42 @@ namespace FOK_GYEM_Ultimate
 
             bmp.Save(saveDialog.FileName);
         }
+        #endregion
+
+        #region Panel menu strip
+
+        private void setNewBreakpointToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var formReCut = new FormReCut(this, ModCnt);
+            formReCut.Show();
+        }
+
+        private void newSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var formNewSize = new FormNewSize(this);
+            formNewSize.Show();
+        }
+
+        #endregion
+
+        #region Edit menu strip
+
+        public void ClearPanel(object sender, EventArgs e)
+        {
+            foreach (Control c in containerPanel.Controls)
+            {
+                if (c is Panel) c.BackColor = Color.DarkGray;
+            }
+        }
+
+        public void InvertPanel(object sender, EventArgs e)
+        {
+            foreach (Control c in containerPanel.Controls)
+            {
+                if (c is Panel) c.BackColor = c.BackColor == Color.DarkGray? Color.Black : Color.DarkGray;
+            }
+        }
+
         #endregion
     }
 }

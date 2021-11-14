@@ -40,9 +40,9 @@ namespace FOK_GYEM_Ultimate
             this.maincppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setNewBreakpointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.invertEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.textEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.symbolEditStrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,14 +96,14 @@ namespace FOK_GYEM_Ultimate
             // binToolStripMenuItem1
             // 
             this.binToolStripMenuItem1.Name = "binToolStripMenuItem1";
-            this.binToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.binToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
             this.binToolStripMenuItem1.Text = "bin";
             this.binToolStripMenuItem1.Click += new System.EventHandler(this.LoadFromBin);
             // 
             // bmpToolStripMenuItem1
             // 
             this.bmpToolStripMenuItem1.Name = "bmpToolStripMenuItem1";
-            this.bmpToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.bmpToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
             this.bmpToolStripMenuItem1.Text = "bmp";
             this.bmpToolStripMenuItem1.Click += new System.EventHandler(this.LoadFromBmp);
             // 
@@ -120,28 +120,27 @@ namespace FOK_GYEM_Ultimate
             // binToolStripMenuItem
             // 
             this.binToolStripMenuItem.Name = "binToolStripMenuItem";
-            this.binToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.binToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.binToolStripMenuItem.Text = "bin";
             this.binToolStripMenuItem.Click += new System.EventHandler(this.ExportBin);
             // 
             // bmpToolStripMenuItem
             // 
             this.bmpToolStripMenuItem.Name = "bmpToolStripMenuItem";
-            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.bmpToolStripMenuItem.Text = "bmp";
             this.bmpToolStripMenuItem.Click += new System.EventHandler(this.ExportBmp);
             // 
             // maincppToolStripMenuItem
             // 
             this.maincppToolStripMenuItem.Name = "maincppToolStripMenuItem";
-            this.maincppToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maincppToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.maincppToolStripMenuItem.Text = "main.cpp";
             // 
             // panelToolStripMenuItem
             // 
             this.panelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newSizeToolStripMenuItem,
-            this.resetToolStripMenuItem,
             this.setNewBreakpointToolStripMenuItem});
             this.panelToolStripMenuItem.Name = "panelToolStripMenuItem";
             this.panelToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
@@ -154,13 +153,6 @@ namespace FOK_GYEM_Ultimate
             this.newSizeToolStripMenuItem.Text = "New size";
             this.newSizeToolStripMenuItem.Click += new System.EventHandler(this.newSizeToolStripMenuItem_Click);
             // 
-            // resetToolStripMenuItem
-            // 
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.resetToolStripMenuItem.Text = "Reset";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetPanel);
-            // 
             // setNewBreakpointToolStripMenuItem
             // 
             this.setNewBreakpointToolStripMenuItem.Name = "setNewBreakpointToolStripMenuItem";
@@ -171,6 +163,7 @@ namespace FOK_GYEM_Ultimate
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearEditStrip,
             this.invertEditStrip,
             this.textEditStrip,
             this.symbolEditStrip});
@@ -178,22 +171,30 @@ namespace FOK_GYEM_Ultimate
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
+            // clearEditStrip
+            // 
+            this.clearEditStrip.Name = "clearEditStrip";
+            this.clearEditStrip.Size = new System.Drawing.Size(180, 22);
+            this.clearEditStrip.Text = "Clear";
+            this.clearEditStrip.Click += new System.EventHandler(this.ClearPanel);
+            // 
             // invertEditStrip
             // 
             this.invertEditStrip.Name = "invertEditStrip";
-            this.invertEditStrip.Size = new System.Drawing.Size(123, 22);
+            this.invertEditStrip.Size = new System.Drawing.Size(180, 22);
             this.invertEditStrip.Text = "Invert";
+            this.invertEditStrip.Click += new System.EventHandler(this.InvertPanel);
             // 
             // textEditStrip
             // 
             this.textEditStrip.Name = "textEditStrip";
-            this.textEditStrip.Size = new System.Drawing.Size(123, 22);
+            this.textEditStrip.Size = new System.Drawing.Size(180, 22);
             this.textEditStrip.Text = "Text...";
             // 
             // symbolEditStrip
             // 
             this.symbolEditStrip.Name = "symbolEditStrip";
-            this.symbolEditStrip.Size = new System.Drawing.Size(123, 22);
+            this.symbolEditStrip.Size = new System.Drawing.Size(180, 22);
             this.symbolEditStrip.Text = "Symbol...";
             // 
             // aboutToolStripMenuItem
@@ -311,7 +312,6 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.ToolStripMenuItem bmpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem maincppToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newSizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setNewBreakpointToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel panelDataBStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
@@ -322,6 +322,7 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.ToolStripMenuItem invertEditStrip;
         private System.Windows.Forms.ToolStripMenuItem textEditStrip;
         private System.Windows.Forms.ToolStripMenuItem symbolEditStrip;
+        private System.Windows.Forms.ToolStripMenuItem clearEditStrip;
     }
 }
 
