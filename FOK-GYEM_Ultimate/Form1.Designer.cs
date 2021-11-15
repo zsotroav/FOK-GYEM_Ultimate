@@ -44,15 +44,19 @@ namespace FOK_GYEM_Ultimate
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.invertEditStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.flipEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.textEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.symbolEditStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wikiAboutStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.githubAboutStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsAboutStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelDataAStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelDataBStrip = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panelDataStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
@@ -77,6 +81,7 @@ namespace FOK_GYEM_Ultimate
             this.saveToolStripMenuItem,
             this.panelToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.preferencesToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -149,15 +154,15 @@ namespace FOK_GYEM_Ultimate
             // newSizeToolStripMenuItem
             // 
             this.newSizeToolStripMenuItem.Name = "newSizeToolStripMenuItem";
-            this.newSizeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.newSizeToolStripMenuItem.Text = "New size";
+            this.newSizeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.newSizeToolStripMenuItem.Text = "New size...";
             this.newSizeToolStripMenuItem.Click += new System.EventHandler(this.newSizeToolStripMenuItem_Click);
             // 
             // setNewBreakpointToolStripMenuItem
             // 
             this.setNewBreakpointToolStripMenuItem.Name = "setNewBreakpointToolStripMenuItem";
-            this.setNewBreakpointToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.setNewBreakpointToolStripMenuItem.Text = "Set new breakpoint";
+            this.setNewBreakpointToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.setNewBreakpointToolStripMenuItem.Text = "Set new breakpoint...";
             this.setNewBreakpointToolStripMenuItem.Click += new System.EventHandler(this.setNewBreakpointToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
@@ -165,6 +170,7 @@ namespace FOK_GYEM_Ultimate
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearEditStrip,
             this.invertEditStrip,
+            this.flipEditStrip,
             this.textEditStrip,
             this.symbolEditStrip});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
@@ -174,35 +180,71 @@ namespace FOK_GYEM_Ultimate
             // clearEditStrip
             // 
             this.clearEditStrip.Name = "clearEditStrip";
-            this.clearEditStrip.Size = new System.Drawing.Size(180, 22);
+            this.clearEditStrip.Size = new System.Drawing.Size(154, 22);
             this.clearEditStrip.Text = "Clear";
             this.clearEditStrip.Click += new System.EventHandler(this.ClearPanel);
             // 
             // invertEditStrip
             // 
             this.invertEditStrip.Name = "invertEditStrip";
-            this.invertEditStrip.Size = new System.Drawing.Size(180, 22);
+            this.invertEditStrip.Size = new System.Drawing.Size(154, 22);
             this.invertEditStrip.Text = "Invert";
             this.invertEditStrip.Click += new System.EventHandler(this.InvertPanel);
+            // 
+            // flipEditStrip
+            // 
+            this.flipEditStrip.Name = "flipEditStrip";
+            this.flipEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.flipEditStrip.Text = "Flip vertically";
             // 
             // textEditStrip
             // 
             this.textEditStrip.Name = "textEditStrip";
-            this.textEditStrip.Size = new System.Drawing.Size(180, 22);
-            this.textEditStrip.Text = "Text...";
+            this.textEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.textEditStrip.Text = "Insert text...";
             this.textEditStrip.Click += new System.EventHandler(this.TextGen);
             // 
             // symbolEditStrip
             // 
             this.symbolEditStrip.Name = "symbolEditStrip";
-            this.symbolEditStrip.Size = new System.Drawing.Size(180, 22);
-            this.symbolEditStrip.Text = "Symbol...";
+            this.symbolEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.symbolEditStrip.Text = "Insert symbol...";
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.preferencesToolStripMenuItem.Text = "Preferences";
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wikiAboutStrip,
+            this.githubAboutStrip,
+            this.creditsAboutStrip});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // wikiAboutStrip
+            // 
+            this.wikiAboutStrip.Name = "wikiAboutStrip";
+            this.wikiAboutStrip.Size = new System.Drawing.Size(180, 22);
+            this.wikiAboutStrip.Text = "Help (Wiki)";
+            this.wikiAboutStrip.Click += new System.EventHandler(this.wikiAboutStrip_Click);
+            // 
+            // githubAboutStrip
+            // 
+            this.githubAboutStrip.Name = "githubAboutStrip";
+            this.githubAboutStrip.Size = new System.Drawing.Size(180, 22);
+            this.githubAboutStrip.Text = "GitHub";
+            this.githubAboutStrip.Click += new System.EventHandler(this.githubAboutStrip_Click);
+            // 
+            // creditsAboutStrip
+            // 
+            this.creditsAboutStrip.Name = "creditsAboutStrip";
+            this.creditsAboutStrip.Size = new System.Drawing.Size(133, 22);
+            this.creditsAboutStrip.Text = "Credits";
             // 
             // statusStrip1
             // 
@@ -211,7 +253,6 @@ namespace FOK_GYEM_Ultimate
             this.panelDataAStrip,
             this.toolStripStatusLabel3,
             this.panelDataBStrip,
-            this.panelDataStrip,
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 361);
             this.statusStrip1.Name = "statusStrip1";
@@ -243,13 +284,6 @@ namespace FOK_GYEM_Ultimate
             this.panelDataBStrip.Size = new System.Drawing.Size(50, 17);
             this.panelDataBStrip.Text = "[PAN-B]";
             // 
-            // panelDataStrip
-            // 
-            this.panelDataStrip.Name = "panelDataStrip";
-            this.panelDataStrip.Size = new System.Drawing.Size(52, 17);
-            this.panelDataStrip.Text = "[PAN-N]";
-            this.panelDataStrip.Visible = false;
-            // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -259,7 +293,7 @@ namespace FOK_GYEM_Ultimate
             this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(999, 17);
             this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.Text = "Version: Dev0 - 21/11/13";
+            this.toolStripStatusLabel2.Text = "Version: Dev1 - 21/11/14";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
@@ -314,7 +348,6 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.ToolStripMenuItem setNewBreakpointToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel panelDataBStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel panelDataStrip;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveDialog;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -323,6 +356,11 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.ToolStripMenuItem symbolEditStrip;
         private System.Windows.Forms.ToolStripMenuItem clearEditStrip;
         public System.Windows.Forms.Panel containerPanel;
+        private System.Windows.Forms.ToolStripMenuItem flipEditStrip;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wikiAboutStrip;
+        private System.Windows.Forms.ToolStripMenuItem githubAboutStrip;
+        private System.Windows.Forms.ToolStripMenuItem creditsAboutStrip;
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -29,7 +30,6 @@ namespace FOK_GYEM_Ultimate
             ModCut = cut;
             panelDataAStrip.Text = cut.ToString();
             panelDataBStrip.Text = (n-cut).ToString();
-            panelDataStrip.Text = n.ToString();
 
             containerPanel.Controls.Clear();
             for (int i = 0; i < n*24; i++)
@@ -155,6 +155,7 @@ namespace FOK_GYEM_Ultimate
             }
 
             External.SaveBin(saveDialog.FileName, Utils.ToByteArrayFlip(output));
+            MessageBox.Show(@"File saved successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ExportBmp(object sender, EventArgs e)
@@ -178,6 +179,7 @@ namespace FOK_GYEM_Ultimate
             }
 
             bmp.Save(saveDialog.FileName);
+            MessageBox.Show(@"File saved successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 
@@ -206,7 +208,7 @@ namespace FOK_GYEM_Ultimate
                 if (c is Panel) c.BackColor = Color.DarkGray;
             }
         }
-
+        
         public void InvertPanel(object sender, EventArgs e)
         {
             foreach (Control c in containerPanel.Controls)
@@ -230,7 +232,17 @@ namespace FOK_GYEM_Ultimate
             }
         }
 
+        #endregion
+
+        #region About menu strip
+
+        private void wikiAboutStrip_Click(object sender, EventArgs e) => 
+            Process.Start(new ProcessStartInfo("https://github.com/zsotroav/FOK-GYEM_Ultimate/wiki") { UseShellExecute = true });
+
+        private void githubAboutStrip_Click(object sender, EventArgs e) =>
+            Process.Start(new ProcessStartInfo("https://github.com/zsotroav/FOK-GYEM_Ultimate") { UseShellExecute = true });
 
         #endregion
+
     }
 }
