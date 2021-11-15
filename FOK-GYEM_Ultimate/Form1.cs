@@ -13,6 +13,9 @@ namespace FOK_GYEM_Ultimate
 {
     public partial class FormMain : Form
     {
+        public Color InactiveColor = Color.DarkGray;
+        public Color ActiveColor = Color.Black;
+
         public int ModCnt = 7;
         public int ModCut = 3;
         public FormMain()
@@ -42,7 +45,7 @@ namespace FOK_GYEM_Ultimate
                     int x = i * 12 + (i / 24 * 5) - (i / 24 < cut ? 0 : cut * 24 * 12 + cut * 5);
                     int y = j * 12 + (i / 24 < cut ? 0 : 8*12);
                     p.Location = new Point(x, y);
-                    p.BackColor = Color.DarkGray;
+                    p.BackColor = InactiveColor;
                     p.Click += PanelClick;
                     containerPanel.Controls.Add(p);
                 }
@@ -71,7 +74,7 @@ namespace FOK_GYEM_Ultimate
         private void PanelClick(object sender, EventArgs e)
         {
             var p = sender as Panel;
-            p.BackColor = (p.BackColor == Color.DarkGray) ? Color.Black : Color.DarkGray;
+            p.BackColor = (p.BackColor == InactiveColor) ? ActiveColor : InactiveColor;
         }
         #endregion
         
@@ -103,7 +106,7 @@ namespace FOK_GYEM_Ultimate
 
             for (var i = 0; i < bits.Length; i++)
             {
-                c.Find(i.ToString(), false)[0].BackColor = bits[i] ? Color.Black : Color.DarkGray;
+                c.Find(i.ToString(), false)[0].BackColor = bits[i] ? ActiveColor : InactiveColor;
             }
         }
 
@@ -131,7 +134,7 @@ namespace FOK_GYEM_Ultimate
                     var col = bmp.GetPixel(x, y);
                     var gs = (Int32)(col.R * 0.3 + col.G * 0.59 + col.B * 0.11);
                     c.Find((x + y * 24 * ModCnt).ToString(), false)[0].BackColor =
-                        Color.FromArgb(gs, gs, gs) == Color.FromArgb(0, 0, 0) ? Color.DarkGray : Color.Black;
+                        Color.FromArgb(gs, gs, gs) == Color.FromArgb(0, 0, 0) ? InactiveColor : ActiveColor;
                 }
             }
         }
@@ -172,7 +175,7 @@ namespace FOK_GYEM_Ultimate
                 for (int y = 0; y < 7; y++)
                 {
                     bmp.SetPixel(x, y,
-                        c.Find((x + y * 24 * ModCnt).ToString(), false)[0].BackColor == Color.DarkGray
+                        c.Find((x + y * 24 * ModCnt).ToString(), false)[0].BackColor == InactiveColor
                             ? Color.Black
                             : Color.White);
                 }
@@ -205,7 +208,7 @@ namespace FOK_GYEM_Ultimate
         {
             foreach (Control c in containerPanel.Controls)
             {
-                if (c is Panel) c.BackColor = Color.DarkGray;
+                if (c is Panel) c.BackColor = InactiveColor;
             }
         }
         
@@ -213,7 +216,7 @@ namespace FOK_GYEM_Ultimate
         {
             foreach (Control c in containerPanel.Controls)
             {
-                if (c is Panel) c.BackColor = c.BackColor == Color.DarkGray? Color.Black : Color.DarkGray;
+                if (c is Panel) c.BackColor = c.BackColor == InactiveColor ? ActiveColor : InactiveColor;
             }
         }
 

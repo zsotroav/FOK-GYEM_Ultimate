@@ -97,8 +97,8 @@ namespace FOK_GYEM_Ultimate
                     {
                         pan.Find((n + i + (j * formMain.ModCnt*24)).ToString(), false)[0].BackColor =
                             fontBmp.GetPixel(chars[c][0] + 1 + i, j + 2) != Color.FromArgb(0, 0, 0)
-                                ? Color.Black
-                                : Color.DarkGray;
+                                ? formMain.ActiveColor
+                                : formMain.InactiveColor;
                     }
                 }
 
