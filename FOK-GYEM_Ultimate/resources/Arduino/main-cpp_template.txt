@@ -1,0 +1,25 @@
+#include <Arduino.h>
+#include "shiftRegister.h"
+#include "driver.h"
+
+uint8_t data[] = { ##DATA## };
+##DATA_EXTRA##
+
+void setup() {
+    driver_init();
+}
+
+void loop() {
+    uint8_t buff[DRV_DATABUFF_SIZE];
+    ##CLEAR##
+    ##LOOP_START##
+
+    // Write data
+    driver_setBuffer(data, DRV_DATABUFF_SIZE);
+    driver_writeScreen();
+    ##DELAY##
+    ##WRITE_EXTRA##
+
+    ##LOOP_CLEAR##
+    ##LOOP_END##
+}
