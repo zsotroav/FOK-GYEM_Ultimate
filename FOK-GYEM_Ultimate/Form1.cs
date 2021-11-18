@@ -220,6 +220,23 @@ namespace FOK_GYEM_Ultimate
             }
         }
 
+        public void FlipVertically(object sender, EventArgs e)
+        {
+            var copy = new BitArray(ModCnt * 24 * 7);
+            var c = containerPanel.Controls;
+            for (int i = 0; i < 24 * 7 * ModCnt; i++)
+                copy[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
+
+            for (int i = 0; i < ModCnt * 24; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    c.Find((i + j * 24 * ModCnt).ToString(), false)[0].BackColor =
+                        copy[i + (6 - j) * 24 * ModCnt] ? ActiveColor : InactiveColor;
+                }
+            }
+        }
+
         public void TextGen(object sender, EventArgs e)
         {
             if (Directory.Exists(@"resources/fonts/"))
@@ -246,6 +263,5 @@ namespace FOK_GYEM_Ultimate
             Process.Start(new ProcessStartInfo("https://github.com/zsotroav/FOK-GYEM_Ultimate") { UseShellExecute = true });
 
         #endregion
-
     }
 }

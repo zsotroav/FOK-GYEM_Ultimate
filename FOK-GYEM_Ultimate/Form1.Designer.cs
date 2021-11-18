@@ -69,13 +69,15 @@ namespace FOK_GYEM_Ultimate
             this.containerPanel.AutoScroll = true;
             this.containerPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.containerPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.containerPanel.Location = new System.Drawing.Point(12, 27);
+            this.containerPanel.Location = new System.Drawing.Point(14, 36);
+            this.containerPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.containerPanel.Name = "containerPanel";
-            this.containerPanel.Size = new System.Drawing.Size(1188, 233);
+            this.containerPanel.Size = new System.Drawing.Size(1357, 309);
             this.containerPanel.TabIndex = 0;
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadToolStripMenuItem,
             this.saveToolStripMenuItem,
@@ -85,7 +87,8 @@ namespace FOK_GYEM_Ultimate
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1212, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
+            this.menuStrip1.Size = new System.Drawing.Size(1385, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -95,20 +98,20 @@ namespace FOK_GYEM_Ultimate
             this.binToolStripMenuItem1,
             this.bmpToolStripMenuItem1});
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // binToolStripMenuItem1
             // 
             this.binToolStripMenuItem1.Name = "binToolStripMenuItem1";
-            this.binToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
+            this.binToolStripMenuItem1.Size = new System.Drawing.Size(123, 26);
             this.binToolStripMenuItem1.Text = "bin";
             this.binToolStripMenuItem1.Click += new System.EventHandler(this.LoadFromBin);
             // 
             // bmpToolStripMenuItem1
             // 
             this.bmpToolStripMenuItem1.Name = "bmpToolStripMenuItem1";
-            this.bmpToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
+            this.bmpToolStripMenuItem1.Size = new System.Drawing.Size(123, 26);
             this.bmpToolStripMenuItem1.Text = "bmp";
             this.bmpToolStripMenuItem1.Click += new System.EventHandler(this.LoadFromBmp);
             // 
@@ -119,27 +122,27 @@ namespace FOK_GYEM_Ultimate
             this.bmpToolStripMenuItem,
             this.maincppToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
             this.saveToolStripMenuItem.Text = "Export";
             // 
             // binToolStripMenuItem
             // 
             this.binToolStripMenuItem.Name = "binToolStripMenuItem";
-            this.binToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.binToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.binToolStripMenuItem.Text = "bin";
             this.binToolStripMenuItem.Click += new System.EventHandler(this.ExportBin);
             // 
             // bmpToolStripMenuItem
             // 
             this.bmpToolStripMenuItem.Name = "bmpToolStripMenuItem";
-            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.bmpToolStripMenuItem.Text = "bmp";
             this.bmpToolStripMenuItem.Click += new System.EventHandler(this.ExportBmp);
             // 
             // maincppToolStripMenuItem
             // 
             this.maincppToolStripMenuItem.Name = "maincppToolStripMenuItem";
-            this.maincppToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.maincppToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.maincppToolStripMenuItem.Text = "main.cpp";
             // 
             // panelToolStripMenuItem
@@ -148,20 +151,20 @@ namespace FOK_GYEM_Ultimate
             this.newSizeToolStripMenuItem,
             this.setNewBreakpointToolStripMenuItem});
             this.panelToolStripMenuItem.Name = "panelToolStripMenuItem";
-            this.panelToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.panelToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.panelToolStripMenuItem.Text = "Panel";
             // 
             // newSizeToolStripMenuItem
             // 
             this.newSizeToolStripMenuItem.Name = "newSizeToolStripMenuItem";
-            this.newSizeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.newSizeToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
             this.newSizeToolStripMenuItem.Text = "New size...";
             this.newSizeToolStripMenuItem.Click += new System.EventHandler(this.newSizeToolStripMenuItem_Click);
             // 
             // setNewBreakpointToolStripMenuItem
             // 
             this.setNewBreakpointToolStripMenuItem.Name = "setNewBreakpointToolStripMenuItem";
-            this.setNewBreakpointToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.setNewBreakpointToolStripMenuItem.Size = new System.Drawing.Size(229, 26);
             this.setNewBreakpointToolStripMenuItem.Text = "Set new breakpoint...";
             this.setNewBreakpointToolStripMenuItem.Click += new System.EventHandler(this.setNewBreakpointToolStripMenuItem_Click);
             // 
@@ -174,46 +177,47 @@ namespace FOK_GYEM_Ultimate
             this.textEditStrip,
             this.symbolEditStrip});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // clearEditStrip
             // 
             this.clearEditStrip.Name = "clearEditStrip";
-            this.clearEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.clearEditStrip.Size = new System.Drawing.Size(224, 26);
             this.clearEditStrip.Text = "Clear";
             this.clearEditStrip.Click += new System.EventHandler(this.ClearPanel);
             // 
             // invertEditStrip
             // 
             this.invertEditStrip.Name = "invertEditStrip";
-            this.invertEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.invertEditStrip.Size = new System.Drawing.Size(224, 26);
             this.invertEditStrip.Text = "Invert";
             this.invertEditStrip.Click += new System.EventHandler(this.InvertPanel);
             // 
             // flipEditStrip
             // 
             this.flipEditStrip.Name = "flipEditStrip";
-            this.flipEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.flipEditStrip.Size = new System.Drawing.Size(224, 26);
             this.flipEditStrip.Text = "Flip vertically";
+            this.flipEditStrip.Click += new System.EventHandler(this.FlipVertically);
             // 
             // textEditStrip
             // 
             this.textEditStrip.Name = "textEditStrip";
-            this.textEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.textEditStrip.Size = new System.Drawing.Size(224, 26);
             this.textEditStrip.Text = "Insert text...";
             this.textEditStrip.Click += new System.EventHandler(this.TextGen);
             // 
             // symbolEditStrip
             // 
             this.symbolEditStrip.Name = "symbolEditStrip";
-            this.symbolEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.symbolEditStrip.Size = new System.Drawing.Size(224, 26);
             this.symbolEditStrip.Text = "Insert symbol...";
             // 
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(99, 24);
             this.preferencesToolStripMenuItem.Text = "Preferences";
             // 
             // aboutToolStripMenuItem
@@ -223,65 +227,67 @@ namespace FOK_GYEM_Ultimate
             this.githubAboutStrip,
             this.creditsAboutStrip});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // wikiAboutStrip
             // 
             this.wikiAboutStrip.Name = "wikiAboutStrip";
-            this.wikiAboutStrip.Size = new System.Drawing.Size(180, 22);
+            this.wikiAboutStrip.Size = new System.Drawing.Size(224, 26);
             this.wikiAboutStrip.Text = "Help (Wiki)";
             this.wikiAboutStrip.Click += new System.EventHandler(this.wikiAboutStrip_Click);
             // 
             // githubAboutStrip
             // 
             this.githubAboutStrip.Name = "githubAboutStrip";
-            this.githubAboutStrip.Size = new System.Drawing.Size(180, 22);
+            this.githubAboutStrip.Size = new System.Drawing.Size(224, 26);
             this.githubAboutStrip.Text = "GitHub";
             this.githubAboutStrip.Click += new System.EventHandler(this.githubAboutStrip_Click);
             // 
             // creditsAboutStrip
             // 
             this.creditsAboutStrip.Name = "creditsAboutStrip";
-            this.creditsAboutStrip.Size = new System.Drawing.Size(133, 22);
+            this.creditsAboutStrip.Size = new System.Drawing.Size(224, 26);
             this.creditsAboutStrip.Text = "Credits";
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.panelDataAStrip,
             this.toolStripStatusLabel3,
             this.panelDataBStrip,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 361);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 485);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1212, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1385, 26);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(82, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(101, 20);
             this.toolStripStatusLabel1.Text = "Current panel:";
             // 
             // panelDataAStrip
             // 
             this.panelDataAStrip.Name = "panelDataAStrip";
-            this.panelDataAStrip.Size = new System.Drawing.Size(51, 17);
+            this.panelDataAStrip.Size = new System.Drawing.Size(63, 20);
             this.panelDataAStrip.Text = "[PAN-A]";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(15, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(19, 20);
             this.toolStripStatusLabel3.Text = "+";
             // 
             // panelDataBStrip
             // 
             this.panelDataBStrip.Name = "panelDataBStrip";
-            this.panelDataBStrip.Size = new System.Drawing.Size(50, 17);
+            this.panelDataBStrip.Size = new System.Drawing.Size(62, 20);
             this.panelDataBStrip.Text = "[PAN-B]";
             // 
             // toolStripStatusLabel2
@@ -291,7 +297,7 @@ namespace FOK_GYEM_Ultimate
             this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(999, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(1123, 20);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.Text = "Version: Dev1 - 21/11/14";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -308,14 +314,15 @@ namespace FOK_GYEM_Ultimate
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1212, 383);
+            this.ClientSize = new System.Drawing.Size(1385, 511);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.containerPanel);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
