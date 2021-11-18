@@ -8,15 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="resources\fonts\FOK-GYEM_thin.bmp" />
-    <None Remove="resources\fonts\FOK-GYEM_thin_structure.txt" />
+    <None Include="resources\**" CopyToOutputDirectory="PreserveNewest"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="resources\fonts\FOK-GYEM_thin.bmp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="resources\fonts\FOK-GYEM_thin_structure.txt">
+    <Resource Include="resources\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
