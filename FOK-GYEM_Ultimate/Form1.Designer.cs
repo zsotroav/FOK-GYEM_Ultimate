@@ -60,6 +60,8 @@ namespace FOK_GYEM_Ultimate
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.setColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setDefaultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -183,39 +185,42 @@ namespace FOK_GYEM_Ultimate
             // clearEditStrip
             // 
             this.clearEditStrip.Name = "clearEditStrip";
-            this.clearEditStrip.Size = new System.Drawing.Size(224, 26);
+            this.clearEditStrip.Size = new System.Drawing.Size(189, 26);
             this.clearEditStrip.Text = "Clear";
             this.clearEditStrip.Click += new System.EventHandler(this.ClearPanel);
             // 
             // invertEditStrip
             // 
             this.invertEditStrip.Name = "invertEditStrip";
-            this.invertEditStrip.Size = new System.Drawing.Size(224, 26);
+            this.invertEditStrip.Size = new System.Drawing.Size(189, 26);
             this.invertEditStrip.Text = "Invert";
             this.invertEditStrip.Click += new System.EventHandler(this.InvertPanel);
             // 
             // flipEditStrip
             // 
             this.flipEditStrip.Name = "flipEditStrip";
-            this.flipEditStrip.Size = new System.Drawing.Size(224, 26);
+            this.flipEditStrip.Size = new System.Drawing.Size(189, 26);
             this.flipEditStrip.Text = "Flip vertically";
             this.flipEditStrip.Click += new System.EventHandler(this.FlipVertically);
             // 
             // textEditStrip
             // 
             this.textEditStrip.Name = "textEditStrip";
-            this.textEditStrip.Size = new System.Drawing.Size(224, 26);
+            this.textEditStrip.Size = new System.Drawing.Size(189, 26);
             this.textEditStrip.Text = "Insert text...";
             this.textEditStrip.Click += new System.EventHandler(this.TextGen);
             // 
             // symbolEditStrip
             // 
             this.symbolEditStrip.Name = "symbolEditStrip";
-            this.symbolEditStrip.Size = new System.Drawing.Size(224, 26);
+            this.symbolEditStrip.Size = new System.Drawing.Size(189, 26);
             this.symbolEditStrip.Text = "Insert symbol...";
             // 
             // preferencesToolStripMenuItem
             // 
+            this.preferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setColorToolStripMenuItem,
+            this.setDefaultsToolStripMenuItem});
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(99, 24);
             this.preferencesToolStripMenuItem.Text = "Preferences";
@@ -233,21 +238,21 @@ namespace FOK_GYEM_Ultimate
             // wikiAboutStrip
             // 
             this.wikiAboutStrip.Name = "wikiAboutStrip";
-            this.wikiAboutStrip.Size = new System.Drawing.Size(224, 26);
+            this.wikiAboutStrip.Size = new System.Drawing.Size(167, 26);
             this.wikiAboutStrip.Text = "Help (Wiki)";
             this.wikiAboutStrip.Click += new System.EventHandler(this.wikiAboutStrip_Click);
             // 
             // githubAboutStrip
             // 
             this.githubAboutStrip.Name = "githubAboutStrip";
-            this.githubAboutStrip.Size = new System.Drawing.Size(224, 26);
+            this.githubAboutStrip.Size = new System.Drawing.Size(167, 26);
             this.githubAboutStrip.Text = "GitHub";
             this.githubAboutStrip.Click += new System.EventHandler(this.githubAboutStrip_Click);
             // 
             // creditsAboutStrip
             // 
             this.creditsAboutStrip.Name = "creditsAboutStrip";
-            this.creditsAboutStrip.Size = new System.Drawing.Size(224, 26);
+            this.creditsAboutStrip.Size = new System.Drawing.Size(167, 26);
             this.creditsAboutStrip.Text = "Credits";
             // 
             // statusStrip1
@@ -299,7 +304,7 @@ namespace FOK_GYEM_Ultimate
             this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(1123, 20);
             this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.Text = "Version: Dev1 - 21/11/14";
+            this.toolStripStatusLabel2.Text = "Version: Dev2 - 21/11/18";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
@@ -311,6 +316,19 @@ namespace FOK_GYEM_Ultimate
             // saveDialog
             // 
             this.saveDialog.Title = "Export FOK-GYEM data";
+            // 
+            // setColorToolStripMenuItem
+            // 
+            this.setColorToolStripMenuItem.Name = "setColorToolStripMenuItem";
+            this.setColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.setColorToolStripMenuItem.Text = "Set color";
+            this.setColorToolStripMenuItem.Click += new System.EventHandler(this.setColorToolStripMenuItem_Click);
+            // 
+            // setDefaultsToolStripMenuItem
+            // 
+            this.setDefaultsToolStripMenuItem.Name = "setDefaultsToolStripMenuItem";
+            this.setDefaultsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.setDefaultsToolStripMenuItem.Text = "Set defaults";
             // 
             // FormMain
             // 
@@ -368,6 +386,8 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.ToolStripMenuItem wikiAboutStrip;
         private System.Windows.Forms.ToolStripMenuItem githubAboutStrip;
         private System.Windows.Forms.ToolStripMenuItem creditsAboutStrip;
+        private System.Windows.Forms.ToolStripMenuItem setColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setDefaultsToolStripMenuItem;
     }
 }
 

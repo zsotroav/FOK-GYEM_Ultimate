@@ -263,5 +263,11 @@ namespace FOK_GYEM_Ultimate
             Process.Start(new ProcessStartInfo("https://github.com/zsotroav/FOK-GYEM_Ultimate") { UseShellExecute = true });
 
         #endregion
+
+        private void setColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var formColorPref = new FormColorPref(this);
+            formColorPref.Show();
+        }
     }
 }
