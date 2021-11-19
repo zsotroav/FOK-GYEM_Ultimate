@@ -228,14 +228,14 @@ namespace FOK_GYEM_Ultimate
             // setColorToolStripMenuItem
             // 
             this.setColorToolStripMenuItem.Name = "setColorToolStripMenuItem";
-            this.setColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setColorToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.setColorToolStripMenuItem.Text = "Set color";
             this.setColorToolStripMenuItem.Click += new System.EventHandler(this.setColorToolStripMenuItem_Click);
             // 
             // setDefaultsToolStripMenuItem
             // 
             this.setDefaultsToolStripMenuItem.Name = "setDefaultsToolStripMenuItem";
-            this.setDefaultsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setDefaultsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.setDefaultsToolStripMenuItem.Text = "Set defaults";
             // 
             // aboutToolStripMenuItem
@@ -314,9 +314,9 @@ namespace FOK_GYEM_Ultimate
             this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(999, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(968, 17);
             this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.Text = "Version: Dev2 - 21/11/18";
+            this.toolStripStatusLabel2.Text = "Version: Dev3 - 21/11/19";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
