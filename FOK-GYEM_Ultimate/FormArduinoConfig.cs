@@ -9,19 +9,21 @@ namespace FOK_GYEM_Ultimate
     {
         private FormMain formMain;
         private ArduinoGenerator _generator;
+        private string _saveLoc;
 
-        public FormArduinoConfig(Form main, ArduinoGenerator generator)
+        public FormArduinoConfig(Form main, ArduinoGenerator generator, string saveLocation)
         {
             InitializeComponent();
             formMain = main as FormMain;
             _generator = generator;
-
+            _saveLoc = saveLocation;
             ClearCombo.SelectedIndex = 0;
             loopClearCombo.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            button1.Enabled = false;
             if (!_generator.Ready)
             {
                 MessageBox.Show(@"An error occurred. Please try again later.", @"main.cpp export error",
@@ -37,6 +39,7 @@ namespace FOK_GYEM_Ultimate
             }
 
             var re = _generator.GenerateBasic(Utils.ToByteArrayFlip(output), 
+                _saveLoc,
                 int.Parse(ClearCombo.Text[..1]), 
                 loopCheck.Checked, 
                 (int)delayNumeric.Value, 
@@ -48,6 +51,7 @@ namespace FOK_GYEM_Ultimate
             else
                 MessageBox.Show(@"An error occurred. Please try again later.", @"main.cpp export error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Close();
         }
     }
 }

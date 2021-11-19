@@ -146,6 +146,7 @@ namespace FOK_GYEM_Ultimate
         {
             saveDialog.Filter = @"Binary file|*.bin";
             saveDialog.DefaultExt = ".bin";
+            saveDialog.FileName = "output.bin";
             var dr = saveDialog.ShowDialog();
 
             if (dr != DialogResult.OK) return;
@@ -165,6 +166,7 @@ namespace FOK_GYEM_Ultimate
         {
             saveDialog.Filter = @"Bitmap file|*.bmp";
             saveDialog.DefaultExt = ".bmp";
+            saveDialog.FileName = "output.bmp";
             var dr = saveDialog.ShowDialog();
             if (dr != DialogResult.OK) return;
 
@@ -188,6 +190,11 @@ namespace FOK_GYEM_Ultimate
         private ArduinoGenerator _generator;
         private void ExportMainCPP(object sender, EventArgs e)
         {
+            saveDialog.Filter = @"szig-fok-gyem compatible main.cpp|main.cpp|C++ source code|*.cpp";
+            saveDialog.DefaultExt = ".cpp";
+            saveDialog.FileName = "main.cpp";
+            var dr = saveDialog.ShowDialog();
+            if (dr != DialogResult.OK) return;
 
             if (_generator is not ArduinoGenerator)
             {
@@ -200,7 +207,7 @@ namespace FOK_GYEM_Ultimate
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            FormArduinoConfig configForm = new(this, _generator);
+            FormArduinoConfig configForm = new(this, _generator, saveDialog.FileName);
             configForm.Show();
         }
     

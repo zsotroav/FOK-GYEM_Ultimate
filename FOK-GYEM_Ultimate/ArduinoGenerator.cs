@@ -30,7 +30,7 @@ namespace FOK_GYEM_Ultimate
             }
         }
 
-        public bool GenerateBasic(byte[] data, int clear, bool loop, int delay, bool invert, int loopClear)
+        public bool GenerateBasic(byte[] data, string saveLoc, int clear, bool loop, int delay, bool invert, int loopClear)
         {
             if (!Ready) return false;
             var working = _template;
@@ -45,7 +45,7 @@ namespace FOK_GYEM_Ultimate
 
             try
             {
-                File.WriteAllText("main.cpp", working);
+                File.WriteAllText(saveLoc, working);
                 return true;
             }
             catch
