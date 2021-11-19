@@ -128,21 +128,21 @@ namespace FOK_GYEM_Ultimate
             // binToolStripMenuItem
             // 
             this.binToolStripMenuItem.Name = "binToolStripMenuItem";
-            this.binToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.binToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.binToolStripMenuItem.Text = "bin";
             this.binToolStripMenuItem.Click += new System.EventHandler(this.ExportBin);
             // 
             // bmpToolStripMenuItem
             // 
             this.bmpToolStripMenuItem.Name = "bmpToolStripMenuItem";
-            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bmpToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.bmpToolStripMenuItem.Text = "bmp";
             this.bmpToolStripMenuItem.Click += new System.EventHandler(this.ExportBmp);
             // 
             // maincppToolStripMenuItem
             // 
             this.maincppToolStripMenuItem.Name = "maincppToolStripMenuItem";
-            this.maincppToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.maincppToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.maincppToolStripMenuItem.Text = "main.cpp";
             this.maincppToolStripMenuItem.Click += new System.EventHandler(this.ExportMainCPP);
             // 
@@ -184,36 +184,37 @@ namespace FOK_GYEM_Ultimate
             // clearEditStrip
             // 
             this.clearEditStrip.Name = "clearEditStrip";
-            this.clearEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.clearEditStrip.Size = new System.Drawing.Size(180, 22);
             this.clearEditStrip.Text = "Clear";
             this.clearEditStrip.Click += new System.EventHandler(this.ClearPanel);
             // 
             // invertEditStrip
             // 
             this.invertEditStrip.Name = "invertEditStrip";
-            this.invertEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.invertEditStrip.Size = new System.Drawing.Size(180, 22);
             this.invertEditStrip.Text = "Invert";
             this.invertEditStrip.Click += new System.EventHandler(this.InvertPanel);
             // 
             // flipEditStrip
             // 
             this.flipEditStrip.Name = "flipEditStrip";
-            this.flipEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.flipEditStrip.Size = new System.Drawing.Size(180, 22);
             this.flipEditStrip.Text = "Flip vertically";
             this.flipEditStrip.Click += new System.EventHandler(this.FlipVertically);
             // 
             // textEditStrip
             // 
             this.textEditStrip.Name = "textEditStrip";
-            this.textEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.textEditStrip.Size = new System.Drawing.Size(180, 22);
             this.textEditStrip.Text = "Insert text...";
             this.textEditStrip.Click += new System.EventHandler(this.TextGen);
             // 
             // symbolEditStrip
             // 
             this.symbolEditStrip.Name = "symbolEditStrip";
-            this.symbolEditStrip.Size = new System.Drawing.Size(154, 22);
+            this.symbolEditStrip.Size = new System.Drawing.Size(180, 22);
             this.symbolEditStrip.Text = "Insert symbol...";
+            this.symbolEditStrip.Click += new System.EventHandler(this.symbolEditStrip_Click);
             // 
             // preferencesToolStripMenuItem
             // 
@@ -227,14 +228,14 @@ namespace FOK_GYEM_Ultimate
             // setColorToolStripMenuItem
             // 
             this.setColorToolStripMenuItem.Name = "setColorToolStripMenuItem";
-            this.setColorToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.setColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setColorToolStripMenuItem.Text = "Set color";
             this.setColorToolStripMenuItem.Click += new System.EventHandler(this.setColorToolStripMenuItem_Click);
             // 
             // setDefaultsToolStripMenuItem
             // 
             this.setDefaultsToolStripMenuItem.Name = "setDefaultsToolStripMenuItem";
-            this.setDefaultsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.setDefaultsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.setDefaultsToolStripMenuItem.Text = "Set defaults";
             // 
             // aboutToolStripMenuItem

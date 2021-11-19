@@ -280,6 +280,22 @@ namespace FOK_GYEM_Ultimate
             }
         }
 
+        private void symbolEditStrip_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(@"resources/symbols/"))
+            {
+
+                var formSymbol= new FormSymbol(this);
+                formSymbol.Show();
+            }
+            else
+            {
+                MessageBox.Show(@"Couldn't find the resources/symbols directory.", @"Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
         #endregion
 
         #region About menu strip
