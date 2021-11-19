@@ -188,6 +188,7 @@ namespace FOK_GYEM_Ultimate
         private ArduinoGenerator _generator;
         private void ExportMainCPP(object sender, EventArgs e)
         {
+
             if (_generator is not ArduinoGenerator)
             {
                 _generator = new ArduinoGenerator();
@@ -199,20 +200,8 @@ namespace FOK_GYEM_Ultimate
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            BitArray output = new(24 * 7 * ModCnt);
-            var c = containerPanel.Controls;
-            for (int i = 0; i < 24 * 7 * ModCnt; i++)
-            {
-                output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
-            }
-            
-            var re = _generator.GenerateBasic(Utils.ToByteArrayFlip(output), 0, true, 1000, false, 6);
-            if (re)
-                MessageBox.Show(@"Export success!", @"main.cpp export success", MessageBoxButtons.OK,
-                    MessageBoxIcon.Asterisk);
-            else
-                MessageBox.Show(@"An error occurred. Please try again later.", @"main.cpp export error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            FormArduinoConfig configForm = new(this, _generator);
+            configForm.Show();
         }
     
 

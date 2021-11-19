@@ -9,13 +9,14 @@ using zsotroav;
 
 namespace FOK_GYEM_Ultimate
 {
-    class ArduinoGenerator
+    public class ArduinoGenerator
     {
         public bool Ready = false;
         private string _template;
 
         public bool init()
         {
+            if (Ready) return true;
             if (!External.FileExists("resources/arduino/main-cpp_template.txt")) return false;
             try
             {
@@ -65,21 +66,27 @@ namespace FOK_GYEM_Ultimate
                     tmp = working.Replace(loop ? "##LOOP_CLEAR##" : "##CLEAR##", "// No clear");
                     return tmp;
                 case 1:
+                    // 11111111
                     tmp = "0xFF";
                     break;
                 case 2:
+                    // 00000000
                     tmp = "0x00";
                     break;
                 case 3:
+                    // 11111111 00000000
                     tmp = "0xFF 0x00";
                     break;
                 case 4:
+                    // 10101010
                     tmp = "0x55";
                     break;
                 case 5:
+                    // 01010101
                     tmp = "0xAA";
                     break;
                 case 6:
+                    // 10101010 01010101
                     tmp = "0x55 0xAA";
                     break;
             }
@@ -87,8 +94,8 @@ namespace FOK_GYEM_Ultimate
             var ft = @"for (uint8_t i = 0; i < DRV_DATABUFF_SIZE; i++) { buff[i] = ##D##; }
     driver_setBuffer(buff, DRV_DATABUFF_SIZE);
     driver_writeScreen();
-    delay(1000);
     ";
+            
             if (clear == 3 || clear == 6)
             {
                 ft += ft.Replace("##D##", tmp[5..]);
