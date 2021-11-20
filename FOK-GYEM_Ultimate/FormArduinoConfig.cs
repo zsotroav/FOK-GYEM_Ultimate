@@ -38,7 +38,7 @@ namespace FOK_GYEM_Ultimate
                 output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
             }
 
-            var re = _generator.GenerateBasic(Utils.ToByteArrayFlip(output), 
+            var re = _generator.GenerateBasic(Utils.ToByteArray(output, true), 
                 _saveLoc,
                 int.Parse(ClearCombo.Text[..1]), 
                 loopCheck.Checked, 

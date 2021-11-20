@@ -158,7 +158,7 @@ namespace FOK_GYEM_Ultimate
                 output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
             }
 
-            External.SaveBin(saveDialog.FileName, Utils.ToByteArrayFlip(output));
+            External.SaveBin(saveDialog.FileName, Utils.ToByteArray(output, true));
             MessageBox.Show(@"File saved successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

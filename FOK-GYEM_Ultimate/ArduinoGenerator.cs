@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -33,6 +34,22 @@ namespace FOK_GYEM_Ultimate
         public bool GenerateBasic(byte[] data, string saveLoc, int clear, bool loop, int delay, bool invert, int loopClear)
         {
             if (!Ready) return false;
+
+            if (invert)
+            {
+                var copy = new BitArray(data);
+                var modCnt = data.Length / (7 * 3); // It is in Bytes not bits - 3 bytes/row/mod
+                var dat = new BitArray(copy.Length);
+                for (int i = 0; i < modCnt * 24; i++)
+                {
+                    for (int j = 0; j < 7; j++)
+                    {
+                        dat[i + j * 24 * modCnt] = copy[i + (6 - j) * 24 * modCnt];
+                    }
+                }
+
+                data = Utils.ToByteArray(dat);
+            }
             var working = _template;
             working = WriteData(working, data);
             working = working.Replace("##DATA_EXTRA##", "/* DATA_EXTRA to be implemented */");

@@ -27,7 +27,7 @@ namespace FOK_GYEM_Ultimate
             return bitArray;
         }
 
-        public static byte[] ToByteArrayFlip(BitArray bits)
+        public static byte[] ToByteArray(BitArray bits, bool flip = false)
         {
             var numBytes = bits.Count / 8;
             if (bits.Count % 8 != 0) numBytes++;
@@ -38,7 +38,7 @@ namespace FOK_GYEM_Ultimate
             for (int i = 0; i < bits.Count; i++)
             {
                 if (bits[i])
-                    bytes[byteIndex] |= (byte) (1 << (7 - bitIndex)); // (7 - bitIndex) makes it flip. Remove "7 -" to make it normal
+                    bytes[byteIndex] |= (byte) (1 << (flip?(7 - bitIndex):bitIndex)); // (7 - bitIndex) makes it flip. Remove "7 -" to make it normal
 
                 bitIndex++;
                 if (bitIndex != 8) continue;
@@ -47,6 +47,5 @@ namespace FOK_GYEM_Ultimate
             }
             return bytes;
         }
-
     }
 }

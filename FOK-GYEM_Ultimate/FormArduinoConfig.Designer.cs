@@ -44,27 +44,27 @@ namespace FOK_GYEM_Ultimate
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Location = new System.Drawing.Point(10, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 20);
+            this.label1.Size = new System.Drawing.Size(74, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Clear before:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 48);
+            this.label3.Location = new System.Drawing.Point(10, 36);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 20);
+            this.label3.Size = new System.Drawing.Size(79, 15);
             this.label3.TabIndex = 2;
             this.label3.Text = "Delay in loop:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 82);
+            this.label5.Location = new System.Drawing.Point(10, 62);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(112, 20);
+            this.label5.Size = new System.Drawing.Size(90, 15);
             this.label5.TabIndex = 4;
             this.label5.Text = "Loop transition:";
             // 
@@ -75,13 +75,14 @@ namespace FOK_GYEM_Ultimate
             "0 No",
             "1 Full 1",
             "2 Full 0",
-            "3 Full 1 and Full 0",
+            "3 Full 1 + Full 0",
             "4 Alternating 101",
             "5 Alternating 010",
-            "6 Alternating 101 and 010 "});
-            this.ClearCombo.Location = new System.Drawing.Point(139, 12);
+            "6 Alternating 101 + 010 "});
+            this.ClearCombo.Location = new System.Drawing.Point(122, 9);
+            this.ClearCombo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ClearCombo.Name = "ClearCombo";
-            this.ClearCombo.Size = new System.Drawing.Size(151, 28);
+            this.ClearCombo.Size = new System.Drawing.Size(133, 23);
             this.ClearCombo.TabIndex = 5;
             // 
             // loopClearCombo
@@ -95,9 +96,10 @@ namespace FOK_GYEM_Ultimate
             "4 Alternating 101",
             "5 Alternating 010",
             "6 Alternating 101 and 010 "});
-            this.loopClearCombo.Location = new System.Drawing.Point(139, 79);
+            this.loopClearCombo.Location = new System.Drawing.Point(122, 59);
+            this.loopClearCombo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loopClearCombo.Name = "loopClearCombo";
-            this.loopClearCombo.Size = new System.Drawing.Size(151, 28);
+            this.loopClearCombo.Size = new System.Drawing.Size(133, 23);
             this.loopClearCombo.TabIndex = 6;
             // 
             // loopCheck
@@ -105,9 +107,10 @@ namespace FOK_GYEM_Ultimate
             this.loopCheck.AutoSize = true;
             this.loopCheck.Checked = true;
             this.loopCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.loopCheck.Location = new System.Drawing.Point(139, 143);
+            this.loopCheck.Location = new System.Drawing.Point(122, 107);
+            this.loopCheck.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loopCheck.Name = "loopCheck";
-            this.loopCheck.Size = new System.Drawing.Size(116, 24);
+            this.loopCheck.Size = new System.Drawing.Size(93, 19);
             this.loopCheck.TabIndex = 7;
             this.loopCheck.Text = "Loop display";
             this.loopCheck.UseVisualStyleBackColor = true;
@@ -115,25 +118,28 @@ namespace FOK_GYEM_Ultimate
             // flipCheck
             // 
             this.flipCheck.AutoSize = true;
-            this.flipCheck.Location = new System.Drawing.Point(139, 113);
+            this.flipCheck.Location = new System.Drawing.Point(122, 85);
+            this.flipCheck.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flipCheck.Name = "flipCheck";
-            this.flipCheck.Size = new System.Drawing.Size(118, 24);
+            this.flipCheck.Size = new System.Drawing.Size(95, 19);
             this.flipCheck.TabIndex = 8;
             this.flipCheck.Text = "Panel flipped";
             this.flipCheck.UseVisualStyleBackColor = true;
             // 
             // delayNumeric
             // 
-            this.delayNumeric.Location = new System.Drawing.Point(139, 46);
+            this.delayNumeric.Location = new System.Drawing.Point(122, 34);
+            this.delayNumeric.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.delayNumeric.Name = "delayNumeric";
-            this.delayNumeric.Size = new System.Drawing.Size(151, 27);
+            this.delayNumeric.Size = new System.Drawing.Size(132, 23);
             this.delayNumeric.TabIndex = 9;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 173);
+            this.button1.Location = new System.Drawing.Point(10, 130);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(278, 29);
+            this.button1.Size = new System.Drawing.Size(243, 22);
             this.button1.TabIndex = 10;
             this.button1.Text = "Export";
             this.button1.UseVisualStyleBackColor = true;
@@ -141,9 +147,9 @@ namespace FOK_GYEM_Ultimate
             // 
             // FormArduinoConfig
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 214);
+            this.ClientSize = new System.Drawing.Size(268, 160);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.delayNumeric);
             this.Controls.Add(this.flipCheck);
@@ -154,6 +160,7 @@ namespace FOK_GYEM_Ultimate
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormArduinoConfig";
