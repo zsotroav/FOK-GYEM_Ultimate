@@ -96,15 +96,15 @@ namespace FOK_GYEM_Ultimate
                     break;
                 case 4:
                     // 10101010
-                    tmp = "0x55";
+                    tmp = "0xAA";
                     break;
                 case 5:
                     // 01010101
-                    tmp = "0xAA";
+                    tmp = "0x55";
                     break;
                 case 6:
                     // 10101010 01010101
-                    tmp = "0x55 0xAA";
+                    tmp = "0xAA 0x55";
                     break;
             }
 
