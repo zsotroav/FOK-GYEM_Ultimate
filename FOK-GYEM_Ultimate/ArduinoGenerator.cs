@@ -54,8 +54,8 @@ namespace FOK_GYEM_Ultimate
             working = WriteData(working, data);
             working = working.Replace("##DATA_EXTRA##", "/* DATA_EXTRA to be implemented */");
             working = AddClear(working, clear);
-            working = loop ? working.Replace("##LOOP_START##", "while (true) {") : "// Loop start";
-            working = loop ? working.Replace("##LOOP_END##", "}") : "// Loop end";
+            working = working.Replace("##LOOP_START##", loop ? "while (true) {" : "// Loop start");
+            working = working.Replace("##LOOP_END##", loop ? "}" : "// Loop end");
             working = working.Replace("##DELAY##", $"delay({delay});");
             working = working.Replace("##WRITE_EXTRA##", "// WRITE_EXTRA to be implemented");
             working = AddClear(working, loopClear, true);
