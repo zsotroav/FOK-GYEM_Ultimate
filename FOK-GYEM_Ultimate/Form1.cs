@@ -77,9 +77,24 @@ namespace FOK_GYEM_Ultimate
             p.BackColor = (p.BackColor == InactiveColor) ? ActiveColor : InactiveColor;
         }
         #endregion
-        
+
+        #region utils
+
+        private BitArray getBitArray()
+        {
+            BitArray output = new(24 * 7 * ModCnt);
+            var c = containerPanel.Controls;
+            for (int i = 0; i < 24 * 7 * ModCnt; i++)
+            {
+                output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
+            }
+
+            return output;
+        }
+        #endregion
+
         #region Load/Import
-        
+
         private void LoadFromBin(object sender, EventArgs e)
         {
             openFileDialog1.Filter = @"Binary files|*.bin";
@@ -151,12 +166,7 @@ namespace FOK_GYEM_Ultimate
 
             if (dr != DialogResult.OK) return;
 
-            BitArray output = new(24 * 7 * ModCnt);
-            var c = containerPanel.Controls;
-            for (int i = 0; i < 24*7*ModCnt; i++)
-            {
-                output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
-            }
+            var output = getBitArray();
 
             External.SaveBin(saveDialog.FileName, Utils.ToByteArray(output, true));
             MessageBox.Show(@"File saved successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -308,10 +318,68 @@ namespace FOK_GYEM_Ultimate
 
         #endregion
 
+        #region Preferences menu strip
+
         private void setColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var formColorPref = new FormColorPref(this);
             formColorPref.Show();
+        }
+
+        #endregion
+
+        #region Animation
+
+        public Animation Animation;
+        private void animBtn_Click(object sender, EventArgs e)
+        {
+            var en = false;
+            if (Animation is null)
+            {
+                Animation = new Animation();
+                newSizeToolStripMenuItem.Enabled = false;
+                en = true;
+                animBtn.Text = @"Disable Animation";
+            }
+            else
+            {
+                Animation = null;
+                newSizeToolStripMenuItem.Enabled = true;
+                animBtn.Text = @"Enable Animation";
+            }
+            frameBtn.Enabled = transBtn.Enabled = animExpBtn.Enabled =
+                delayLabel.Enabled = delayNumeric.Enabled = transitionCombo.Enabled = 
+                framesLabel.Enabled = frameSelLabel.Enabled = frameCombo.Enabled = loopCheck.Enabled = en;
+
+            framesLabel.Text = @"Number of frames: 0";
+            frameCombo.Items.Clear();
+            transitionCombo.SelectedIndex = 0;
+            delayNumeric.Value = 1000;
+        }
+
+        private void frameBtn_Click(object sender, EventArgs e)
+        {
+            frameCombo.Items.Add($"Frame {Animation.FrameCount}");
+            Animation.newFrame(getBitArray(), $"Frame {Animation.FrameCount}", (int)delayNumeric.Value);
+            framesLabel.Text = @"Number of frames: " + Animation.FrameCount;
+        }
+
+        #endregion
+
+        private void transBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void animExpBtn_Click(object sender, EventArgs e)
+        {
+            saveDialog.Filter = @"szig-fok-gyem compatible main.cpp|main.cpp|C++ source code|*.cpp";
+            saveDialog.DefaultExt = ".cpp";
+            saveDialog.FileName = "main.cpp";
+            var dr = saveDialog.ShowDialog();
+            if (dr != DialogResult.OK) return;
+
+            Animation.Export(saveDialog.FileName, loopCheck.Checked, (int)loopNumeric.Value);
         }
     }
 }
