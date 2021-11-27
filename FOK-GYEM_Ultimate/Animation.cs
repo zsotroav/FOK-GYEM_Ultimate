@@ -18,12 +18,16 @@ namespace FOK_GYEM_Ultimate
         public Dictionary<string, int> FrameDictionary = new();
         public Dictionary<string, int> DelayDictionary = new();
 
+        public delegate void newFrameNameDel(string name);
+        public event newFrameNameDel newFrameName;
+
         public void newFrame(BitArray frameBuffer, string name, int delay)
         {
             FrameDictionary.Add(name, FrameCount);
             DelayDictionary.Add(name, delay);
             Frames.Add(frameBuffer);
             FrameCount++;
+            newFrameName?.Invoke(name);
         }
 
         public void Export(string loc, bool loop, int loopDelay)
@@ -31,7 +35,9 @@ namespace FOK_GYEM_Ultimate
             var template = File.ReadAllText("resources/Arduino/animation_template.txt");
             template = template.Replace("##FRAME_DATA##", BuildData());
             template = template.Replace("##LOOP_START##", loop ? "while (true) {" : "// Loop start");
-            template = template.Replace("##LOOP_END##", loop ? $"delay({loopDelay}; \n}}" : "// Loop end");
+            var del = "";
+            if (loopDelay != 0) del = $"delay({loopDelay}; \n";
+            template = template.Replace("##LOOP_END##", loop ? $"{del}}}" : "// Loop end");
             template = template.Replace("##FRAME_WRITE##", BuildWrite());
 
             try

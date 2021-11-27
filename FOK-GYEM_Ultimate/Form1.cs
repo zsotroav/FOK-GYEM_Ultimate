@@ -78,7 +78,7 @@ namespace FOK_GYEM_Ultimate
         }
         #endregion
 
-        #region utils
+        #region Utils
 
         private BitArray getBitArray()
         {
@@ -340,6 +340,7 @@ namespace FOK_GYEM_Ultimate
                 newSizeToolStripMenuItem.Enabled = false;
                 en = true;
                 animBtn.Text = @"Disable Animation";
+                Animation.newFrameName += AddName;
             }
             else
             {
@@ -353,22 +354,92 @@ namespace FOK_GYEM_Ultimate
 
             framesLabel.Text = @"Number of frames: 0";
             frameCombo.Items.Clear();
+            frameCombo.Text = "";
             transitionCombo.SelectedIndex = 0;
             delayNumeric.Value = 1000;
         }
+        
+        private void AddName(string name) => frameCombo.Items.Add(name);
+
+        private void loopCheck_Click(object sender, EventArgs e) => loopNumeric.Enabled = loopCheck.Checked;
 
         private void frameBtn_Click(object sender, EventArgs e)
         {
-            frameCombo.Items.Add($"Frame {Animation.FrameCount}");
             Animation.newFrame(getBitArray(), $"Frame {Animation.FrameCount}", (int)delayNumeric.Value);
             framesLabel.Text = @"Number of frames: " + Animation.FrameCount;
         }
 
-        #endregion
+        private void frameCombo_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (!frameCombo.Items.Contains(frameCombo.Text)) return;
+
+            var bits = Animation.Frames[Animation.FrameDictionary[frameCombo.Text]];
+            var c = containerPanel.Controls;
+            for (var i = 0; i < bits.Length; i++)
+            {
+                c.Find(i.ToString(), false)[0].BackColor = bits[i] ? ActiveColor : InactiveColor;
+            }
+        }
 
         private void transBtn_Click(object sender, EventArgs e)
         {
+            var type = transitionCombo.Text;
+            var tn = int.Parse(type[..1]);
 
+            var tmp = new BitArray(7*24*ModCnt);
+
+            switch (tn)
+            {
+                case 1:
+                    // 11111111
+                    for (int i = 0; i < tmp.Length; i++) tmp[i] = true;
+                    break;
+                case 2:
+                    // 00000000
+                    for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
+                    break;
+                case 3:
+                    // 11111111 00000000
+                    var tmp2 = new BitArray(7 * 24 * ModCnt);
+                    for (int i = 0; i < tmp2.Length; i++) tmp2[i] = true;
+                    Animation.newFrame(tmp2, $"Transition {Animation.FrameCount} ({type})", 0);
+                    for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
+                    break;
+                case 4:
+                    // 10101010
+                    for (int i = 0; i < tmp.Length; i++)
+                    {
+                        if (i % 2 == 0) tmp[i] = true;
+                        else tmp[i] = false;
+                    }
+                    break;
+                case 5:
+                    // 01010101
+                    for (int i = 0; i < tmp.Length; i++)
+                    {
+                        if (i % 2 == 0) tmp[i] = false;
+                        else tmp[i] = true;
+                    }
+                    break;
+                case 6:
+                    // 10101010 01010101
+                    var tmp3 = new BitArray(7 * 24 * ModCnt);
+                    for (int i = 0; i < tmp3.Length; i++)
+                    {
+                        if (i % 2 == 0) tmp3[i] = true;
+                        else tmp3[i] = false;
+                    }
+                    Animation.newFrame(tmp3, $"Transition {Animation.FrameCount} ({type})", 0);
+                    for (int i = 0; i < tmp.Length; i++)
+                    {
+                        if (i % 2 == 0) tmp[i] = false;
+                        else tmp[i] = true;
+                    }
+                    break;
+            }
+            
+            Animation.newFrame(tmp, $"Transition {Animation.FrameCount} ({type})", 0);
+            framesLabel.Text = @"Number of frames: " + Animation.FrameCount;
         }
 
         private void animExpBtn_Click(object sender, EventArgs e)
@@ -381,5 +452,7 @@ namespace FOK_GYEM_Ultimate
 
             Animation.Export(saveDialog.FileName, loopCheck.Checked, (int)loopNumeric.Value);
         }
+
+        #endregion
     }
 }
