@@ -16,7 +16,7 @@ namespace FOK_GYEM_Ultimate
         public int FrameCount = 0;
 
         public Dictionary<string, int> FrameDictionary = new();
-        public Dictionary<string, int> DelayDictionary = new();
+        public Dictionary<int, int> DelayDictionary = new();
 
         public delegate void newFrameNameDel(string name);
         public event newFrameNameDel newFrameName;
@@ -24,7 +24,7 @@ namespace FOK_GYEM_Ultimate
         public void newFrame(BitArray frameBuffer, string name, int delay)
         {
             FrameDictionary.Add(name, FrameCount);
-            DelayDictionary.Add(name, delay);
+            DelayDictionary.Add(FrameCount, delay);
             Frames.Add(frameBuffer);
             FrameCount++;
             newFrameName?.Invoke(name);
@@ -36,7 +36,7 @@ namespace FOK_GYEM_Ultimate
             template = template.Replace("##FRAME_DATA##", BuildData());
             template = template.Replace("##LOOP_START##", loop ? "while (true) {" : "// Loop start");
             var del = "";
-            if (loopDelay != 0) del = $"delay({loopDelay}; \n";
+            if (loopDelay != 0) del = $"delay({loopDelay}); \n";
             template = template.Replace("##LOOP_END##", loop ? $"{del}}}" : "// Loop end");
             template = template.Replace("##FRAME_WRITE##", BuildWrite());
 
@@ -68,9 +68,10 @@ namespace FOK_GYEM_Ultimate
             for (int i = 0; i < FrameCount; i++)
             {
                 re += $"driver_setBuffer(f{i}, DRV_DATABUFF_SIZE); \n";
-                re += "driver_writeScreen(); \n\n";
+                re += "driver_writeScreen(); \n";
+                re += $"delay({DelayDictionary[i]});\n";
             }
-
+            
             return re;
         }
 
