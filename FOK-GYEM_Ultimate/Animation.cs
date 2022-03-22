@@ -34,10 +34,11 @@ namespace FOK_GYEM_Ultimate
         {
             var template = File.ReadAllText("resources/Arduino/animation_template.txt");
             template = template.Replace("##FRAME_DATA##", BuildData());
-            template = template.Replace("##LOOP_START##", loop ? "while (true) {" : "// Loop start");
+            template = template.Replace("##LOOP##", loop ? "} void loop() {" : "// Loop start");
+            template += loop ? "" : "void loop() { }";
             var del = "";
             if (loopDelay != 0) del = $"delay({loopDelay}); \n";
-            template = template.Replace("##LOOP_END##", loop ? $"{del}}}" : "// Loop end");
+            template = template.Replace("##LOOP_END##", loop ? $"{del}" : "// Loop end");
             template = template.Replace("##FRAME_WRITE##", BuildWrite());
 
             try

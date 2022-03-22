@@ -52,12 +52,10 @@ namespace FOK_GYEM_Ultimate
             }
             var working = _template;
             working = WriteData(working, data);
-            working = working.Replace("##DATA_EXTRA##", "/* DATA_EXTRA to be implemented */");
             working = AddClear(working, clear);
-            working = working.Replace("##LOOP_START##", loop ? "while (true) {" : "// Loop start");
-            working = working.Replace("##LOOP_END##", loop ? "}" : "// Loop end");
+            working = working.Replace("##LOOP##", loop ? "} void loop() {" : "// Loop");
+            working += loop ? "" : "void loop() { }";
             working = working.Replace("##DELAY##", $"delay({delay});");
-            working = working.Replace("##WRITE_EXTRA##", "// WRITE_EXTRA to be implemented");
             working = AddClear(working, loopClear, true);
 
             try
