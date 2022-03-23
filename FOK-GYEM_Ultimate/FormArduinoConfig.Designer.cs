@@ -118,6 +118,8 @@ namespace FOK_GYEM_Ultimate
             // flipCheck
             // 
             this.flipCheck.AutoSize = true;
+            this.flipCheck.Checked = true;
+            this.flipCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flipCheck.Location = new System.Drawing.Point(122, 85);
             this.flipCheck.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flipCheck.Name = "flipCheck";

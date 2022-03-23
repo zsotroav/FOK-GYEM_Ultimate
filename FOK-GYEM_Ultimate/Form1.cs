@@ -91,6 +91,29 @@ namespace FOK_GYEM_Ultimate
 
             return output;
         }
+
+        public BitArray GetUpsideDownArray()
+        {
+            BitArray output = new(24 * 7 * ModCnt);
+            var c = containerPanel.Controls;
+
+            for (int y = 0; y < 7; y++)
+            {
+                for (int x = 1; x <= 24 * ModCut; x++)
+                {
+                    output[y * ModCnt * 24 + x - 1] =
+                        c.Find((24 * ModCnt * y + ModCut * 24 - x).ToString(), false)[0].BackColor == ActiveColor;
+                }
+
+                for (int x = 1; x < 24 * (ModCnt - ModCut); x++)
+                {
+                    output[ModCnt * 24 * (y + 1) - x] =
+                        c.Find((ModCnt * 24 * (y) + x + ModCut * 24).ToString(), false)[0].BackColor == ActiveColor;
+                }
+            }
+
+            return output;
+        }
         #endregion
 
         #region Load/Import

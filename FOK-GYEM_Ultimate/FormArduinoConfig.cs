@@ -31,12 +31,7 @@ namespace FOK_GYEM_Ultimate
                 return;
             }
 
-            BitArray output = new(24 * 7 * _formMain.ModCnt);
-            var c = _formMain.containerPanel.Controls;
-            for (int i = 0; i < 24 * 7 * _formMain.ModCnt; i++)
-            {
-                output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
-            }
+            BitArray output = flipCheck.Checked ? _formMain.GetUpsideDownArray() : _formMain.GetBitArray();
 
             var re = _generator.GenerateBasic(Utils.ToByteArray(output, true), 
                 _saveLoc,
