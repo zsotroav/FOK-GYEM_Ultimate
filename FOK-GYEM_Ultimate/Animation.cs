@@ -18,16 +18,16 @@ namespace FOK_GYEM_Ultimate
         public Dictionary<string, int> FrameDictionary = new();
         public Dictionary<int, int> DelayDictionary = new();
 
-        public delegate void newFrameNameDel(string name);
-        public event newFrameNameDel newFrameName;
+        public delegate void NewFrameNameDel(string name);
+        public event NewFrameNameDel NewFrameName;
 
-        public void newFrame(BitArray frameBuffer, string name, int delay)
+        public void NewFrame(BitArray frameBuffer, string name, int delay)
         {
             FrameDictionary.Add(name, FrameCount);
             DelayDictionary.Add(FrameCount, delay);
             Frames.Add(frameBuffer);
             FrameCount++;
-            newFrameName?.Invoke(name);
+            NewFrameName?.Invoke(name);
         }
 
         public void Export(string loc, bool loop, int loopDelay)
@@ -76,7 +76,7 @@ namespace FOK_GYEM_Ultimate
             return re;
         }
 
-        public BitArray getFrameName(string name) => Frames[FrameDictionary[name]];
-        public BitArray getFrameNumber(int number) => Frames[number];
+        public BitArray GetFrameName(string name) => Frames[FrameDictionary[name]];
+        public BitArray GetFrameNumber(int number) => Frames[number];
     }
 }

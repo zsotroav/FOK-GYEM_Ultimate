@@ -6,18 +6,18 @@ namespace FOK_GYEM_Ultimate
 {
     public partial class FormColorPref : Form
     {
-        private Color oldActive;
-        private Color oldInactive;
-        private FormMain formMain;
+        private Color _oldActive;
+        private Color _oldInactive;
+        private FormMain _formMain;
         public FormColorPref(Form main)
         {
             InitializeComponent();
-            formMain = main as FormMain;
+            _formMain = main as FormMain;
 
-            oldActive = formMain.ActiveColor;
-            oldInactive = formMain.InactiveColor;
-            textActive.Text = ColorTranslator.ToHtml(oldActive);
-            textInactive.Text = ColorTranslator.ToHtml(oldInactive);
+            _oldActive = _formMain.ActiveColor;
+            _oldInactive = _formMain.InactiveColor;
+            textActive.Text = ColorTranslator.ToHtml(_oldActive);
+            textInactive.Text = ColorTranslator.ToHtml(_oldInactive);
         }
 
         private void btnActive_Click(object sender, EventArgs e)
@@ -42,12 +42,12 @@ namespace FOK_GYEM_Ultimate
 
         private void button1_Click(object sender, EventArgs e)
         {
-            formMain.ActiveColor = ColorTranslator.FromHtml(textActive.Text);
-            formMain.InactiveColor = ColorTranslator.FromHtml(textInactive.Text);
+            _formMain.ActiveColor = ColorTranslator.FromHtml(textActive.Text);
+            _formMain.InactiveColor = ColorTranslator.FromHtml(textInactive.Text);
 
-            foreach (Control c in formMain.containerPanel.Controls)
+            foreach (Control c in _formMain.containerPanel.Controls)
             {
-                if (c is Panel) c.BackColor = c.BackColor == oldActive ? formMain.ActiveColor : formMain.InactiveColor;
+                if (c is Panel) c.BackColor = c.BackColor == _oldActive ? _formMain.ActiveColor : _formMain.InactiveColor;
             }
             Close();
         }

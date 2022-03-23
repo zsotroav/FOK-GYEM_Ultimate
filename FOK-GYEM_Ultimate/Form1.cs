@@ -80,13 +80,13 @@ namespace FOK_GYEM_Ultimate
 
         #region Utils
 
-        private BitArray getBitArray()
+        public BitArray GetBitArray()
         {
             BitArray output = new(24 * 7 * ModCnt);
             var c = containerPanel.Controls;
             for (int i = 0; i < 24 * 7 * ModCnt; i++)
             {
-                output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
+                output[i] = c.Find(i.ToString(), false)[0].BackColor == ActiveColor;
             }
 
             return output;
@@ -166,7 +166,7 @@ namespace FOK_GYEM_Ultimate
 
             if (dr != DialogResult.OK) return;
 
-            var output = getBitArray();
+            var output = GetBitArray();
 
             External.SaveBin(saveDialog.FileName, Utils.ToByteArray(output, true));
             MessageBox.Show(@"File saved successfully.", @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -198,7 +198,7 @@ namespace FOK_GYEM_Ultimate
         }
 
         private ArduinoGenerator _generator;
-        private void ExportMainCPP(object sender, EventArgs e)
+        private void ExportMainCpp(object sender, EventArgs e)
         {
             saveDialog.Filter = @"szig-fok-gyem compatible main.cpp|main.cpp|C++ source code|*.cpp";
             saveDialog.DefaultExt = ".cpp";
@@ -211,7 +211,7 @@ namespace FOK_GYEM_Ultimate
                 _generator = new ArduinoGenerator();
             }
 
-            if (!_generator.init())
+            if (!_generator.Init())
             {
                 MessageBox.Show(@"An error occurred. Please try again later.", @"main.cpp export error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -340,7 +340,7 @@ namespace FOK_GYEM_Ultimate
                 newSizeToolStripMenuItem.Enabled = false;
                 en = true;
                 animBtn.Text = @"Disable Animation";
-                Animation.newFrameName += AddName;
+                Animation.NewFrameName += AddName;
             }
             else
             {
@@ -365,7 +365,7 @@ namespace FOK_GYEM_Ultimate
 
         private void frameBtn_Click(object sender, EventArgs e)
         {
-            Animation.newFrame(getBitArray(), $"Frame {Animation.FrameCount}", (int)delayNumeric.Value);
+            Animation.NewFrame(GetBitArray(), $"Frame {Animation.FrameCount}", (int)delayNumeric.Value);
             framesLabel.Text = @"Number of frames: " + Animation.FrameCount;
         }
 
@@ -402,7 +402,7 @@ namespace FOK_GYEM_Ultimate
                     // 11111111 00000000
                     var tmp2 = new BitArray(7 * 24 * ModCnt);
                     for (int i = 0; i < tmp2.Length; i++) tmp2[i] = true;
-                    Animation.newFrame(tmp2, $"Transition {Animation.FrameCount} ({type})", 0);
+                    Animation.NewFrame(tmp2, $"Transition {Animation.FrameCount} ({type})", 0);
                     for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
                     break;
                 case 4:
@@ -429,7 +429,7 @@ namespace FOK_GYEM_Ultimate
                         if (i % 2 == 0) tmp3[i] = true;
                         else tmp3[i] = false;
                     }
-                    Animation.newFrame(tmp3, $"Transition {Animation.FrameCount} ({type})", 0);
+                    Animation.NewFrame(tmp3, $"Transition {Animation.FrameCount} ({type})", 0);
                     for (int i = 0; i < tmp.Length; i++)
                     {
                         if (i % 2 == 0) tmp[i] = false;
@@ -438,7 +438,7 @@ namespace FOK_GYEM_Ultimate
                     break;
             }
             
-            Animation.newFrame(tmp, $"Transition {Animation.FrameCount} ({type})", 0);
+            Animation.NewFrame(tmp, $"Transition {Animation.FrameCount} ({type})", 0);
             framesLabel.Text = @"Number of frames: " + Animation.FrameCount;
         }
 

@@ -158,7 +158,7 @@ namespace FOK_GYEM_Ultimate
             this.maincppToolStripMenuItem.Name = "maincppToolStripMenuItem";
             this.maincppToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.maincppToolStripMenuItem.Text = "main.cpp";
-            this.maincppToolStripMenuItem.Click += new System.EventHandler(this.ExportMainCPP);
+            this.maincppToolStripMenuItem.Click += new System.EventHandler(this.ExportMainCpp);
             // 
             // panelToolStripMenuItem
             // 

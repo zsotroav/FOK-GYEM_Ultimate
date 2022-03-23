@@ -12,10 +12,10 @@ namespace FOK_GYEM_Ultimate
 {
     public partial class FormReCut : Form
     {
-        private FormMain formMain;
+        private FormMain _formMain;
         public FormReCut(Form main, int max)
         {
-            formMain = main as FormMain;
+            _formMain = main as FormMain;
             InitializeComponent();
             numericUpDown1.Maximum = max;
         }
@@ -23,7 +23,7 @@ namespace FOK_GYEM_Ultimate
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            formMain.SetCut((int)numericUpDown1.Value);
+            _formMain.SetCut((int)numericUpDown1.Value);
             this.Close();
         }
     }

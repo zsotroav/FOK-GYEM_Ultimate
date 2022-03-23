@@ -12,11 +12,11 @@ namespace FOK_GYEM_Ultimate
 {
     public partial class FormNewSize : Form
     {
-        private FormMain formMain;
+        private FormMain _formMain;
         public FormNewSize(Form main)
         {
             InitializeComponent();
-            formMain = main as FormMain;
+            _formMain = main as FormMain;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -27,7 +27,7 @@ namespace FOK_GYEM_Ultimate
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            formMain.GenModules((int)numericUpDown1.Value, (int)numericUpDown2.Value);
+            _formMain.GenModules((int)numericUpDown1.Value, (int)numericUpDown2.Value);
             Close();
         }
     }

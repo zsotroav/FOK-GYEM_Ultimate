@@ -7,14 +7,14 @@ namespace FOK_GYEM_Ultimate
 {
     public partial class FormArduinoConfig : Form
     {
-        private FormMain formMain;
+        private FormMain _formMain;
         private ArduinoGenerator _generator;
         private string _saveLoc;
 
         public FormArduinoConfig(Form main, ArduinoGenerator generator, string saveLocation)
         {
             InitializeComponent();
-            formMain = main as FormMain;
+            _formMain = main as FormMain;
             _generator = generator;
             _saveLoc = saveLocation;
             ClearCombo.SelectedIndex = 0;
@@ -31,9 +31,9 @@ namespace FOK_GYEM_Ultimate
                 return;
             }
 
-            BitArray output = new(24 * 7 * formMain.ModCnt);
-            var c = formMain.containerPanel.Controls;
-            for (int i = 0; i < 24 * 7 * formMain.ModCnt; i++)
+            BitArray output = new(24 * 7 * _formMain.ModCnt);
+            var c = _formMain.containerPanel.Controls;
+            for (int i = 0; i < 24 * 7 * _formMain.ModCnt; i++)
             {
                 output[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
             }

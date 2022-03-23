@@ -15,7 +15,7 @@ namespace FOK_GYEM_Ultimate
         public bool Ready = false;
         private string _template;
 
-        public bool init()
+        public bool Init()
         {
             if (Ready) return true;
             if (!External.FileExists("resources/arduino/main-cpp_template.txt")) return false;
@@ -111,7 +111,7 @@ namespace FOK_GYEM_Ultimate
     driver_writeScreen();
     ";
             
-            if (clear == 3 || clear == 6)
+            if (clear is 3 or 6)
             {
                 ft += ft.Replace("##D##", tmp[5..]);
                 tmp = tmp[..4];

@@ -10,10 +10,10 @@ namespace FOK_GYEM_Ultimate
 {
     public partial class FormText : Form
     {
-        private FormMain formMain;
+        private FormMain _formMain;
         public FormText(Form main)
         {
-            formMain = main as FormMain;
+            _formMain = main as FormMain;
             InitializeComponent();
 
             string[] fonts = Directory.GetFiles(@"resources/fonts/", "*.bmp");
@@ -31,12 +31,12 @@ namespace FOK_GYEM_Ultimate
                 return;
             }
             fontCombo.SelectedIndex = 0;
-            OffModNumeric.Maximum = formMain.ModCnt;
-            OffPxNumeric.Maximum = formMain.ModCnt * 24;
-            endModNumeric.Maximum = formMain.ModCnt;
-            endPxNumeric.Maximum = formMain.ModCnt * 24;
-            endModNumeric.Value = formMain.ModCnt;
-            endPxNumeric.Value = formMain.ModCnt * 24;
+            OffModNumeric.Maximum = _formMain.ModCnt;
+            OffPxNumeric.Maximum = _formMain.ModCnt * 24;
+            endModNumeric.Maximum = _formMain.ModCnt;
+            endPxNumeric.Maximum = _formMain.ModCnt * 24;
+            endModNumeric.Value = _formMain.ModCnt;
+            endPxNumeric.Value = _formMain.ModCnt * 24;
             
         }
 
@@ -86,7 +86,7 @@ namespace FOK_GYEM_Ultimate
             if (center) offset += ((int)endPxNumeric.Value - offset - n) / 2;
 
 
-            var pan = formMain.containerPanel.Controls;
+            var pan = _formMain.containerPanel.Controls;
             n = offset;
             foreach (var c in ch)
             {
@@ -95,10 +95,10 @@ namespace FOK_GYEM_Ultimate
                 {
                     for (int j = 0; j < 7; j++)
                     {
-                        pan.Find((n + i + (j * formMain.ModCnt*24)).ToString(), false)[0].BackColor =
+                        pan.Find((n + i + (j * _formMain.ModCnt*24)).ToString(), false)[0].BackColor =
                             fontBmp.GetPixel(chars[c][0] + 1 + i, j + 2) != Color.FromArgb(0, 0, 0)
-                                ? formMain.ActiveColor
-                                : formMain.InactiveColor;
+                                ? _formMain.ActiveColor
+                                : _formMain.InactiveColor;
                     }
                 }
 
