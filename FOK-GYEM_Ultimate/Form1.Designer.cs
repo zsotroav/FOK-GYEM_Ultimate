@@ -330,7 +330,7 @@ namespace FOK_GYEM_Ultimate
             this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(968, 17);
             this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.Text = "Version: Dev5 - 21/11/27";
+            this.toolStripStatusLabel2.Text = "Version: Dev10 - 22/03/23";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
