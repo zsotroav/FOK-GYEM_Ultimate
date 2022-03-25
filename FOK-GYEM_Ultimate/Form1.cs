@@ -13,16 +13,64 @@ namespace FOK_GYEM_Ultimate
 {
     public partial class FormMain : Form
     {
-        public Color InactiveColor = Color.DarkGray;
-        public Color ActiveColor = Color.Black;
+        public Color InactiveColor;
+        public Color ActiveColor;
 
-        public int ModCnt = 7;
-        public int ModCut = 3;
+        public int ModCnt;
+        public int ModCut;
+        internal Config Conf = new();
         public FormMain()
         {
+            Conf.Init("FOK-GYEM_ultimate");
             InitializeComponent();
 
+            LoadConfig();
             GenModules(ModCnt,ModCut);
+        }
+
+        private void LoadConfig()
+        {
+            // Try-Catch is needed in case there is no config for a variable yet
+
+            try
+            {
+                ModCnt = Conf.GetInt("ModCnt");
+            }
+            catch
+            {
+                ModCnt = 7;
+                Conf.Set("ModCnt", "7");
+            }
+
+            try
+            {
+                ModCut = Conf.GetInt("ModCut");
+            }
+            catch
+            {
+                ModCut = 3;
+                Conf.Set("ModCut", "3");
+            }
+            
+            try
+            {
+                ActiveColor = ColorTranslator.FromHtml(Conf.Get("ActiveColor"));
+            }
+            catch
+            {
+                ActiveColor = Color.Black;
+                Conf.Set("ActiveColor", "Black");
+            }
+
+            try
+            {
+                InactiveColor = ColorTranslator.FromHtml(Conf.Get("InactiveColor"));
+            }
+            catch
+            {
+                InactiveColor = Color.DarkGray;
+                Conf.Set("InactiveColor", "DarkGray");
+            }
         }
 
         #region Module and panel manipulations
@@ -349,6 +397,12 @@ namespace FOK_GYEM_Ultimate
             formColorPref.Show();
         }
 
+        private void setDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var formSetDefaults = new FormSetDefaults(this);
+            formSetDefaults.Show();
+        }
+
         #endregion
 
         #region Animation
@@ -477,5 +531,6 @@ namespace FOK_GYEM_Ultimate
         }
 
         #endregion
+
     }
 }
