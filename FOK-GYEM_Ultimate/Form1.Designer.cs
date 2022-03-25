@@ -244,14 +244,14 @@ namespace FOK_GYEM_Ultimate
             // setColorToolStripMenuItem
             // 
             this.setColorToolStripMenuItem.Name = "setColorToolStripMenuItem";
-            this.setColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.setColorToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.setColorToolStripMenuItem.Text = "Set color";
             this.setColorToolStripMenuItem.Click += new System.EventHandler(this.setColorToolStripMenuItem_Click);
             // 
             // setDefaultsToolStripMenuItem
             // 
             this.setDefaultsToolStripMenuItem.Name = "setDefaultsToolStripMenuItem";
-            this.setDefaultsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.setDefaultsToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.setDefaultsToolStripMenuItem.Text = "Set defaults";
             this.setDefaultsToolStripMenuItem.Click += new System.EventHandler(this.setDefaultsToolStripMenuItem_Click);
             // 
@@ -268,22 +268,23 @@ namespace FOK_GYEM_Ultimate
             // wikiAboutStrip
             // 
             this.wikiAboutStrip.Name = "wikiAboutStrip";
-            this.wikiAboutStrip.Size = new System.Drawing.Size(167, 26);
+            this.wikiAboutStrip.Size = new System.Drawing.Size(233, 26);
             this.wikiAboutStrip.Text = "Help (Wiki)";
             this.wikiAboutStrip.Click += new System.EventHandler(this.wikiAboutStrip_Click);
             // 
             // githubAboutStrip
             // 
             this.githubAboutStrip.Name = "githubAboutStrip";
-            this.githubAboutStrip.Size = new System.Drawing.Size(167, 26);
-            this.githubAboutStrip.Text = "GitHub";
+            this.githubAboutStrip.Size = new System.Drawing.Size(233, 26);
+            this.githubAboutStrip.Text = "GitHub (source code)";
             this.githubAboutStrip.Click += new System.EventHandler(this.githubAboutStrip_Click);
             // 
             // creditsAboutStrip
             // 
             this.creditsAboutStrip.Name = "creditsAboutStrip";
-            this.creditsAboutStrip.Size = new System.Drawing.Size(167, 26);
+            this.creditsAboutStrip.Size = new System.Drawing.Size(233, 26);
             this.creditsAboutStrip.Text = "Credits";
+            this.creditsAboutStrip.Click += new System.EventHandler(this.creditsAboutStrip_Click);
             // 
             // statusStrip1
             // 

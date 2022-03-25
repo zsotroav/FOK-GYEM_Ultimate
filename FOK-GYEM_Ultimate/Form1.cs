@@ -532,5 +532,10 @@ namespace FOK_GYEM_Ultimate
 
         #endregion
 
+        private void creditsAboutStrip_Click(object sender, EventArgs e)
+        {
+            var formCredits = new FormCredits();
+            formCredits.Show();
+        }
     }
 }
