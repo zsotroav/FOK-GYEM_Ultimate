@@ -74,6 +74,9 @@ namespace FOK_GYEM_Ultimate
             this.frameCombo = new System.Windows.Forms.ComboBox();
             this.loopCheck = new System.Windows.Forms.CheckBox();
             this.loopNumeric = new System.Windows.Forms.NumericUpDown();
+            this.animUpBtn = new System.Windows.Forms.Button();
+            this.animDownBtn = new System.Windows.Forms.Button();
+            this.animDelBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.delayNumeric)).BeginInit();
@@ -391,7 +394,7 @@ namespace FOK_GYEM_Ultimate
             "4 Alternating 101",
             "5 Alternating 010",
             "6 Alternating 101 + 010 "});
-            this.transitionCombo.Location = new System.Drawing.Point(175, 437);
+            this.transitionCombo.Location = new System.Drawing.Point(175, 439);
             this.transitionCombo.Name = "transitionCombo";
             this.transitionCombo.Size = new System.Drawing.Size(203, 28);
             this.transitionCombo.TabIndex = 6;
@@ -414,7 +417,7 @@ namespace FOK_GYEM_Ultimate
             0,
             0,
             0});
-            this.delayNumeric.Location = new System.Drawing.Point(264, 397);
+            this.delayNumeric.Location = new System.Drawing.Point(264, 398);
             this.delayNumeric.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -474,7 +477,7 @@ namespace FOK_GYEM_Ultimate
             // 
             this.loopCheck.AutoSize = true;
             this.loopCheck.Enabled = false;
-            this.loopCheck.Location = new System.Drawing.Point(459, 440);
+            this.loopCheck.Location = new System.Drawing.Point(459, 441);
             this.loopCheck.Name = "loopCheck";
             this.loopCheck.Size = new System.Drawing.Size(177, 24);
             this.loopCheck.TabIndex = 13;
@@ -505,11 +508,44 @@ namespace FOK_GYEM_Ultimate
             0,
             0});
             // 
+            // animUpBtn
+            // 
+            this.animUpBtn.Location = new System.Drawing.Point(718, 396);
+            this.animUpBtn.Name = "animUpBtn";
+            this.animUpBtn.Size = new System.Drawing.Size(28, 28);
+            this.animUpBtn.TabIndex = 15;
+            this.animUpBtn.Text = "▲";
+            this.animUpBtn.UseVisualStyleBackColor = true;
+            this.animUpBtn.Click += new System.EventHandler(this.animUpBtn_Click);
+            // 
+            // animDownBtn
+            // 
+            this.animDownBtn.Location = new System.Drawing.Point(752, 396);
+            this.animDownBtn.Name = "animDownBtn";
+            this.animDownBtn.Size = new System.Drawing.Size(28, 28);
+            this.animDownBtn.TabIndex = 16;
+            this.animDownBtn.Text = "▼";
+            this.animDownBtn.UseVisualStyleBackColor = true;
+            this.animDownBtn.Click += new System.EventHandler(this.animDownBtn_Click);
+            // 
+            // animDelBtn
+            // 
+            this.animDelBtn.Location = new System.Drawing.Point(786, 396);
+            this.animDelBtn.Name = "animDelBtn";
+            this.animDelBtn.Size = new System.Drawing.Size(28, 28);
+            this.animDelBtn.TabIndex = 17;
+            this.animDelBtn.Text = "🞭";
+            this.animDelBtn.UseVisualStyleBackColor = true;
+            this.animDelBtn.Click += new System.EventHandler(this.animDelBtn_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1385, 511);
+            this.Controls.Add(this.animDelBtn);
+            this.Controls.Add(this.animDownBtn);
+            this.Controls.Add(this.animUpBtn);
             this.Controls.Add(this.loopNumeric);
             this.Controls.Add(this.loopCheck);
             this.Controls.Add(this.frameCombo);
@@ -589,6 +625,9 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.ComboBox frameCombo;
         private System.Windows.Forms.CheckBox loopCheck;
         private System.Windows.Forms.NumericUpDown loopNumeric;
+        private System.Windows.Forms.Button animUpBtn;
+        private System.Windows.Forms.Button animDownBtn;
+        private System.Windows.Forms.Button animDelBtn;
     }
 }
 

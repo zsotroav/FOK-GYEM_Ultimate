@@ -3,30 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Versioning;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FOK_GYEM_Ultimate
 {
+    public class AnimationFrame
+    {
+        public int i;
+        public BitArray Frame;
+        public string name;
+        public int delay; // Delay BEFORE this frame
+
+        public AnimationFrame(BitArray frame, string name, int delay, int i)
+        {
+            Frame = frame;
+            this.name = name;
+            this.delay = delay;
+            this.i = i;
+        }
+    }
+
     public class Animation
     {
-        public List<BitArray> Frames = new();
-        public int FrameCount = 0;
-
-        public Dictionary<string, int> FrameDictionary = new();
-        public Dictionary<int, int> DelayDictionary = new();
-
+        public List<AnimationFrame> AnimationFrames = new();
+        
+        public int FrameCount => AnimationFrames.Count;
+        
         public delegate void NewFrameNameDel(string name);
         public event NewFrameNameDel NewFrameName;
 
         public void NewFrame(BitArray frameBuffer, string name, int delay)
         {
-            FrameDictionary.Add(name, FrameCount);
-            DelayDictionary.Add(FrameCount, delay);
-            Frames.Add(frameBuffer);
-            FrameCount++;
+            AnimationFrames.Add(new AnimationFrame(frameBuffer, name, delay, AnimationFrames.Count));
             NewFrameName?.Invoke(name);
         }
 
@@ -56,7 +64,7 @@ namespace FOK_GYEM_Ultimate
             var re = "";
             for (int i = 0; i < FrameCount; i++)
             {
-                var d = "0x" + BitConverter.ToString(Utils.ToByteArray(Frames[i], true)).Replace("-", ", 0x");
+                var d = "0x" + BitConverter.ToString(Utils.ToByteArray(AnimationFrames[i].Frame, true)).Replace("-", ", 0x");
                 re += $"uint8_t f{i}[] = {{ {d} }}; \n";
             }
 
@@ -70,13 +78,23 @@ namespace FOK_GYEM_Ultimate
             {
                 re += $"driver_setBuffer(f{i}, DRV_DATABUFF_SIZE); \n";
                 re += "driver_writeScreen(); \n";
-                re += $"delay({DelayDictionary[i]});\n";
+                re += $"delay({AnimationFrames[i].delay});\n";
             }
             
             return re;
         }
 
-        public BitArray GetFrameName(string name) => Frames[FrameDictionary[name]];
-        public BitArray GetFrameNumber(int number) => Frames[number];
+        public AnimationFrame GetFrameByName(string name) => 
+            AnimationFrames.Where(animationFrame => animationFrame.name == name).Select(animationFrame => animationFrame).FirstOrDefault();
+        
+        public AnimationFrame GetFrameByNumber(int number) => AnimationFrames[number];
+
+        public List<string> GetAllNames()
+        {
+            List<string> re = new(FrameCount);
+            re.AddRange(AnimationFrames.Select(animationFrame => animationFrame.name));
+
+            return re;
+        }
     }
 }

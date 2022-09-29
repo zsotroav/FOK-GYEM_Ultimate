@@ -406,7 +406,8 @@ namespace FOK_GYEM_Ultimate
         #endregion
 
         #region Animation
-
+        
+        private AnimationFrame _currentFrame;
         public Animation Animation;
         private void animBtn_Click(object sender, EventArgs e)
         {
@@ -450,11 +451,41 @@ namespace FOK_GYEM_Ultimate
         {
             if (!frameCombo.Items.Contains(frameCombo.Text)) return;
 
-            var bits = Animation.Frames[Animation.FrameDictionary[frameCombo.Text]];
+            _currentFrame = Animation.GetFrameByName(frameCombo.Text);
+            var bits = _currentFrame.Frame;
             var c = containerPanel.Controls;
             for (var i = 0; i < bits.Length; i++)
             {
                 c.Find(i.ToString(), false)[0].BackColor = bits[i] ? ActiveColor : InactiveColor;
+            }
+        }
+
+        private void animUpBtn_Click(object sender, EventArgs e)
+        {
+            if (_currentFrame.i - 1 >= 0 && _currentFrame.i - 1 < Animation.FrameCount)
+                Animation.AnimationFrames.Reverse(_currentFrame.i - 1, 2);
+            updateFrameCombo();
+        }
+
+        private void animDownBtn_Click(object sender, EventArgs e)
+        {
+            if (_currentFrame.i >= 0 && _currentFrame.i < Animation.FrameCount)
+                Animation.AnimationFrames.Reverse(_currentFrame.i, 2);
+            updateFrameCombo();
+        }
+
+        private void animDelBtn_Click(object sender, EventArgs e)
+        {
+            Animation.AnimationFrames.RemoveAt(_currentFrame.i);
+            updateFrameCombo();
+        }
+
+        private void updateFrameCombo()
+        {
+            frameCombo.Items.Clear();
+            foreach (var name in Animation.GetAllNames())
+            {
+                frameCombo.Items.Add(name);
             }
         }
 
@@ -479,7 +510,7 @@ namespace FOK_GYEM_Ultimate
                     // 11111111 00000000
                     var tmp2 = new BitArray(7 * 24 * ModCnt);
                     for (int i = 0; i < tmp2.Length; i++) tmp2[i] = true;
-                    Animation.NewFrame(tmp2, $"Transition {Animation.FrameCount} ({type})", 0);
+                    Animation.NewFrame(tmp2, $"Pat{Animation.FrameCount} ({type})", 0);
                     for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
                     break;
                 case 4:
