@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using zsotroav;
 
@@ -108,7 +104,7 @@ namespace FOK_GYEM_Ultimate
 
             var ft = @"for (uint8_t i = 0; i < DRV_DATABUFF_SIZE; i++) { buff[i] = ##D##; }
     driver_setBuffer(buff, DRV_DATABUFF_SIZE);
-    driver_writeScreen();
+    driver_forceWriteScreen();
     ";
             
             if (clear is 3 or 6)
