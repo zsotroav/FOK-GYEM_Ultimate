@@ -77,6 +77,8 @@ namespace FOK_GYEM_Ultimate
             this.animUpBtn = new System.Windows.Forms.Button();
             this.animDownBtn = new System.Windows.Forms.Button();
             this.animDelBtn = new System.Windows.Forms.Button();
+            this.animSaveBtn = new System.Windows.Forms.Button();
+            this.animRelBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.delayNumeric)).BeginInit();
@@ -336,9 +338,9 @@ namespace FOK_GYEM_Ultimate
             this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(1123, 20);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(1084, 20);
             this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.Text = "Version: Dev10 - 22/03/23";
+            this.toolStripStatusLabel2.Text = "Version: Dev12 - 22/10/06";
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
@@ -510,6 +512,7 @@ namespace FOK_GYEM_Ultimate
             // 
             // animUpBtn
             // 
+            this.animUpBtn.Enabled = false;
             this.animUpBtn.Location = new System.Drawing.Point(718, 396);
             this.animUpBtn.Name = "animUpBtn";
             this.animUpBtn.Size = new System.Drawing.Size(28, 28);
@@ -520,6 +523,7 @@ namespace FOK_GYEM_Ultimate
             // 
             // animDownBtn
             // 
+            this.animDownBtn.Enabled = false;
             this.animDownBtn.Location = new System.Drawing.Point(752, 396);
             this.animDownBtn.Name = "animDownBtn";
             this.animDownBtn.Size = new System.Drawing.Size(28, 28);
@@ -530,7 +534,8 @@ namespace FOK_GYEM_Ultimate
             // 
             // animDelBtn
             // 
-            this.animDelBtn.Location = new System.Drawing.Point(786, 396);
+            this.animDelBtn.Enabled = false;
+            this.animDelBtn.Location = new System.Drawing.Point(718, 437);
             this.animDelBtn.Name = "animDelBtn";
             this.animDelBtn.Size = new System.Drawing.Size(28, 28);
             this.animDelBtn.TabIndex = 17;
@@ -538,11 +543,36 @@ namespace FOK_GYEM_Ultimate
             this.animDelBtn.UseVisualStyleBackColor = true;
             this.animDelBtn.Click += new System.EventHandler(this.animDelBtn_Click);
             // 
+            // animSaveBtn
+            // 
+            this.animSaveBtn.Enabled = false;
+            this.animSaveBtn.Location = new System.Drawing.Point(718, 355);
+            this.animSaveBtn.Name = "animSaveBtn";
+            this.animSaveBtn.Size = new System.Drawing.Size(28, 28);
+            this.animSaveBtn.TabIndex = 18;
+            this.animSaveBtn.Text = "💾";
+            this.animSaveBtn.UseVisualStyleBackColor = true;
+            this.animSaveBtn.Click += new System.EventHandler(this.animSaveBtn_Click);
+            // 
+            // animRelBtn
+            // 
+            this.animRelBtn.Enabled = false;
+            this.animRelBtn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.animRelBtn.Location = new System.Drawing.Point(752, 355);
+            this.animRelBtn.Name = "animRelBtn";
+            this.animRelBtn.Size = new System.Drawing.Size(28, 28);
+            this.animRelBtn.TabIndex = 19;
+            this.animRelBtn.Text = "↻";
+            this.animRelBtn.UseVisualStyleBackColor = true;
+            this.animRelBtn.Click += new System.EventHandler(this.animRelBtn_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1385, 511);
+            this.Controls.Add(this.animRelBtn);
+            this.Controls.Add(this.animSaveBtn);
             this.Controls.Add(this.animDelBtn);
             this.Controls.Add(this.animDownBtn);
             this.Controls.Add(this.animUpBtn);
@@ -628,6 +658,8 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.Button animUpBtn;
         private System.Windows.Forms.Button animDownBtn;
         private System.Windows.Forms.Button animDelBtn;
+        private System.Windows.Forms.Button animSaveBtn;
+        private System.Windows.Forms.Button animRelBtn;
     }
 }
 

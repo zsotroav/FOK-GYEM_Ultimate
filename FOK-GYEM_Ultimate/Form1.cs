@@ -428,7 +428,9 @@ namespace FOK_GYEM_Ultimate
             }
             frameBtn.Enabled = transBtn.Enabled = animExpBtn.Enabled =
                 delayLabel.Enabled = delayNumeric.Enabled = transitionCombo.Enabled = 
-                framesLabel.Enabled = frameSelLabel.Enabled = frameCombo.Enabled = loopCheck.Enabled = en;
+                framesLabel.Enabled = frameSelLabel.Enabled = frameCombo.Enabled = loopCheck.Enabled = 
+                animUpBtn.Enabled = animDownBtn.Enabled = animDelBtn.Enabled = animSaveBtn.Enabled =
+                animRelBtn.Enabled = en;
 
             framesLabel.Text = @"Number of frames: 0";
             frameCombo.Items.Clear();
@@ -479,6 +481,13 @@ namespace FOK_GYEM_Ultimate
             Animation.AnimationFrames.RemoveAt(_currentFrame.i);
             updateFrameCombo();
         }
+        
+        private void animSaveBtn_Click(object sender, EventArgs e) =>
+            Animation.AnimationFrames[_currentFrame.i].Frame = GetBitArray();
+
+
+        private void animRelBtn_Click(object sender, EventArgs e) =>
+            frameCombo_SelectedValueChanged(sender, e);
 
         private void updateFrameCombo()
         {
@@ -537,7 +546,7 @@ namespace FOK_GYEM_Ultimate
                         if (i % 2 == 0) tmp3[i] = true;
                         else tmp3[i] = false;
                     }
-                    Animation.NewFrame(tmp3, $"Transition {Animation.FrameCount} ({type})", 0);
+                    Animation.NewFrame(tmp3, $"Pat{Animation.FrameCount} ({type})", 0);
                     for (int i = 0; i < tmp.Length; i++)
                     {
                         if (i % 2 == 0) tmp[i] = false;
@@ -546,7 +555,7 @@ namespace FOK_GYEM_Ultimate
                     break;
             }
             
-            Animation.NewFrame(tmp, $"Transition {Animation.FrameCount} ({type})", 0);
+            Animation.NewFrame(tmp, $"pat{Animation.FrameCount} ({type})", 0);
             framesLabel.Text = @"Number of frames: " + Animation.FrameCount;
         }
 
