@@ -387,6 +387,11 @@ namespace FOK_GYEM_Ultimate
         private void githubAboutStrip_Click(object sender, EventArgs e) =>
             Process.Start(new ProcessStartInfo("https://github.com/zsotroav/FOK-GYEM_Ultimate") { UseShellExecute = true });
 
+        private void creditsAboutStrip_Click(object sender, EventArgs e)
+        {
+            FormCredits formCredits = new();
+            formCredits.Show();
+        }
         #endregion
 
         #region Preferences menu strip
@@ -571,11 +576,5 @@ namespace FOK_GYEM_Ultimate
         }
 
         #endregion
-
-        private void creditsAboutStrip_Click(object sender, EventArgs e)
-        {
-            var formCredits = new FormCredits();
-            formCredits.Show();
-        }
     }
 }

@@ -20,7 +20,7 @@ namespace zsotroav
 
         public void Init(string appName)
         {
-            ConfFile = Path.Combine(ConfDir, appName);
+            ConfFile = Path.Combine(ConfDir, appName, "conf.xml");
 
             if (!File.Exists(ConfFile))
             {
