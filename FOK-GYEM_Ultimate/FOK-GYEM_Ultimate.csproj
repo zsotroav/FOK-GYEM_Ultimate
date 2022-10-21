@@ -8,13 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="resources\**" CopyToOutputDirectory="PreserveNewest"/>
+    <None Include="resources\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="resources\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PluginBase\PluginBase.csproj" />
   </ItemGroup>
 
 </Project>

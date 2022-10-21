@@ -1,11 +1,12 @@
-﻿using System;
+﻿using PluginBase;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using zsotroav;
 
@@ -19,6 +20,7 @@ namespace FOK_GYEM_Ultimate
         public int ModCnt;
         public int ModCut;
         internal Config Conf = new();
+        
         public FormMain()
         {
             Conf.Init("FOK-GYEM_ultimate");
@@ -26,6 +28,13 @@ namespace FOK_GYEM_Ultimate
 
             LoadConfig();
             GenModules(ModCnt,ModCut);
+
+            try { PluginsInit(); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Encountered exception while loading plugin", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void LoadConfig()
@@ -72,6 +81,84 @@ namespace FOK_GYEM_Ultimate
                 Conf.Set("InactiveColor", "DarkGray");
             }
         }
+
+        #region Plugins
+
+        private void PluginsInit()
+        {
+            var loadLocations = Conf.GetPlugins();
+            if (loadLocations.Length <= 0) return;
+            IEnumerable<IPlugin> tasks = loadLocations.SelectMany(pluginPath =>
+            {
+                Assembly pluginAssembly = LoadPlugin(pluginPath);
+                return CreateCommands(pluginAssembly);
+            }).ToList();
+            pluginsToolStripMenuItem.Enabled = true;
+            foreach (IPlugin task in tasks)
+            {
+                task.Init(GenContext());
+                pluginsToolStripMenuItem.DropDownItems.Add($"{task.Name} by {task.Author}");
+                pluginsToolStripMenuItem.DropDownItems[^1].Click += (_, _) => 
+                    MessageBox.Show($"{task.Description}\n\n{task.Link}", $@"{task.Name} by {task.Author} - FOK-GYEM_Ultimate",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                foreach (var action in task.Actions)
+                {
+                    var menu = pluginsToolStripMenuItem;
+                    switch (action.Menu)
+                    {
+                        case Menu.About:
+                            menu = aboutToolStripMenuItem;
+                            break;
+                        case Menu.Load:
+                            menu = loadToolStripMenuItem;
+                            break;
+                        case Menu.Export:
+                            menu = saveToolStripMenuItem;
+                            break;
+                        case Menu.Panel:
+                            menu = panelToolStripMenuItem;
+                            break;
+                        case Menu.Edit:
+                            menu = editToolStripMenuItem;
+                            break;
+                        case Menu.Preferences:
+                            menu = preferencesToolStripMenuItem;
+                            break;
+                    }
+
+                    menu.DropDownItems.Add(action.ActionName);
+                    menu.DropDownItems[^1].Click += (_, _) =>
+                        task.Run(GenContext(),
+                            action.ActionID);
+                }
+            }
+        }
+
+        public IContext GenContext() => new PluginLoadContext.Context(ModCnt, ModCut, GetBitArray());
+        
+        static Assembly LoadPlugin(string relativePath)
+        {
+            var pluginLocation = relativePath;
+            var loadContext = new PluginLoadContext(pluginLocation);
+            return loadContext.LoadFromAssemblyName(new AssemblyName(Path.GetFileNameWithoutExtension(pluginLocation)));
+        }
+
+        private static IEnumerable<IPlugin> CreateCommands(Assembly assembly)
+        {
+            int count = 0;
+
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (!typeof(IPlugin).IsAssignableFrom(type)) continue;
+                if (Activator.CreateInstance(type) is not IPlugin result) continue;
+
+                count++;
+                yield return result;
+            }
+        }
+
+        #endregion
 
         #region Module and panel manipulations
 
@@ -127,7 +214,7 @@ namespace FOK_GYEM_Ultimate
         #endregion
 
         #region Utils
-
+        
         public BitArray GetBitArray()
         {
             BitArray output = new(24 * 7 * ModCnt);
@@ -142,23 +229,14 @@ namespace FOK_GYEM_Ultimate
 
         public BitArray GetUpsideDownArray()
         {
+            FlipVertically(null, null);
             BitArray output = new(24 * 7 * ModCnt);
             var c = containerPanel.Controls;
-
-            for (int y = 0; y < 7; y++)
+            for (int i = 0; i < 24 * 7 * ModCnt; i++)
             {
-                for (int x = 1; x <= 24 * ModCut; x++)
-                {
-                    output[y * ModCnt * 24 + x - 1] =
-                        c.Find((24 * ModCnt * y + ModCut * 24 - x).ToString(), false)[0].BackColor == ActiveColor;
-                }
-
-                for (int x = 1; x < 24 * (ModCnt - ModCut); x++)
-                {
-                    output[ModCnt * 24 * (y + 1) - x] =
-                        c.Find((ModCnt * 24 * (y) + x + ModCut * 24).ToString(), false)[0].BackColor == ActiveColor;
-                }
+                output[i] = c.Find(i.ToString(), false)[0].BackColor == ActiveColor;
             }
+            FlipVertically(null, null);
 
             return output;
         }

@@ -13,14 +13,19 @@ namespace zsotroav
     internal class Config
     {
         public static readonly string AppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public static readonly string ConfDir = Path.Combine(AppDataDir, "zsotroav");
+        public static string ConfDir = Path.Combine(AppDataDir, "zsotroav");
+        public static string PluginDir;
         public string ConfFile;
 
         private Dictionary<string, string> _configs = new();
 
         public void Init(string appName)
         {
-            ConfFile = Path.Combine(ConfDir, appName, "conf.xml");
+            ConfDir = Path.Combine(ConfDir, appName);
+            ConfFile = Path.Combine(ConfDir, "conf.xml");
+            PluginDir = Path.Combine(ConfDir, "Plugins");
+
+            if (!Directory.Exists(PluginDir)) Directory.CreateDirectory(PluginDir);
 
             if (!File.Exists(ConfFile))
             {
@@ -47,7 +52,7 @@ namespace zsotroav
                 : throw new InvalidDataException("This variable is not an int");
         }
 
-        public void Set(string variable, string value, bool save=true)
+        public void Set(string variable, string value, bool save = true)
         {
             if (_configs.ContainsKey(variable))
                 _configs[variable] = value;
@@ -62,6 +67,15 @@ namespace zsotroav
         {
             new XElement("root", _configs.Select(kv => new XElement(kv.Key, kv.Value)))
                 .Save(ConfFile, SaveOptions.OmitDuplicateNamespaces);
+
+        }
+
+        public string[] GetPlugins()
+        {
+            var re = new List<string>();
+            re.AddRange(Directory.GetFiles(PluginDir, "*.dll"));
+            re.AddRange(Directory.GetFiles("resources/Plugins/", "*.dll"));
+            return re.ToArray();
         }
     }
 }
