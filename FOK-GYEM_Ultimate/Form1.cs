@@ -35,6 +35,9 @@ namespace FOK_GYEM_Ultimate
                 MessageBox.Show(ex.Message, @"Encountered exception while loading plugin", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+
+            SDK.UpdPXY += SetXY;
+            SDK.UpdPLoc += SetLoc;
         }
 
         private void LoadConfig()
@@ -210,6 +213,25 @@ namespace FOK_GYEM_Ultimate
         {
             var p = sender as Panel;
             p.BackColor = (p.BackColor == InactiveColor) ? ActiveColor : InactiveColor;
+        }
+
+        public bool SetXY(int x, int y, bool mode)
+        {
+            var controls = containerPanel.Controls;
+            var p = controls.Find((x + (y - 1) * 24 * ModCnt).ToString(), false)[0];
+
+            p.BackColor = mode ? ActiveColor : InactiveColor;
+
+            return p.BackColor == ActiveColor;
+        }
+
+        public bool SetLoc(int loc, bool mode)
+        {
+            var controls = containerPanel.Controls;
+            var p = controls.Find(loc.ToString(), false)[0];
+            p.BackColor = mode ? ActiveColor : InactiveColor;
+
+            return p.BackColor == ActiveColor;
         }
         #endregion
 

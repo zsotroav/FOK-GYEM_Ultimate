@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PluginBase
 {
-	public enum Menu {
+    public enum Menu {
 		Load,
 		Export,
 		Panel,
@@ -22,8 +22,7 @@ namespace PluginBase
 		int ModCnt { get; set; }
         int ModCut { get; set; }
 		BitArray ScreenState { get; set; }
-		
-	}
+    }
 
     public interface IPlugin
     {

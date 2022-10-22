@@ -27,7 +27,10 @@ namespace TestPlugin
 
         public int Run(IContext context, int runID)
         {
-            throw new NotImplementedException();
+            SDK.UpdatePixelXY(1, 3, true);
+            SDK.UpdatePixelLoc(10, true);
+
+            return 0;
         }
     }
 }
