@@ -10,7 +10,7 @@ using zsotroav;
 
 namespace zsotroav
 {
-    internal class Config
+    internal class ConfigLoader
     {
         public static readonly string AppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string ConfDir = Path.Combine(AppDataDir, "zsotroav");
@@ -67,7 +67,6 @@ namespace zsotroav
         {
             new XElement("root", _configs.Select(kv => new XElement(kv.Key, kv.Value)))
                 .Save(ConfFile, SaveOptions.OmitDuplicateNamespaces);
-
         }
 
         public string[] GetPlugins()

@@ -53,10 +53,10 @@ namespace FOK_GYEM_Ultimate
             _formMain.ActiveColor = ColorTranslator.FromHtml(textActive.Text);
             _formMain.InactiveColor = ColorTranslator.FromHtml(textInactive.Text);
 
-            _formMain.Conf.Set("ModCnt", numericCnt.Value.ToString(), false);
-            _formMain.Conf.Set("ModCut", numericCut.Value.ToString(), false);
-            _formMain.Conf.Set("ActiveColor", textActive.Text, false);
-            _formMain.Conf.Set("InactiveColor", textInactive.Text);
+            _formMain.ConfLoader.Set("ModCnt", numericCnt.Value.ToString(), false);
+            _formMain.ConfLoader.Set("ModCut", numericCut.Value.ToString(), false);
+            _formMain.ConfLoader.Set("ActiveColor", textActive.Text, false);
+            _formMain.ConfLoader.Set("InactiveColor", textInactive.Text);
             
             foreach (Control c in _formMain.containerPanel.Controls)
             {
