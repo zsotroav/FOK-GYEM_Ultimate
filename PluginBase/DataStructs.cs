@@ -9,6 +9,9 @@ namespace PluginBase
         public int y;
         public int serial;
 
+        /// <summary>
+        /// Location based on XY Coordinates
+        /// </summary>
         public loc(int x, int y)
         {
             this.x = x;
@@ -16,8 +19,18 @@ namespace PluginBase
             serial = x + y * Config.ModuleH * Config.ModuleCount;
         }
         
-        /* public loc(int x, int y, int panelN){ }*/
+        /// <summary>
+        /// Location based on XY Coordinates within a module
+        /// </summary>
+        public loc(int x, int y, int moduleN){ 
+            this.x = x + moduleN * Config.ModuleH;
+            this.y = y;
+            serial = (x + moduleN * Config.ModuleH) + y * Config.ModuleH * Config.ModuleCount;
+        }
 
+        /// <summary>
+        /// Location based on the serial location
+        /// </summary>
         public loc(int serial)
         {
             this.serial = serial;
@@ -34,5 +47,7 @@ namespace PluginBase
             this.loc = loc;
             this.state = state;
         }
+
+        public string debug => $"{{{loc.x};{loc.y}}} ({loc.serial}) - {state}";
     }
 }

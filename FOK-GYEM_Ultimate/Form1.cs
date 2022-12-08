@@ -36,7 +36,7 @@ namespace FOK_GYEM_Ultimate
                     MessageBoxIcon.Error);
             }
 
-            SDK.UpdPix += SetPixel;
+            SDK.UpdatePixelEvent += SetPixel;
         }
 
         private void LoadConfig()
@@ -139,7 +139,7 @@ namespace FOK_GYEM_Ultimate
             }
         }
 
-        public IContext GenContext() => new PluginLoadContext.Context(ModCnt, ModCut, GetBitArray());
+        public IContext GenContext() => new PluginLoadContext.Context(GetBitArray());
         
         static Assembly LoadPlugin(string relativePath)
         {
@@ -216,17 +216,17 @@ namespace FOK_GYEM_Ultimate
         private void PanelClick(object sender, EventArgs e)
         {
             var p = sender as Panel;
-            SDK.PixelUpdated(new pixelData(new loc(int.Parse(p.Name)), p.BackColor == ActiveColor));
             p.BackColor = (p.BackColor == InactiveColor) ? ActiveColor : InactiveColor;
+            SDK.PixelUpdated(new pixelData(new loc(int.Parse(p.Name)), p.BackColor == ActiveColor));
         }
 
         public bool SetPixel(pixelData data)
         {
-            SDK.PixelUpdated(data); // Called to let the other plugins know that data has changed
             var controls = containerPanel.Controls;
             var p = controls.Find(data.loc.serial.ToString(), false)[0];
             p.BackColor = data.state ? ActiveColor : InactiveColor;
 
+            SDK.PixelUpdated(data); // Called to let the other plugins know that data has changed
             return p.BackColor == ActiveColor;
         }
         #endregion

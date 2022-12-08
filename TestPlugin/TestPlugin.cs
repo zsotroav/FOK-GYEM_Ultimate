@@ -9,7 +9,7 @@ namespace TestPlugin
     public class Test : IPlugin
     {
         public string Name => "Test plugin";
-        public string Description => "A test plugin to demonstrate how things work";
+        public string Description => "A test and debug plugin to demonstrate how things work";
         public string Author => "zsotroav";
         public string Link => "https://github.com/zsotroav/FOK-GYEM_Ultimate";
 
@@ -27,6 +27,9 @@ namespace TestPlugin
         {
             AllocConsole();
             Console.OpenStandardOutput();
+
+            SDK.PixelUpdatedEvent += ActionPD;
+            SDK.ScreenUpdatedFull += ActionBA;
             return 0;
         }
 
@@ -38,9 +41,13 @@ namespace TestPlugin
             return 0;
         }
 
-        public void Action(pixelData data)
+        public void ActionPD(pixelData data)
         {
-            
+            Console.WriteLine(data.debug);
+        }
+
+        public void ActionBA(System.Collections.BitArray i){
+            Console.WriteLine("Full Screen updated");
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]

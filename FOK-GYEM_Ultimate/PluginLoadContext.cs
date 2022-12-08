@@ -41,12 +41,16 @@ namespace FOK_GYEM_Ultimate
         {
             public int ModCnt { get; set; }
             public int ModCut { get; set; }
+            public int ModH { get; set; }
+            public int ModV { get; set; }
             public BitArray ScreenState { get; set; }
 
-            public Context(int modCnt, int modCut, BitArray screenState)
+            public Context(BitArray screenState)
             {
-                ModCnt = modCnt;
-                ModCut = modCut;
+                ModCnt = Config.ModuleCount;
+                ModCut = Config.ModuleCut;
+                ModH = Config.ModuleH;
+                ModV = Config.ModuleV;
                 ScreenState = screenState;
             }
         }
