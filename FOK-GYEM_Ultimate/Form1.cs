@@ -17,13 +17,13 @@ namespace FOK_GYEM_Ultimate
         public Color InactiveColor;
         public Color ActiveColor;
 
-        public int ModCnt;
-        public int ModCut;
-        internal Config Conf = new();
+        public int ModCnt = Config.ModuleCount;
+        public int ModCut = Config.ModuleCut;
+        internal ConfigLoader ConfLoader = new();
         
         public FormMain()
         {
-            Conf.Init("FOK-GYEM_ultimate");
+            ConfLoader.Init("FOK-GYEM_ultimate");
             InitializeComponent();
 
             LoadConfig();
@@ -36,8 +36,7 @@ namespace FOK_GYEM_Ultimate
                     MessageBoxIcon.Error);
             }
 
-            SDK.UpdPXY += SetXY;
-            SDK.UpdPLoc += SetLoc;
+            SDK.UpdatePixelEvent += SetPixel;
         }
 
         private void LoadConfig()
@@ -46,42 +45,44 @@ namespace FOK_GYEM_Ultimate
 
             try
             {
-                ModCnt = Conf.GetInt("ModCnt");
+                ModCnt = ConfLoader.GetInt("ModCnt");
+                Config.ModuleCount = ModCnt;
             }
             catch
             {
                 ModCnt = 7;
-                Conf.Set("ModCnt", "7");
+                ConfLoader.Set("ModCnt", "7");
             }
 
             try
             {
-                ModCut = Conf.GetInt("ModCut");
+                ModCut = ConfLoader.GetInt("ModCut");
+                Config.ModuleCut = ModCut;
             }
             catch
             {
                 ModCut = 3;
-                Conf.Set("ModCut", "3");
+                ConfLoader.Set("ModCut", "3");
             }
             
             try
             {
-                ActiveColor = ColorTranslator.FromHtml(Conf.Get("ActiveColor"));
+                ActiveColor = ColorTranslator.FromHtml(ConfLoader.Get("ActiveColor"));
             }
             catch
             {
                 ActiveColor = Color.Black;
-                Conf.Set("ActiveColor", "Black");
+                ConfLoader.Set("ActiveColor", "Black");
             }
 
             try
             {
-                InactiveColor = ColorTranslator.FromHtml(Conf.Get("InactiveColor"));
+                InactiveColor = ColorTranslator.FromHtml(ConfLoader.Get("InactiveColor"));
             }
             catch
             {
                 InactiveColor = Color.DarkGray;
-                Conf.Set("InactiveColor", "DarkGray");
+                ConfLoader.Set("InactiveColor", "DarkGray");
             }
         }
 
@@ -89,7 +90,7 @@ namespace FOK_GYEM_Ultimate
 
         private void PluginsInit()
         {
-            var loadLocations = Conf.GetPlugins();
+            var loadLocations = ConfLoader.GetPlugins();
             if (loadLocations.Length <= 0) return;
             IEnumerable<IPlugin> tasks = loadLocations.SelectMany(pluginPath =>
             {
@@ -138,7 +139,7 @@ namespace FOK_GYEM_Ultimate
             }
         }
 
-        public IContext GenContext() => new PluginLoadContext.Context(ModCnt, ModCut, GetBitArray());
+        public IContext GenContext() => new PluginLoadContext.Context(GetBitArray());
         
         static Assembly LoadPlugin(string relativePath)
         {
@@ -168,7 +169,9 @@ namespace FOK_GYEM_Ultimate
         public void GenModules(int n, int cut)
         {
             ModCnt = n;
+            Config.ModuleCount = n;
             ModCut = cut;
+            Config.ModuleCut = cut;
             panelDataAStrip.Text = cut.ToString();
             panelDataBStrip.Text = (n-cut).ToString();
 
@@ -193,6 +196,7 @@ namespace FOK_GYEM_Ultimate
         public void SetCut(int cut)
         {
             ModCut = cut;
+            Config.ModuleCut = cut;
             panelDataAStrip.Text = cut.ToString();
             panelDataBStrip.Text = (ModCnt - cut).ToString();
 
@@ -213,24 +217,16 @@ namespace FOK_GYEM_Ultimate
         {
             var p = sender as Panel;
             p.BackColor = (p.BackColor == InactiveColor) ? ActiveColor : InactiveColor;
+            SDK.PixelUpdated(new pixelData(new loc(int.Parse(p.Name)), p.BackColor == ActiveColor));
         }
 
-        public bool SetXY(int x, int y, bool mode)
+        public bool SetPixel(pixelData data)
         {
             var controls = containerPanel.Controls;
-            var p = controls.Find((x + (y - 1) * 24 * ModCnt).ToString(), false)[0];
+            var p = controls.Find(data.loc.serial.ToString(), false)[0];
+            p.BackColor = data.state ? ActiveColor : InactiveColor;
 
-            p.BackColor = mode ? ActiveColor : InactiveColor;
-
-            return p.BackColor == ActiveColor;
-        }
-
-        public bool SetLoc(int loc, bool mode)
-        {
-            var controls = containerPanel.Controls;
-            var p = controls.Find(loc.ToString(), false)[0];
-            p.BackColor = mode ? ActiveColor : InactiveColor;
-
+            SDK.PixelUpdated(data); // Called to let the other plugins know that data has changed
             return p.BackColor == ActiveColor;
         }
         #endregion
@@ -252,12 +248,7 @@ namespace FOK_GYEM_Ultimate
         public BitArray GetUpsideDownArray()
         {
             FlipVertically(null, null);
-            BitArray output = new(24 * 7 * ModCnt);
-            var c = containerPanel.Controls;
-            for (int i = 0; i < 24 * 7 * ModCnt; i++)
-            {
-                output[i] = c.Find(i.ToString(), false)[0].BackColor == ActiveColor;
-            }
+            BitArray output = GetBitArray();
             FlipVertically(null, null);
 
             return output;
@@ -294,6 +285,8 @@ namespace FOK_GYEM_Ultimate
             {
                 c.Find(i.ToString(), false)[0].BackColor = bits[i] ? ActiveColor : InactiveColor;
             }
+
+            SDK.ScreenUpdated(bits);
         }
 
         private void LoadFromBmp(object sender, EventArgs e)
@@ -323,6 +316,8 @@ namespace FOK_GYEM_Ultimate
                         Color.FromArgb(gs, gs, gs) == Color.FromArgb(0, 0, 0) ? InactiveColor : ActiveColor;
                 }
             }
+
+            SDK.ScreenUpdated(GetBitArray());
         }
         #endregion
 
@@ -419,6 +414,7 @@ namespace FOK_GYEM_Ultimate
             {
                 if (c is Panel) c.BackColor = InactiveColor;
             }
+            SDK.ScreenUpdated(new BitArray(Config.ModuleCount*Config.ModuleH*Config.ModuleV, false));
         }
         
         public void InvertPanel(object sender, EventArgs e)
@@ -427,6 +423,7 @@ namespace FOK_GYEM_Ultimate
             {
                 if (c is Panel) c.BackColor = c.BackColor == InactiveColor ? ActiveColor : InactiveColor;
             }
+            SDK.ScreenUpdated(GetBitArray());
         }
 
         public void FlipVertically(object sender, EventArgs e)
@@ -444,13 +441,13 @@ namespace FOK_GYEM_Ultimate
                         copy[i + (6 - j) * 24 * ModCnt] ? ActiveColor : InactiveColor;
                 }
             }
+            SDK.ScreenUpdated(GetBitArray());
         }
 
         public void TextGen(object sender, EventArgs e)
         {
             if (Directory.Exists(@"resources/fonts/"))
             {
-
                 var formText = new FormText(this);
                 formText.Show();
             }
@@ -465,7 +462,6 @@ namespace FOK_GYEM_Ultimate
         {
             if (Directory.Exists(@"resources/symbols/"))
             {
-
                 var formSymbol= new FormSymbol(this);
                 formSymbol.Show();
             }
@@ -565,6 +561,8 @@ namespace FOK_GYEM_Ultimate
             {
                 c.Find(i.ToString(), false)[0].BackColor = bits[i] ? ActiveColor : InactiveColor;
             }
+
+            SDK.ScreenUpdated(_currentFrame.Frame);
         }
 
         private void animUpBtn_Click(object sender, EventArgs e)

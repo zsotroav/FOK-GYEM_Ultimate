@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Special compile leftover files
+FOK-GYEM_Ultimate/resources/Plugins/*.dll
+
 # User-specific files
 *.rsuser
 *.suo

@@ -3,5 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>PluginBase</RootNamespace>
+	<EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
 </Project>
