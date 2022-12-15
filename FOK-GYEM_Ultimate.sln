@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluginBase", "PluginBase\Pl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPlugin", "TestPlugin\TestPlugin.csproj", "{7078DA21-B01A-4ED5-B904-D114C5097775}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialCommPlugin", "SerialCommPlugin\SerialCommPlugin.csproj", "{8901BD32-A15E-4FDA-8C66-F405BA0D6A39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7078DA21-B01A-4ED5-B904-D114C5097775}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7078DA21-B01A-4ED5-B904-D114C5097775}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7078DA21-B01A-4ED5-B904-D114C5097775}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8901BD32-A15E-4FDA-8C66-F405BA0D6A39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8901BD32-A15E-4FDA-8C66-F405BA0D6A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8901BD32-A15E-4FDA-8C66-F405BA0D6A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8901BD32-A15E-4FDA-8C66-F405BA0D6A39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

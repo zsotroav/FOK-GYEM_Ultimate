@@ -1,0 +1,3 @@
+[submodule "SerialCommPlugin"]
+	path = SerialCommPlugin
+	url = https://github.com/zsotroav/FOK-GYEM_Ultimate-Serial.git
