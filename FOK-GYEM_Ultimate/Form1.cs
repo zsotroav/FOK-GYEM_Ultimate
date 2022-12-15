@@ -131,10 +131,28 @@ namespace FOK_GYEM_Ultimate
                             break;
                     }
 
-                    menu.DropDownItems.Add(action.ActionName);
-                    menu.DropDownItems[^1].Click += (_, _) =>
+                    var item = new ToolStripMenuItem();
+                    item.Name = action.ActionName;
+                    item.Text = action.ActionName;
+                    item.Click += (_, _) =>
                         task.Run(GenContext(),
                             action.ActionID);
+
+                    if (action.SubActions != null)
+                    {
+                        foreach (var subAction in action.SubActions)
+                        {
+                            var subMenuItem = new ToolStripMenuItem();
+                            subMenuItem.Name = subAction.ActionName;
+                            subMenuItem.Text = subAction.ActionName;
+                            subMenuItem.Click += (_, _) =>
+                                task.Run(GenContext(),
+                                    subAction.ActionID);
+                            item.DropDownItems.Add(subMenuItem);
+                        }
+                    }
+
+                    menu.DropDownItems.Add(item);
                 }
             }
         }

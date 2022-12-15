@@ -11,11 +11,18 @@ namespace PluginBase
 		Preferences,
 		About
 	}
-	
+
+    public struct SubAction
+    {
+        public string ActionName;
+        public int ActionID;
+    }
+
 	public struct Action {
 		public Menu Menu;
         public string ActionName;
 		public int ActionID;
+		public List<SubAction> SubActions;
 	}
 	
 	public interface IContext {
