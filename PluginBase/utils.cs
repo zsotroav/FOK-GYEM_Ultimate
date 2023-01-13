@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FOK_GYEM_Ultimate
+namespace PluginBase
 {
-    internal class Utils
+    public class Utils
     {
         public static byte[] ReverseBytes(byte[] bitArray)
         {

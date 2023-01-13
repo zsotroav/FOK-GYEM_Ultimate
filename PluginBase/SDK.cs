@@ -8,6 +8,8 @@ namespace PluginBase
     public delegate void ScreenUpdatedFullDel(BitArray newArray);
     public delegate void ScreenUpdatedChangesDel(List<pixelData> changes);
 
+    public delegate void CommunicateDel(string title, string text, string icon = "info");
+
     public static class SDK
     {
         /*
@@ -37,5 +39,12 @@ namespace PluginBase
         /// </summary>
         public static event ScreenUpdatedFullDel ScreenUpdatedFull;
         public static void ScreenUpdated(BitArray newArray) => ScreenUpdatedFull?.Invoke(newArray);
+
+        /// <summary>
+        /// Request a Win32 MessageBox to be shown to the user
+        /// </summary>
+        public static event CommunicateDel CommunicateEvent;
+        public static void Communicate(string title, string text, string icon = "info") => CommunicateEvent?.Invoke(title, text, icon);
+
     }
 }

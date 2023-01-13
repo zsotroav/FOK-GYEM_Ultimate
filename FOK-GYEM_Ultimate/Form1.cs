@@ -37,6 +37,7 @@ namespace FOK_GYEM_Ultimate
             }
 
             SDK.UpdatePixelEvent += SetPixel;
+            SDK.CommunicateEvent += PluginCommunicate;
         }
 
         private void LoadConfig()
@@ -178,6 +179,18 @@ namespace FOK_GYEM_Ultimate
                 count++;
                 yield return result;
             }
+        }
+
+        private void PluginCommunicate(string title, string text, string icon = "info")
+        {
+            var ico = icon switch
+            {
+                "info" => MessageBoxIcon.Information,
+                "error" => MessageBoxIcon.Error,
+                "warning" => MessageBoxIcon.Warning,
+                "question" => MessageBoxIcon.Question
+            };
+            MessageBox.Show(text, title, MessageBoxButtons.OK, ico);
         }
 
         #endregion
