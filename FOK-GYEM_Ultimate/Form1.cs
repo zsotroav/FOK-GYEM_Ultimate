@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using zsotroav;
 
@@ -136,8 +137,10 @@ namespace FOK_GYEM_Ultimate
                     item.Name = action.ActionName;
                     item.Text = action.ActionName;
                     item.Click += (_, _) =>
-                        task.Run(GenContext(),
-                            action.ActionID);
+                    {
+                        Thread runThread = new(() => { task.Run(GenContext(), action.ActionID); });
+                        runThread.Start();
+                    };
 
                     if (action.SubActions != null)
                     {
