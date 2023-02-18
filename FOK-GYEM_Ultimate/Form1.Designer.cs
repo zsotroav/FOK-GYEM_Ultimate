@@ -60,7 +60,6 @@ namespace FOK_GYEM_Ultimate
             this.panelDataAStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelDataBStrip = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.animBtn = new System.Windows.Forms.Button();
@@ -305,8 +304,7 @@ namespace FOK_GYEM_Ultimate
             this.toolStripStatusLabel1,
             this.panelDataAStrip,
             this.toolStripStatusLabel3,
-            this.panelDataBStrip,
-            this.toolStripStatusLabel2});
+            this.panelDataBStrip});
             this.statusStrip1.Location = new System.Drawing.Point(0, 361);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1212, 22);
@@ -336,19 +334,6 @@ namespace FOK_GYEM_Ultimate
             this.panelDataBStrip.Name = "panelDataBStrip";
             this.panelDataBStrip.Size = new System.Drawing.Size(50, 17);
             this.panelDataBStrip.Text = "[PAN-B]";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel2.Enabled = false;
-            this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(999, 17);
-            this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.Text = "Version: Dev12 - 22/10/06";
-            this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolStripStatusLabel2.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             // 
             // openFileDialog1
             // 
@@ -637,7 +622,6 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel panelDataAStrip;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripMenuItem binToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem bmpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem binToolStripMenuItem;
