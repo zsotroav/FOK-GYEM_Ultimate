@@ -39,6 +39,7 @@ namespace FOK_GYEM_Ultimate
 
             SDK.UpdatePixelEvent += SetPixel;
             SDK.CommunicateEvent += PluginCommunicate;
+            SDK.GetScreenStateEvent += GetBitArray;
         }
 
         private void LoadConfig()
@@ -64,9 +65,12 @@ namespace FOK_GYEM_Ultimate
             foreach (IPlugin task in tasks)
             {
                 task.Init(GenContext());
-                pluginsToolStripMenuItem.DropDownItems.Add($"{task.Name} by {task.Author}");
-                pluginsToolStripMenuItem.DropDownItems[^1].Click += (_, _) => 
-                    MessageBox.Show($@"{task.Description}\n\n{task.Link}", $@"{task.Name} by {task.Author} - FOK-GYEM_Ultimate",
+                var pluginItem = new ToolStripMenuItem
+                {
+                    Text = $@"{task.Name}"
+                };
+                pluginItem.Click += (_, _) => 
+                    MessageBox.Show($"{task.Description}\n\n{task.Link}", $@"{task.Name} by {task.Author} - FOK-GYEM_Ultimate",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 foreach (var action in task.Actions)
@@ -79,9 +83,9 @@ namespace FOK_GYEM_Ultimate
                         Menu.Panel => panelToolStripMenuItem,
                         Menu.Edit => editToolStripMenuItem,
                         Menu.Preferences => preferencesToolStripMenuItem,
-                        _ => pluginsToolStripMenuItem
+                        _ => pluginItem
                     };
-
+                    
                     var item = new ToolStripMenuItem
                     {
                         Name = action.ActionName,
@@ -111,6 +115,8 @@ namespace FOK_GYEM_Ultimate
 
                     menu.DropDownItems.Add(item);
                 }
+
+                pluginsToolStripMenuItem.DropDownItems.Add(pluginItem);
             }
         }
 
@@ -388,7 +394,8 @@ namespace FOK_GYEM_Ultimate
         private void newSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var formNewSize = new FormNewSize(this);
-            formNewSize.Show();
+            formNewSize.ShowDialog();
+            SDK.ScreenSizeChanged(ModCnt, ModCut, 24, 7);
         }
 
         #endregion

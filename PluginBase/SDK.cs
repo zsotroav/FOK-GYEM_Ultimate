@@ -1,12 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 
 namespace PluginBase
 {
     public delegate bool UpdatePixelDel(PixelData data);
+    public delegate BitArray GetScreenStateDel();
+
     public delegate void PixelUpdatedDel(PixelData data);
     public delegate void ScreenUpdatedFullDel(BitArray newArray);
     // public delegate void ScreenUpdatedChangesDel(List<PixelData> changes);
+    public delegate void ScreenSizeChangedDel(int moduleCount, int moduleCut, int width, int height);
 
     public delegate void CommunicateDel(string title, string text, string icon = "info");
 
@@ -17,10 +19,14 @@ namespace PluginBase
          */
 
         public static event UpdatePixelDel UpdatePixelEvent;
-        /// <summary>
-        /// Update a pixel based on XY coordinates
-        /// </summary>
+        /// <summary>Update a pixel based on XY coordinates</summary>
         public static void UpdatePixel(PixelData data) => UpdatePixelEvent?.Invoke(data);
+
+        public static event GetScreenStateDel GetScreenStateEvent;
+        /// <summary>Get current screen state</summary>
+        /// <returns>BitArray of the screen pixels</returns>
+        public static BitArray GetScreenState() => GetScreenStateEvent?.Invoke();
+
 
         /* 
          * Non-invokable events
@@ -41,6 +47,13 @@ namespace PluginBase
         /// <summary>Request a Win32 MessageBox to be shown to the user</summary>
         public static event CommunicateDel CommunicateEvent;
         public static void Communicate(string title, string text, string icon = "info") => CommunicateEvent?.Invoke(title, text, icon);
+
+        /// <summary>
+        /// Invoked when the configured screen's size or it's settings are changed
+        /// </summary>
+        public static event ScreenSizeChangedDel ScreenSizeChangedEvent;
+        public static void ScreenSizeChanged(int modCnt, int modCut, int w, int h) =>
+            ScreenSizeChangedEvent?.Invoke(modCnt, modCut, w, h);
 
     }
 }

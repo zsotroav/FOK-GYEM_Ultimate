@@ -9,7 +9,8 @@ namespace PluginBase
 		Panel,
 		Edit,
 		Preferences,
-		About
+		About,
+		Plugin
 	}
 
     public struct SubAction
@@ -26,8 +27,15 @@ namespace PluginBase
 	}
 	
 	public interface IContext {
+		/// <summary>Module count</summary>
 		int ModCnt { get; set; }
+		/// <summary>Module cut (breakpoint) </summary>
         int ModCut { get; set; }
+		/// <summary>Module's vertical size (height)</summary>
+		int ModV { get; set; }
+		/// <summary>Module's horizontal size (width)</summary>
+		int ModH { get; set; }
+		/// <summary>Current screen</summary>
 		BitArray ScreenState { get; set; }
     }
 
