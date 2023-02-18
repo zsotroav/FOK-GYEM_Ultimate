@@ -35,15 +35,15 @@ namespace TestPlugin
 
         public int Run(IContext context, int runID)
         {
-            SDK.UpdatePixel(new pixelData(new loc(1, 3), true));
-            SDK.UpdatePixel(new pixelData(new loc(10), true));
+            SDK.UpdatePixel(new PixelData(new Loc(1, 3), true));
+            SDK.UpdatePixel(new PixelData(new Loc(10), true));
 
             return 0;
         }
 
-        public void ActionPD(pixelData data)
+        public void ActionPD(PixelData data)
         {
-            Console.WriteLine(data.debug);
+            Console.WriteLine(data.Debug);
         }
 
         public void ActionBA(System.Collections.BitArray i){

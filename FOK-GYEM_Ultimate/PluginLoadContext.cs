@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Reflection;
 using System.Runtime.Loader;
 using PluginBase;
 
 namespace FOK_GYEM_Ultimate
 {
-    class PluginLoadContext : AssemblyLoadContext
+    internal class PluginLoadContext : AssemblyLoadContext
     {
-        private AssemblyDependencyResolver _resolver;
+        private readonly AssemblyDependencyResolver _resolver;
 
         public PluginLoadContext(string pluginPath)
         {
@@ -18,23 +17,13 @@ namespace FOK_GYEM_Ultimate
         protected override Assembly Load(AssemblyName assemblyName)
         {
             string assemblyPath = _resolver.ResolveAssemblyToPath(assemblyName);
-            if (assemblyPath != null)
-            {
-                return LoadFromAssemblyPath(assemblyPath);
-            }
-
-            return null;
+            return assemblyPath != null ? LoadFromAssemblyPath(assemblyPath) : null;
         }
 
-        protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
+        protected override nint LoadUnmanagedDll(string unmanagedDllName)
         {
             string libraryPath = _resolver.ResolveUnmanagedDllToPath(unmanagedDllName);
-            if (libraryPath != null)
-            {
-                return LoadUnmanagedDllFromPath(libraryPath);
-            }
-
-            return IntPtr.Zero;
+            return libraryPath != null ? LoadUnmanagedDllFromPath(libraryPath) : nint.Zero;
         }
 
         public class Context : IContext

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Windows.Forms;
 using PluginBase;
 
@@ -10,17 +11,17 @@ namespace FOK_GYEM_Ultimate
 {
     public class AnimationFrame
     {
-        public int i;
+        public int I;
         public BitArray Frame;
-        public string name;
-        public int delay; // Delay BEFORE this frame
+        public string Name;
+        public int Delay; // Delay BEFORE this frame
 
         public AnimationFrame(BitArray frame, string name, int delay, int i)
         {
             Frame = frame;
-            this.name = name;
-            this.delay = delay;
-            this.i = i;
+            Name = name;
+            Delay = delay;
+            I = i;
         }
     }
 
@@ -79,23 +80,79 @@ namespace FOK_GYEM_Ultimate
             {
                 re += $"driver_setBuffer(f{i}, DRV_DATABUFF_SIZE); \n";
                 re += "driver_writeScreen(); \n";
-                re += $"delay({AnimationFrames[i].delay});\n";
+                re += $"delay({AnimationFrames[i].Delay});\n";
             }
             
             return re;
         }
 
         public AnimationFrame GetFrameByName(string name) => 
-            AnimationFrames.Where(animationFrame => animationFrame.name == name).Select(animationFrame => animationFrame).FirstOrDefault();
+            AnimationFrames.Where(animationFrame => animationFrame.Name == name).Select(animationFrame => animationFrame).FirstOrDefault();
         
         public AnimationFrame GetFrameByNumber(int number) => AnimationFrames[number];
 
         public List<string> GetAllNames()
         {
             List<string> re = new(FrameCount);
-            re.AddRange(AnimationFrames.Select(animationFrame => animationFrame.name));
+            re.AddRange(AnimationFrames.Select(animationFrame => animationFrame.Name));
 
             return re;
+        }
+
+        public void AddTransition(string type, int modCnt)
+        {
+            var tmp = new BitArray(7 * 24 * modCnt);
+            switch (int.Parse(type[..1]))
+            {
+                case 1:
+                    // 11111111
+                    for (int i = 0; i < tmp.Length; i++) tmp[i] = true;
+                    break;
+                case 2:
+                    // 00000000
+                    for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
+                    break;
+                case 3:
+                    // 11111111 00000000
+                    var tmp2 = new BitArray(7 * 24 * modCnt);
+                    for (int i = 0; i < tmp2.Length; i++) tmp2[i] = true;
+                    NewFrame(tmp2, $"Pat{FrameCount} ({type})", 0);
+                    for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
+                    break;
+                case 4:
+                    // 10101010
+                    for (int i = 0; i < tmp.Length; i++)
+                    {
+                        if (i % 2 == 0) tmp[i] = true;
+                        else tmp[i] = false;
+                    }
+                    break;
+                case 5:
+                    // 01010101
+                    for (int i = 0; i < tmp.Length; i++)
+                    {
+                        if (i % 2 == 0) tmp[i] = false;
+                        else tmp[i] = true;
+                    }
+                    break;
+                case 6:
+                    // 10101010 01010101
+                    var tmp3 = new BitArray(7 * 24 * modCnt);
+                    for (int i = 0; i < tmp3.Length; i++)
+                    {
+                        if (i % 2 == 0) tmp3[i] = true;
+                        else tmp3[i] = false;
+                    }
+                    NewFrame(tmp3, $"Pat{FrameCount} ({type})", 0);
+                    for (int i = 0; i < tmp.Length; i++)
+                    {
+                        if (i % 2 == 0) tmp[i] = false;
+                        else tmp[i] = true;
+                    }
+                    break;
+            }
+
+            NewFrame(tmp, $"pat{FrameCount} ({type})", 0);
         }
     }
 }

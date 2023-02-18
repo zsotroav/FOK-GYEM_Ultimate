@@ -43,49 +43,10 @@ namespace FOK_GYEM_Ultimate
 
         private void LoadConfig()
         {
-            // Try-Catch is needed in case there is no config for a variable yet
-
-            try
-            {
-                ModCnt = ConfLoader.GetInt("ModCnt");
-                Config.ModuleCount = ModCnt;
-            }
-            catch
-            {
-                ModCnt = 7;
-                ConfLoader.Set("ModCnt", "7");
-            }
-
-            try
-            {
-                ModCut = ConfLoader.GetInt("ModCut");
-                Config.ModuleCut = ModCut;
-            }
-            catch
-            {
-                ModCut = 3;
-                ConfLoader.Set("ModCut", "3");
-            }
-            
-            try
-            {
-                ActiveColor = ColorTranslator.FromHtml(ConfLoader.Get("ActiveColor"));
-            }
-            catch
-            {
-                ActiveColor = Color.Black;
-                ConfLoader.Set("ActiveColor", "Black");
-            }
-
-            try
-            {
-                InactiveColor = ColorTranslator.FromHtml(ConfLoader.Get("InactiveColor"));
-            }
-            catch
-            {
-                InactiveColor = Color.DarkGray;
-                ConfLoader.Set("InactiveColor", "DarkGray");
-            }
+            ModCnt = ConfLoader.GetInt("ModCnt", 7);
+            ModCut = ConfLoader.GetInt("ModCut", 3);
+            ActiveColor = ColorTranslator.FromHtml(ConfLoader.Get("ActiveColor", "Black"));
+            InactiveColor = ColorTranslator.FromHtml(ConfLoader.Get("InactiveColor", "DarkGray"));
         }
 
         #region Plugins
@@ -105,37 +66,27 @@ namespace FOK_GYEM_Ultimate
                 task.Init(GenContext());
                 pluginsToolStripMenuItem.DropDownItems.Add($"{task.Name} by {task.Author}");
                 pluginsToolStripMenuItem.DropDownItems[^1].Click += (_, _) => 
-                    MessageBox.Show($"{task.Description}\n\n{task.Link}", $@"{task.Name} by {task.Author} - FOK-GYEM_Ultimate",
+                    MessageBox.Show($@"{task.Description}\n\n{task.Link}", $@"{task.Name} by {task.Author} - FOK-GYEM_Ultimate",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 foreach (var action in task.Actions)
                 {
-                    var menu = pluginsToolStripMenuItem;
-                    switch (action.Menu)
+                    var menu = action.Menu switch
                     {
-                        case Menu.About:
-                            menu = aboutToolStripMenuItem;
-                            break;
-                        case Menu.Load:
-                            menu = loadToolStripMenuItem;
-                            break;
-                        case Menu.Export:
-                            menu = saveToolStripMenuItem;
-                            break;
-                        case Menu.Panel:
-                            menu = panelToolStripMenuItem;
-                            break;
-                        case Menu.Edit:
-                            menu = editToolStripMenuItem;
-                            break;
-                        case Menu.Preferences:
-                            menu = preferencesToolStripMenuItem;
-                            break;
-                    }
+                        Menu.About => aboutToolStripMenuItem,
+                        Menu.Load => loadToolStripMenuItem,
+                        Menu.Export => saveToolStripMenuItem,
+                        Menu.Panel => panelToolStripMenuItem,
+                        Menu.Edit => editToolStripMenuItem,
+                        Menu.Preferences => preferencesToolStripMenuItem,
+                        _ => pluginsToolStripMenuItem
+                    };
 
-                    var item = new ToolStripMenuItem();
-                    item.Name = action.ActionName;
-                    item.Text = action.ActionName;
+                    var item = new ToolStripMenuItem
+                    {
+                        Name = action.ActionName,
+                        Text = action.ActionName
+                    };
                     item.Click += (_, _) =>
                     {
                         Thread runThread = new(() => { task.Run(GenContext(), action.ActionID); });
@@ -146,9 +97,11 @@ namespace FOK_GYEM_Ultimate
                     {
                         foreach (var subAction in action.SubActions)
                         {
-                            var subMenuItem = new ToolStripMenuItem();
-                            subMenuItem.Name = subAction.ActionName;
-                            subMenuItem.Text = subAction.ActionName;
+                            var subMenuItem = new ToolStripMenuItem
+                            {
+                                Name = subAction.ActionName,
+                                Text = subAction.ActionName
+                            };
                             subMenuItem.Click += (_, _) =>
                                 task.Run(GenContext(),
                                     subAction.ActionID);
@@ -172,26 +125,27 @@ namespace FOK_GYEM_Ultimate
 
         private static IEnumerable<IPlugin> CreateCommands(Assembly assembly)
         {
-            int count = 0;
+            //int count = 0;
 
             foreach (Type type in assembly.GetTypes())
             {
                 if (!typeof(IPlugin).IsAssignableFrom(type)) continue;
                 if (Activator.CreateInstance(type) is not IPlugin result) continue;
 
-                count++;
+                //count++;
                 yield return result;
             }
         }
 
-        private void PluginCommunicate(string title, string text, string icon = "info")
+        private static void PluginCommunicate(string title, string text, string icon = "info")
         {
             var ico = icon switch
             {
                 "info" => MessageBoxIcon.Information,
                 "error" => MessageBoxIcon.Error,
                 "warning" => MessageBoxIcon.Warning,
-                "question" => MessageBoxIcon.Question
+                "question" => MessageBoxIcon.Question,
+                _ => MessageBoxIcon.None
             };
             MessageBox.Show(text, title, MessageBoxButtons.OK, ico);
         }
@@ -214,9 +168,11 @@ namespace FOK_GYEM_Ultimate
             {
                 for (int j = 1; j < 8; j++)
                 {
-                    var p = new Panel();
-                    p.Name = (i + (j - 1) * 24 * n).ToString();
-                    p.Size = new Size(10, 10);
+                    var p = new Panel
+                    {
+                        Name = (i + (j - 1) * 24 * n).ToString(),
+                        Size = new Size(10, 10)
+                    };
                     int x = i * 12 + (i / 24 * 5) - (i / 24 < cut ? 0 : cut * 24 * 12 + cut * 5);
                     int y = j * 12 + (i / 24 < cut ? 0 : 8*12);
                     p.Location = new Point(x, y);
@@ -249,16 +205,16 @@ namespace FOK_GYEM_Ultimate
 
         private void PanelClick(object sender, EventArgs e)
         {
-            var p = sender as Panel;
+            if (sender is not Panel p) return;
             p.BackColor = (p.BackColor == InactiveColor) ? ActiveColor : InactiveColor;
-            SDK.PixelUpdated(new pixelData(new loc(int.Parse(p.Name)), p.BackColor == ActiveColor));
+            SDK.PixelUpdated(new PixelData(new Loc(int.Parse(p.Name)), p.BackColor == ActiveColor));
         }
 
-        public bool SetPixel(pixelData data)
+        public bool SetPixel(PixelData data)
         {
             var controls = containerPanel.Controls;
-            var p = controls.Find(data.loc.serial.ToString(), false)[0];
-            p.BackColor = data.state ? ActiveColor : InactiveColor;
+            var p = controls.Find(data.Loc.Serial.ToString(), false)[0];
+            p.BackColor = data.State ? ActiveColor : InactiveColor;
 
             SDK.PixelUpdated(data); // Called to let the other plugins know that data has changed
             return p.BackColor == ActiveColor;
@@ -406,10 +362,7 @@ namespace FOK_GYEM_Ultimate
             var dr = saveDialog.ShowDialog();
             if (dr != DialogResult.OK) return;
 
-            if (_generator is not ArduinoGenerator)
-            {
-                _generator = new ArduinoGenerator();
-            }
+            _generator ??= new ArduinoGenerator();
 
             if (!_generator.Init())
             {
@@ -490,6 +443,7 @@ namespace FOK_GYEM_Ultimate
                 MessageBox.Show(@"Couldn't find the resources/fonts directory.", @"Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            SDK.ScreenUpdated(GetBitArray());
         }
 
         private void symbolEditStrip_Click(object sender, EventArgs e)
@@ -504,7 +458,7 @@ namespace FOK_GYEM_Ultimate
                 MessageBox.Show(@"Couldn't find the resources/symbols directory.", @"Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            SDK.ScreenUpdated(GetBitArray());
         }
 
         #endregion
@@ -601,32 +555,32 @@ namespace FOK_GYEM_Ultimate
 
         private void animUpBtn_Click(object sender, EventArgs e)
         {
-            if (_currentFrame.i - 1 >= 0 && _currentFrame.i - 1 < Animation.FrameCount)
-                Animation.AnimationFrames.Reverse(_currentFrame.i - 1, 2);
-            updateFrameCombo();
+            if (_currentFrame.I - 1 >= 0 && _currentFrame.I - 1 < Animation.FrameCount)
+                Animation.AnimationFrames.Reverse(_currentFrame.I - 1, 2);
+            UpdateFrameCombo();
         }
 
         private void animDownBtn_Click(object sender, EventArgs e)
         {
-            if (_currentFrame.i >= 0 && _currentFrame.i < Animation.FrameCount)
-                Animation.AnimationFrames.Reverse(_currentFrame.i, 2);
-            updateFrameCombo();
+            if (_currentFrame.I >= 0 && _currentFrame.I < Animation.FrameCount)
+                Animation.AnimationFrames.Reverse(_currentFrame.I, 2);
+            UpdateFrameCombo();
         }
 
         private void animDelBtn_Click(object sender, EventArgs e)
         {
-            Animation.AnimationFrames.RemoveAt(_currentFrame.i);
-            updateFrameCombo();
+            Animation.AnimationFrames.RemoveAt(_currentFrame.I);
+            UpdateFrameCombo();
         }
         
         private void animSaveBtn_Click(object sender, EventArgs e) =>
-            Animation.AnimationFrames[_currentFrame.i].Frame = GetBitArray();
+            Animation.AnimationFrames[_currentFrame.I].Frame = GetBitArray();
 
 
         private void animRelBtn_Click(object sender, EventArgs e) =>
             frameCombo_SelectedValueChanged(sender, e);
 
-        private void updateFrameCombo()
+        private void UpdateFrameCombo()
         {
             frameCombo.Items.Clear();
             foreach (var name in Animation.GetAllNames())
@@ -637,62 +591,7 @@ namespace FOK_GYEM_Ultimate
 
         private void transBtn_Click(object sender, EventArgs e)
         {
-            var type = transitionCombo.Text;
-            var tn = int.Parse(type[..1]);
-
-            var tmp = new BitArray(7*24*ModCnt);
-
-            switch (tn)
-            {
-                case 1:
-                    // 11111111
-                    for (int i = 0; i < tmp.Length; i++) tmp[i] = true;
-                    break;
-                case 2:
-                    // 00000000
-                    for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
-                    break;
-                case 3:
-                    // 11111111 00000000
-                    var tmp2 = new BitArray(7 * 24 * ModCnt);
-                    for (int i = 0; i < tmp2.Length; i++) tmp2[i] = true;
-                    Animation.NewFrame(tmp2, $"Pat{Animation.FrameCount} ({type})", 0);
-                    for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
-                    break;
-                case 4:
-                    // 10101010
-                    for (int i = 0; i < tmp.Length; i++)
-                    {
-                        if (i % 2 == 0) tmp[i] = true;
-                        else tmp[i] = false;
-                    }
-                    break;
-                case 5:
-                    // 01010101
-                    for (int i = 0; i < tmp.Length; i++)
-                    {
-                        if (i % 2 == 0) tmp[i] = false;
-                        else tmp[i] = true;
-                    }
-                    break;
-                case 6:
-                    // 10101010 01010101
-                    var tmp3 = new BitArray(7 * 24 * ModCnt);
-                    for (int i = 0; i < tmp3.Length; i++)
-                    {
-                        if (i % 2 == 0) tmp3[i] = true;
-                        else tmp3[i] = false;
-                    }
-                    Animation.NewFrame(tmp3, $"Pat{Animation.FrameCount} ({type})", 0);
-                    for (int i = 0; i < tmp.Length; i++)
-                    {
-                        if (i % 2 == 0) tmp[i] = false;
-                        else tmp[i] = true;
-                    }
-                    break;
-            }
-            
-            Animation.NewFrame(tmp, $"pat{Animation.FrameCount} ({type})", 0);
+            Animation.AddTransition(transitionCombo.Text, ModCnt);
             framesLabel.Text = @"Number of frames: " + Animation.FrameCount;
         }
 

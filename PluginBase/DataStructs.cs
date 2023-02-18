@@ -1,53 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-
 namespace PluginBase
 {
-    public class loc
+    public class Loc
     {
-        public int x;
-        public int y;
-        public int serial;
+        public int X;
+        public int Y;
+        public int Serial;
 
         /// <summary>
         /// Location based on XY Coordinates
         /// </summary>
-        public loc(int x, int y)
+        public Loc(int x, int y)
         {
-            this.x = x;
-            this.y = y;
-            serial = x + y * Config.ModuleH * Config.ModuleCount;
+            X = x;
+            Y = y;
+            Serial = x + y * Config.ModuleH * Config.ModuleCount;
         }
         
         /// <summary>
         /// Location based on XY Coordinates within a module
         /// </summary>
-        public loc(int x, int y, int moduleN){ 
-            this.x = x + moduleN * Config.ModuleH;
-            this.y = y;
-            serial = (x + moduleN * Config.ModuleH) + y * Config.ModuleH * Config.ModuleCount;
+        public Loc(int x, int y, int moduleN){ 
+            X = x + moduleN * Config.ModuleH;
+            Y = y;
+            Serial = (x + moduleN * Config.ModuleH) + y * Config.ModuleH * Config.ModuleCount;
         }
 
         /// <summary>
         /// Location based on the serial location
         /// </summary>
-        public loc(int serial)
+        public Loc(int serial)
         {
-            this.serial = serial;
-            x = serial % (Config.ModuleH * Config.ModuleCount);
-            y = serial / (Config.ModuleH * Config.ModuleCount);
+            Serial = serial;
+            X = serial % (Config.ModuleH * Config.ModuleCount);
+            Y = serial / (Config.ModuleH * Config.ModuleCount);
         }
     }
 
-    public class pixelData
+    public class PixelData
     {
-        public loc loc;
-        public bool state;
-        public pixelData(loc loc, bool state){
-            this.loc = loc;
-            this.state = state;
+        public Loc Loc;
+        public bool State;
+        public PixelData(Loc loc, bool state){
+            Loc = loc;
+            State = state;
         }
 
-        public string debug => $"{{{loc.x};{loc.y}}} ({loc.serial}) - {state}";
+        public string Debug => $"{{{Loc.X};{Loc.Y}}} ({Loc.Serial}) - {State}";
     }
 }

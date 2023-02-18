@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using zsotroav;
 
@@ -41,15 +38,19 @@ namespace zsotroav
                 .ToDictionary(k => k.Name.ToString(), v => v.Value.ToString());
         }
 
-        public string Get(string variable) => _configs[variable];
+        public string Get(string variable, string defaultValue)
+        {
+            try { return _configs[variable];} 
+            catch { return defaultValue; }
+        }
 
-        public int GetInt(string variable)
+        public int GetInt(string variable, int defaultValue)
         {
             if (!_configs.ContainsKey(variable))
-                throw new InvalidOperationException("This variable doesn't have a value");
+                return defaultValue;
             return int.TryParse(_configs[variable], out _)
                 ? int.Parse(_configs[variable])
-                : throw new InvalidDataException("This variable is not an int");
+                : defaultValue;
         }
 
         public void Set(string variable, string value, bool save = true)
@@ -63,11 +64,9 @@ namespace zsotroav
             Save();
         }
 
-        private void Save()
-        {
+        private void Save() =>
             new XElement("root", _configs.Select(kv => new XElement(kv.Key, kv.Value)))
                 .Save(ConfFile, SaveOptions.OmitDuplicateNamespaces);
-        }
 
         public string[] GetPlugins()
         {
