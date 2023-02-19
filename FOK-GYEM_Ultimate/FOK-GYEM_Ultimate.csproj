@@ -5,6 +5,11 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>FOK_GYEM_Ultimate</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>FOK-GYEM.png</PackageIcon>
+    <RepositoryUrl>https://github.com/zsotroav/FOK-GYEM_Ultimate</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <ApplicationIcon>resources\FOK-GYEM.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +23,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="resources\FOK-GYEM.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PluginBase\PluginBase.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="resources\FOK-GYEM.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -53,7 +53,7 @@ namespace FOK_GYEM_Ultimate
             this.endModNumeric.Location = new System.Drawing.Point(112, 128);
             this.endModNumeric.Name = "endModNumeric";
             this.endModNumeric.Size = new System.Drawing.Size(130, 23);
-            this.endModNumeric.TabIndex = 29;
+            this.endModNumeric.TabIndex = 5;
             this.endModNumeric.ValueChanged += new System.EventHandler(this.endModNumeric_ValueChanged);
             // 
             // label7
@@ -79,14 +79,14 @@ namespace FOK_GYEM_Ultimate
             this.endPxNumeric.Location = new System.Drawing.Point(112, 99);
             this.endPxNumeric.Name = "endPxNumeric";
             this.endPxNumeric.Size = new System.Drawing.Size(130, 23);
-            this.endPxNumeric.TabIndex = 26;
+            this.endPxNumeric.TabIndex = 4;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(12, 177);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(230, 23);
-            this.button1.TabIndex = 25;
+            this.button1.TabIndex = 7;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -96,9 +96,9 @@ namespace FOK_GYEM_Ultimate
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 156);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 15);
+            this.label5.Size = new System.Drawing.Size(87, 15);
             this.label5.TabIndex = 24;
-            this.label5.Text = "Center text:";
+            this.label5.Text = "Center symbol:";
             // 
             // symbolCombo
             // 
@@ -106,14 +106,14 @@ namespace FOK_GYEM_Ultimate
             this.symbolCombo.Location = new System.Drawing.Point(112, 12);
             this.symbolCombo.Name = "symbolCombo";
             this.symbolCombo.Size = new System.Drawing.Size(130, 23);
-            this.symbolCombo.TabIndex = 23;
+            this.symbolCombo.TabIndex = 1;
             // 
             // OffModNumeric
             // 
             this.OffModNumeric.Location = new System.Drawing.Point(112, 70);
             this.OffModNumeric.Name = "OffModNumeric";
             this.OffModNumeric.Size = new System.Drawing.Size(130, 23);
-            this.OffModNumeric.TabIndex = 22;
+            this.OffModNumeric.TabIndex = 3;
             this.OffModNumeric.ValueChanged += new System.EventHandler(this.OffModNumeric_ValueChanged);
             // 
             // OffPxNumeric
@@ -121,7 +121,7 @@ namespace FOK_GYEM_Ultimate
             this.OffPxNumeric.Location = new System.Drawing.Point(112, 41);
             this.OffPxNumeric.Name = "OffPxNumeric";
             this.OffPxNumeric.Size = new System.Drawing.Size(130, 23);
-            this.OffPxNumeric.TabIndex = 21;
+            this.OffPxNumeric.TabIndex = 2;
             // 
             // label4
             // 
@@ -148,7 +148,7 @@ namespace FOK_GYEM_Ultimate
             this.centerCheckBox.Name = "centerCheckBox";
             this.centerCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.centerCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.centerCheckBox.TabIndex = 17;
+            this.centerCheckBox.TabIndex = 6;
             this.centerCheckBox.UseVisualStyleBackColor = true;
             // 
             // label1

@@ -26,7 +26,7 @@ namespace FOK_GYEM_Ultimate
             }
             if (n == 0)
             {
-                MessageBox.Show(@"Couldn't find a single font!", @"Error", MessageBoxButtons.OK,
+                MessageBox.Show(@"Couldn't find a single font!", @"Text insert error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }
@@ -45,7 +45,7 @@ namespace FOK_GYEM_Ultimate
             button1.Enabled = false;
             if (!string.IsNullOrEmpty(fontCombo.Text) && External.FileExists($@"resources/fonts/{fontCombo.Text}.bmp"))
                 TextGenFun(fontCombo.Text, textBox.Text, (int) OffPxNumeric.Value, centerCheckBox.Checked);
-            else MessageBox.Show(@"Font not found", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else MessageBox.Show(@"Font not found", @"Text insert error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Close();
         }
 
@@ -73,13 +73,15 @@ namespace FOK_GYEM_Ultimate
             {
                 if (!chars.ContainsKey(c))
                 {
-                    MessageBox.Show($@"Character '{c}' is not supported in the selected font. Aborting...", @"Error",
+                    MessageBox.Show($@"Character '{c}' is not supported in the selected font. Aborting...", 
+                        @"Text insert error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 n += chars[c][1] - chars[c][0] - 1;
                 if (n <= (int)endPxNumeric.Value - offset) continue;
-                MessageBox.Show(@"This much text would overflow. Please try again with a shorter text.", @"Error",
+                MessageBox.Show(@"This much text would overflow. Please try again with a shorter text.", 
+                    @"Text insert error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

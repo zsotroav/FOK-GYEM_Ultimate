@@ -23,7 +23,8 @@ namespace FOK_GYEM_Ultimate
             }
             if (n == 0)
             {
-                MessageBox.Show(@"Couldn't find a single symbol!", @"Error", MessageBoxButtons.OK,
+                MessageBox.Show(@"Couldn't find a single symbol!",
+                    @"Symbol insert error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }
@@ -42,7 +43,7 @@ namespace FOK_GYEM_Ultimate
             button1.Enabled = false;
             if (!string.IsNullOrEmpty(symbolCombo.Text) && External.FileExists($@"resources/symbols/{symbolCombo.Text}.bmp"))
                 SymbolGenFun(symbolCombo.Text, (int)OffPxNumeric.Value, (int)endPxNumeric.Value, centerCheckBox.Checked);
-            else MessageBox.Show(@"Symbol not found", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else MessageBox.Show(@"Symbol not found", @"Symbol insert error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Close();
         }
 
@@ -53,7 +54,8 @@ namespace FOK_GYEM_Ultimate
             if (end - offset < symbolBmp.Width)
             {
 
-                MessageBox.Show(@"This much text would overflow. Please try again with a shorter text.", @"Error",
+                MessageBox.Show(@"The selected symbol doesn't fit in the allowed area.", 
+                    @"Symbol insert error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

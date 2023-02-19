@@ -75,7 +75,7 @@ namespace FOK_GYEM_Ultimate
             this.centerCheckBox.Name = "centerCheckBox";
             this.centerCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.centerCheckBox.Size = new System.Drawing.Size(15, 14);
-            this.centerCheckBox.TabIndex = 2;
+            this.centerCheckBox.TabIndex = 7;
             this.centerCheckBox.UseVisualStyleBackColor = true;
             // 
             // label3
@@ -101,21 +101,21 @@ namespace FOK_GYEM_Ultimate
             this.textBox.Location = new System.Drawing.Point(112, 41);
             this.textBox.Name = "textBox";
             this.textBox.Size = new System.Drawing.Size(130, 23);
-            this.textBox.TabIndex = 5;
+            this.textBox.TabIndex = 2;
             // 
             // OffPxNumeric
             // 
             this.OffPxNumeric.Location = new System.Drawing.Point(112, 70);
             this.OffPxNumeric.Name = "OffPxNumeric";
             this.OffPxNumeric.Size = new System.Drawing.Size(130, 23);
-            this.OffPxNumeric.TabIndex = 6;
+            this.OffPxNumeric.TabIndex = 3;
             // 
             // OffModNumeric
             // 
             this.OffModNumeric.Location = new System.Drawing.Point(112, 99);
             this.OffModNumeric.Name = "OffModNumeric";
             this.OffModNumeric.Size = new System.Drawing.Size(130, 23);
-            this.OffModNumeric.TabIndex = 7;
+            this.OffModNumeric.TabIndex = 4;
             this.OffModNumeric.ValueChanged += new System.EventHandler(this.OffModNumeric_ValueChanged);
             // 
             // fontCombo
@@ -124,7 +124,7 @@ namespace FOK_GYEM_Ultimate
             this.fontCombo.Location = new System.Drawing.Point(112, 12);
             this.fontCombo.Name = "fontCombo";
             this.fontCombo.Size = new System.Drawing.Size(130, 23);
-            this.fontCombo.TabIndex = 8;
+            this.fontCombo.TabIndex = 1;
             // 
             // label5
             // 
@@ -140,7 +140,7 @@ namespace FOK_GYEM_Ultimate
             this.button1.Location = new System.Drawing.Point(12, 206);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(230, 23);
-            this.button1.TabIndex = 10;
+            this.button1.TabIndex = 8;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -150,7 +150,7 @@ namespace FOK_GYEM_Ultimate
             this.endPxNumeric.Location = new System.Drawing.Point(112, 128);
             this.endPxNumeric.Name = "endPxNumeric";
             this.endPxNumeric.Size = new System.Drawing.Size(130, 23);
-            this.endPxNumeric.TabIndex = 11;
+            this.endPxNumeric.TabIndex = 5;
             // 
             // label6
             // 
@@ -175,7 +175,7 @@ namespace FOK_GYEM_Ultimate
             this.endModNumeric.Location = new System.Drawing.Point(112, 157);
             this.endModNumeric.Name = "endModNumeric";
             this.endModNumeric.Size = new System.Drawing.Size(130, 23);
-            this.endModNumeric.TabIndex = 14;
+            this.endModNumeric.TabIndex = 6;
             this.endModNumeric.ValueChanged += new System.EventHandler(this.endModNumeric_ValueChanged);
             // 
             // FormText

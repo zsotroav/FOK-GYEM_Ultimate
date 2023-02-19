@@ -49,58 +49,61 @@ namespace FOK_GYEM_Ultimate
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 20);
+            this.label1.Size = new System.Drawing.Size(117, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Panel Module count:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 48);
+            this.label2.Location = new System.Drawing.Point(12, 41);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(178, 20);
+            this.label2.Size = new System.Drawing.Size(143, 15);
             this.label2.TabIndex = 0;
             this.label2.Text = "Panel Module breakpoint:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 81);
+            this.label3.Location = new System.Drawing.Point(12, 71);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 20);
+            this.label3.Size = new System.Drawing.Size(99, 15);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Active color:";
+            this.label3.Text = "Pixel active color:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 114);
+            this.label4.Location = new System.Drawing.Point(12, 98);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(101, 20);
+            this.label4.Size = new System.Drawing.Size(109, 15);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Inactive color:";
+            this.label4.Text = "Pixel inactive color:";
             // 
             // textActive
             // 
-            this.textActive.Location = new System.Drawing.Point(139, 78);
+            this.textActive.Location = new System.Drawing.Point(128, 67);
+            this.textActive.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textActive.Name = "textActive";
-            this.textActive.Size = new System.Drawing.Size(158, 27);
+            this.textActive.Size = new System.Drawing.Size(86, 23);
             this.textActive.TabIndex = 3;
             // 
             // textInactive
             // 
-            this.textInactive.Location = new System.Drawing.Point(139, 111);
+            this.textInactive.Location = new System.Drawing.Point(128, 95);
+            this.textInactive.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textInactive.Name = "textInactive";
-            this.textInactive.Size = new System.Drawing.Size(158, 27);
+            this.textInactive.Size = new System.Drawing.Size(86, 23);
             this.textInactive.TabIndex = 5;
             // 
             // btnActive
             // 
-            this.btnActive.Location = new System.Drawing.Point(303, 78);
+            this.btnActive.Location = new System.Drawing.Point(220, 66);
+            this.btnActive.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnActive.Name = "btnActive";
-            this.btnActive.Size = new System.Drawing.Size(27, 27);
+            this.btnActive.Size = new System.Drawing.Size(24, 23);
             this.btnActive.TabIndex = 4;
             this.btnActive.Text = "...";
             this.btnActive.UseVisualStyleBackColor = true;
@@ -108,9 +111,10 @@ namespace FOK_GYEM_Ultimate
             // 
             // btnInactive
             // 
-            this.btnInactive.Location = new System.Drawing.Point(303, 111);
+            this.btnInactive.Location = new System.Drawing.Point(220, 95);
+            this.btnInactive.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnInactive.Name = "btnInactive";
-            this.btnInactive.Size = new System.Drawing.Size(27, 27);
+            this.btnInactive.Size = new System.Drawing.Size(24, 23);
             this.btnInactive.TabIndex = 6;
             this.btnInactive.Text = "...";
             this.btnInactive.UseVisualStyleBackColor = true;
@@ -118,9 +122,10 @@ namespace FOK_GYEM_Ultimate
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(139, 145);
+            this.btnSave.Location = new System.Drawing.Point(127, 122);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(191, 29);
+            this.btnSave.Size = new System.Drawing.Size(117, 25);
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save new values";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -128,18 +133,18 @@ namespace FOK_GYEM_Ultimate
             // 
             // btnRestore
             // 
-            this.btnRestore.Location = new System.Drawing.Point(12, 145);
+            this.btnRestore.Location = new System.Drawing.Point(12, 122);
+            this.btnRestore.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRestore.Name = "btnRestore";
-            this.btnRestore.Size = new System.Drawing.Size(121, 29);
+            this.btnRestore.Size = new System.Drawing.Size(109, 25);
             this.btnRestore.TabIndex = 8;
-            this.btnRestore.Text = "Show original";
+            this.btnRestore.Text = "Reset";
             this.btnRestore.UseVisualStyleBackColor = true;
             this.btnRestore.Click += new System.EventHandler(this.btnRestore_Click);
             // 
             // numericCnt
             // 
-            this.numericCnt.Location = new System.Drawing.Point(196, 13);
-            this.numericCnt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numericCnt.Location = new System.Drawing.Point(161, 10);
             this.numericCnt.Maximum = new decimal(new int[] {
             16,
             0,
@@ -151,7 +156,7 @@ namespace FOK_GYEM_Ultimate
             0,
             0});
             this.numericCnt.Name = "numericCnt";
-            this.numericCnt.Size = new System.Drawing.Size(138, 27);
+            this.numericCnt.Size = new System.Drawing.Size(83, 23);
             this.numericCnt.TabIndex = 1;
             this.numericCnt.Value = new decimal(new int[] {
             1,
@@ -161,8 +166,7 @@ namespace FOK_GYEM_Ultimate
             // 
             // numericCut
             // 
-            this.numericCut.Location = new System.Drawing.Point(196, 46);
-            this.numericCut.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numericCut.Location = new System.Drawing.Point(161, 39);
             this.numericCut.Maximum = new decimal(new int[] {
             16,
             0,
@@ -174,7 +178,7 @@ namespace FOK_GYEM_Ultimate
             0,
             0});
             this.numericCut.Name = "numericCut";
-            this.numericCut.Size = new System.Drawing.Size(134, 27);
+            this.numericCut.Size = new System.Drawing.Size(83, 23);
             this.numericCut.TabIndex = 2;
             this.numericCut.Value = new decimal(new int[] {
             1,
@@ -184,9 +188,9 @@ namespace FOK_GYEM_Ultimate
             // 
             // FormSetDefaults
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 187);
+            this.ClientSize = new System.Drawing.Size(256, 157);
             this.Controls.Add(this.numericCut);
             this.Controls.Add(this.numericCnt);
             this.Controls.Add(this.btnRestore);
@@ -201,6 +205,7 @@ namespace FOK_GYEM_Ultimate
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormSetDefaults";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Default values";

@@ -33,7 +33,7 @@ namespace FOK_GYEM_Ultimate
 
             if (dr == DialogResult.OK)
             {
-                textInactive.Text = ColorTranslator.ToHtml(colorDialog1.Color);
+                textActive.Text = ColorTranslator.ToHtml(colorDialog1.Color);
             }
         }
 
