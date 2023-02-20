@@ -450,7 +450,6 @@ namespace FOK_GYEM_Ultimate
                 MessageBox.Show(@"Couldn't find the resources/fonts directory.", @"Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            SDK.ScreenUpdated(GetBitArray());
         }
 
         private void symbolEditStrip_Click(object sender, EventArgs e)
@@ -465,7 +464,6 @@ namespace FOK_GYEM_Ultimate
                 MessageBox.Show(@"Couldn't find the resources/symbols directory.", @"Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            SDK.ScreenUpdated(GetBitArray());
         }
 
         #endregion

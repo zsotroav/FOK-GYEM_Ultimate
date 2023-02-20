@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PluginBase;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -74,6 +75,7 @@ namespace FOK_GYEM_Ultimate
                             : _formMain.InactiveColor;
                 }
             }
+            SDK.ScreenUpdated(_formMain.GetBitArray());
         }
 
         private void OffModNumeric_ValueChanged(object sender, EventArgs e)

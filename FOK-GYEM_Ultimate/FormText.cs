@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PluginBase;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -106,6 +107,7 @@ namespace FOK_GYEM_Ultimate
 
                 n += chars[c][1] - chars[c][0] - 1;
             }
+            SDK.ScreenUpdated(_formMain.GetBitArray());
         }
 
         private void OffModNumeric_ValueChanged(object sender, EventArgs e)
