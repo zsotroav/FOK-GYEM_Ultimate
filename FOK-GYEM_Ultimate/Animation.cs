@@ -101,7 +101,7 @@ namespace FOK_GYEM_Ultimate
 
         public void AddTransition(string type, int modCnt)
         {
-            var tmp = new BitArray(7 * 24 * modCnt);
+            var tmp = new BitArray(Config.ModuleV * Config.ModuleH * modCnt);
             switch (int.Parse(type[..1]))
             {
                 case 1:
@@ -114,7 +114,7 @@ namespace FOK_GYEM_Ultimate
                     break;
                 case 3:
                     // 11111111 00000000
-                    var tmp2 = new BitArray(7 * 24 * modCnt);
+                    var tmp2 = new BitArray(Config.ModuleV * Config.ModuleH * modCnt);
                     for (int i = 0; i < tmp2.Length; i++) tmp2[i] = true;
                     NewFrame(tmp2, $"Pat{FrameCount} ({type})", 0);
                     for (int i = 0; i < tmp.Length; i++) tmp[i] = false;
@@ -137,7 +137,7 @@ namespace FOK_GYEM_Ultimate
                     break;
                 case 6:
                     // 10101010 01010101
-                    var tmp3 = new BitArray(7 * 24 * modCnt);
+                    var tmp3 = new BitArray(Config.ModuleV * Config.ModuleH * modCnt);
                     for (int i = 0; i < tmp3.Length; i++)
                     {
                         if (i % 2 == 0) tmp3[i] = true;

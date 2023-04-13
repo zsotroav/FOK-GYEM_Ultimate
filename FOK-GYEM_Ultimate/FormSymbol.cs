@@ -31,11 +31,11 @@ namespace FOK_GYEM_Ultimate
             }
             symbolCombo.SelectedIndex = 0;
             OffModNumeric.Maximum = _formMain.ModCnt;
-            OffPxNumeric.Maximum = _formMain.ModCnt * 24;
+            OffPxNumeric.Maximum = _formMain.ModCnt * _formMain.ModH;
             endModNumeric.Maximum = _formMain.ModCnt;
-            endPxNumeric.Maximum = _formMain.ModCnt * 24;
+            endPxNumeric.Maximum = _formMain.ModCnt * _formMain.ModH;
             endModNumeric.Value = _formMain.ModCnt;
-            endPxNumeric.Value = _formMain.ModCnt * 24;
+            endPxNumeric.Value = _formMain.ModCnt * _formMain.ModH;
 
         }
 
@@ -69,7 +69,7 @@ namespace FOK_GYEM_Ultimate
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    pan.Find((n + i + (j * _formMain.ModCnt * 24)).ToString(), false)[0].BackColor =
+                    pan.Find((n + i + (j * _formMain.ModCnt * _formMain.ModH)).ToString(), false)[0].BackColor =
                         symbolBmp.GetPixel(i, j) != Color.FromArgb(0, 0, 0)
                             ? _formMain.ActiveColor
                             : _formMain.InactiveColor;
@@ -80,12 +80,12 @@ namespace FOK_GYEM_Ultimate
 
         private void OffModNumeric_ValueChanged(object sender, EventArgs e)
         {
-            OffPxNumeric.Value = OffModNumeric.Value * 24;
+            OffPxNumeric.Value = OffModNumeric.Value * _formMain.ModH;
         }
 
         private void endModNumeric_ValueChanged(object sender, EventArgs e)
         {
-            endPxNumeric.Value = endModNumeric.Value * 24;
+            endPxNumeric.Value = endModNumeric.Value * _formMain.ModH;
         }
     }
 }

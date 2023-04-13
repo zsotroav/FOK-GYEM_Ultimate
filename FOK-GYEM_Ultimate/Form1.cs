@@ -18,8 +18,11 @@ namespace FOK_GYEM_Ultimate
         public Color InactiveColor;
         public Color ActiveColor;
 
-        public int ModCnt = Config.ModuleCount;
-        public int ModCut = Config.ModuleCut;
+        public int ModCnt;
+        public int ModCut;
+
+        public int ModH = Config.ModuleH;
+        public int ModV = Config.ModuleV;
         internal ConfigLoader ConfLoader = new();
         
         public FormMain()
@@ -162,6 +165,8 @@ namespace FOK_GYEM_Ultimate
 
         public void GenModules(int n, int cut)
         {
+            int h = ModH;
+            int v = ModV;
             ModCnt = n;
             Config.ModuleCount = n;
             ModCut = cut;
@@ -170,17 +175,17 @@ namespace FOK_GYEM_Ultimate
             panelDataBStrip.Text = (n-cut).ToString();
 
             containerPanel.Controls.Clear();
-            for (int i = 0; i < n*24; i++)
+            for (int i = 0; i < n * h; i++)
             {
-                for (int j = 1; j < 8; j++)
+                for (int j = 1; j <= v; j++)
                 {
                     var p = new Panel
                     {
-                        Name = (i + (j - 1) * 24 * n).ToString(),
+                        Name = (i + (j - 1) * h * n).ToString(),
                         Size = new Size(10, 10)
                     };
-                    int x = i * 12 + (i / 24 * 5) - (i / 24 < cut ? 0 : cut * 24 * 12 + cut * 5);
-                    int y = j * 12 + (i / 24 < cut ? 0 : 8*12);
+                    int x = i * 12 + (i / h * 5) - (i / h < cut ? 0 : cut * h * 12 + cut * 5);
+                    int y = j * 12 + (i / h < cut ? 0 : 8*12);
                     p.Location = new Point(x, y);
                     p.BackColor = InactiveColor;
                     p.Click += PanelClick;
@@ -191,19 +196,21 @@ namespace FOK_GYEM_Ultimate
 
         public void SetCut(int cut)
         {
+            int h = ModH;
+            int v = ModV;
             ModCut = cut;
             Config.ModuleCut = cut;
             panelDataAStrip.Text = cut.ToString();
             panelDataBStrip.Text = (ModCnt - cut).ToString();
 
             var controls = containerPanel.Controls;
-            for (int i = 0; i < ModCnt * 24; i++)
+            for (int i = 0; i < ModCnt * h; i++)
             {
-                for (int j = 1; j < 8; j++)
+                for (int j = 1; j <= v; j++)
                 {
-                    var p = controls.Find((i + (j - 1) * 24 * ModCnt).ToString(),false)[0];
-                    int x = i * 12 + (i / 24 * 5) - (i / 24 < cut ? 0 : cut * 24 * 12 + cut * 5);
-                    int y = j * 12 + (i / 24 < cut ? 0 : 8 * 12);
+                    var p = controls.Find((i + (j - 1) * h * ModCnt).ToString(),false)[0];
+                    int x = i * 12 + (i / h * 5) - (i / h < cut ? 0 : cut * h * 12 + cut * 5);
+                    int y = j * 12 + (i / h < cut ? 0 : 8 * 12);
                     p.Location = new Point(x, y);
                 }
             }
@@ -231,9 +238,9 @@ namespace FOK_GYEM_Ultimate
         
         public BitArray GetBitArray()
         {
-            BitArray output = new(24 * 7 * ModCnt);
+            BitArray output = new(ModH * ModV * ModCnt);
             var c = containerPanel.Controls;
-            for (int i = 0; i < 24 * 7 * ModCnt; i++)
+            for (int i = 0; i < ModH * ModV * ModCnt; i++)
             {
                 output[i] = c.Find(i.ToString(), false)[0].BackColor == ActiveColor;
             }
@@ -275,7 +282,7 @@ namespace FOK_GYEM_Ultimate
 
             var bits = new BitArray(primary);
 
-            if (bits.Length/(7*24) != ModCnt) GenModules(bits.Length/(7*24),0);
+            if (bits.Length/(ModV*ModH) != ModCnt) GenModules(bits.Length/(ModV*ModH),0);
 
             for (var i = 0; i < bits.Length; i++)
             {
@@ -294,21 +301,21 @@ namespace FOK_GYEM_Ultimate
 
             var bmp = new Bitmap(Image.FromFile(loc));
 
-            if (bmp.Width % 24 != 0 || bmp.Height != 7)
+            if (bmp.Width % ModH != 0 || bmp.Height != ModV)
             {
                 MessageBox.Show(@"Bitmap dimensions are incorrect", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (bmp.Width / 24 != ModCnt) GenModules(bmp.Width / 24, bmp.Width / 24);
+            if (bmp.Width / ModH != ModCnt) GenModules(bmp.Width / ModH, bmp.Width / ModH);
             
             var c = containerPanel.Controls;
-            for (int x = 0; x < 24 * ModCnt; x++)
+            for (int x = 0; x < ModH * ModCnt; x++)
             {
-                for (int y = 0; y < 7; y++)
+                for (int y = 0; y < ModV; y++)
                 {
                     var col = bmp.GetPixel(x, y);
                     var gs = (Int32)(col.R * 0.3 + col.G * 0.59 + col.B * 0.11);
-                    c.Find((x + y * 24 * ModCnt).ToString(), false)[0].BackColor =
+                    c.Find((x + y * ModH * ModCnt).ToString(), false)[0].BackColor =
                         Color.FromArgb(gs, gs, gs) == Color.FromArgb(0, 0, 0) ? InactiveColor : ActiveColor;
                 }
             }
@@ -342,14 +349,14 @@ namespace FOK_GYEM_Ultimate
             var dr = saveDialog.ShowDialog();
             if (dr != DialogResult.OK) return;
 
-            Bitmap bmp = new(24*ModCnt, 7);
+            Bitmap bmp = new(ModH * ModCnt, ModV);
             var c = containerPanel.Controls;
-            for (int x = 0; x < 24*ModCnt; x++)
+            for (int x = 0; x < ModH * ModCnt; x++)
             {
-                for (int y = 0; y < 7; y++)
+                for (int y = 0; y < ModV; y++)
                 {
                     bmp.SetPixel(x, y,
-                        c.Find((x + y * 24 * ModCnt).ToString(), false)[0].BackColor == InactiveColor
+                        c.Find((x + y * ModH * ModCnt).ToString(), false)[0].BackColor == InactiveColor
                             ? Color.Black
                             : Color.White);
                 }
@@ -395,7 +402,7 @@ namespace FOK_GYEM_Ultimate
         {
             var formNewSize = new FormNewSize(this);
             formNewSize.ShowDialog();
-            SDK.ScreenSizeChanged(ModCnt, ModCut, 24, 7);
+            SDK.ScreenSizeChanged(ModCnt, ModCut, ModH, ModV);
         }
 
         #endregion
@@ -408,7 +415,7 @@ namespace FOK_GYEM_Ultimate
             {
                 if (c is Panel) c.BackColor = InactiveColor;
             }
-            SDK.ScreenUpdated(new BitArray(Config.ModuleCount*Config.ModuleH*Config.ModuleV, false));
+            SDK.ScreenUpdated(new BitArray(Config.ModuleCount*ModH*ModV, false));
         }
         
         public void InvertPanel(object sender, EventArgs e)
@@ -422,17 +429,17 @@ namespace FOK_GYEM_Ultimate
 
         public void FlipVertically(object sender, EventArgs e)
         {
-            var copy = new BitArray(ModCnt * 24 * 7);
+            var copy = new BitArray(ModCnt * ModH * ModV);
             var c = containerPanel.Controls;
-            for (int i = 0; i < 24 * 7 * ModCnt; i++)
+            for (int i = 0; i < ModH * ModV * ModCnt; i++)
                 copy[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
 
-            for (int i = 0; i < ModCnt * 24; i++)
+            for (int i = 0; i < ModCnt * ModH; i++)
             {
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < ModV; j++)
                 {
-                    c.Find((i + j * 24 * ModCnt).ToString(), false)[0].BackColor =
-                        copy[i + (6 - j) * 24 * ModCnt] ? ActiveColor : InactiveColor;
+                    c.Find((i + j * ModH * ModCnt).ToString(), false)[0].BackColor =
+                        copy[i + (6 - j) * ModH * ModCnt] ? ActiveColor : InactiveColor;
                 }
             }
             SDK.ScreenUpdated(GetBitArray());
@@ -560,24 +567,33 @@ namespace FOK_GYEM_Ultimate
 
         private void animUpBtn_Click(object sender, EventArgs e)
         {
-            if (_currentFrame.I - 1 >= 0 && _currentFrame.I - 1 < Animation.FrameCount)
-                Animation.AnimationFrames.Reverse(_currentFrame.I - 1, 2);
-            UpdateFrameCombo();
+            try
+            {
+                if (_currentFrame.I - 1 >= 0 && _currentFrame.I - 1 < Animation.FrameCount)
+                    Animation.AnimationFrames.Reverse(_currentFrame.I - 1, 2);
+                UpdateFrameCombo();
+            } catch { PluginCommunicate("Animation error", "Invalid frame operation", "error"); }
         }
 
         private void animDownBtn_Click(object sender, EventArgs e)
         {
-            if (_currentFrame.I >= 0 && _currentFrame.I < Animation.FrameCount)
-                Animation.AnimationFrames.Reverse(_currentFrame.I, 2);
-            UpdateFrameCombo();
+            try
+            {
+                if (_currentFrame.I >= 0 && _currentFrame.I < Animation.FrameCount)
+                    Animation.AnimationFrames.Reverse(_currentFrame.I, 2);
+                UpdateFrameCombo();
+            } catch { PluginCommunicate("Animation error", "Invalid frame operation", "error"); }
         }
 
         private void animDelBtn_Click(object sender, EventArgs e)
         {
-            Animation.AnimationFrames.RemoveAt(_currentFrame.I);
-            UpdateFrameCombo();
+            try
+            {
+                Animation.AnimationFrames.RemoveAt(_currentFrame.I);
+                UpdateFrameCombo();
+            } catch { PluginCommunicate("Animation error", "Invalid frame operation", "error"); }
         }
-        
+
         private void animSaveBtn_Click(object sender, EventArgs e) =>
             Animation.AnimationFrames[_currentFrame.I].Frame = GetBitArray();
 
