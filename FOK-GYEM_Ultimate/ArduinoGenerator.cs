@@ -15,10 +15,10 @@ namespace FOK_GYEM_Ultimate
         public bool Init()
         {
             if (Ready) return true;
-            if (!External.FileExists("resources/arduino/main-cpp_template.txt")) return false;
+            if (ResourceLoader.GetResourcePath("arduino", "main-cpp_template.txt") == "") return false;
             try
             {
-                _template = File.ReadAllText("resources/arduino/main-cpp_template.txt", Encoding.UTF8);
+                _template = File.ReadAllText(ResourceLoader.GetResourcePath("arduino", "main-cpp_template.txt"), Encoding.UTF8);
                 Ready = true;
                 return true;
             }

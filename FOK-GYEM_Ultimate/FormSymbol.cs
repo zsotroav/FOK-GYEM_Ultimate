@@ -1,9 +1,7 @@
 ﻿using PluginBase;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
-using zsotroav;
 
 namespace FOK_GYEM_Ultimate
 {
@@ -15,11 +13,11 @@ namespace FOK_GYEM_Ultimate
             _formMain = main as FormMain;
             InitializeComponent();
 
-            string[] fonts = Directory.GetFiles(@"resources/symbols/", "*.bmp");
+            var symbols = ResourceLoader.GetResourceListPattern("symbols", "*.bmp");
             var n = 0;
-            foreach (var font in fonts)
+            foreach (var symbol in symbols)
             {
-                symbolCombo.Items.Add(External.NameNoExtFromPath(font));
+                symbolCombo.Items.Add(symbol);
                 n++;
             }
             if (n == 0)
@@ -42,7 +40,8 @@ namespace FOK_GYEM_Ultimate
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            if (!string.IsNullOrEmpty(symbolCombo.Text) && External.FileExists($@"resources/symbols/{symbolCombo.Text}.bmp"))
+            if (!string.IsNullOrEmpty(symbolCombo.Text) &&
+                ResourceLoader.GetResourcePath("symbols", $"{symbolCombo.Text}.bmp") != "")
                 SymbolGenFun(symbolCombo.Text, (int)OffPxNumeric.Value, (int)endPxNumeric.Value, centerCheckBox.Checked);
             else MessageBox.Show(@"Symbol not found", @"Symbol insert error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Close();
@@ -50,7 +49,7 @@ namespace FOK_GYEM_Ultimate
 
         public void SymbolGenFun(string symbol, int offset, int end, bool center)
         {
-            var symbolBmp = (Bitmap)Image.FromFile($@"resources/symbols/{symbol}.bmp");
+            var symbolBmp = (Bitmap)Image.FromFile(ResourceLoader.GetResourcePath("symbols", $"{symbol}.bmp"));
 
             if (end - offset < symbolBmp.Width)
             {

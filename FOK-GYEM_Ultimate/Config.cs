@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using zsotroav;
 
 namespace zsotroav
 {
@@ -11,7 +10,6 @@ namespace zsotroav
     {
         public static readonly string AppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string ConfDir = Path.Combine(AppDataDir, "zsotroav");
-        public static string PluginDir;
         public string ConfFile;
 
         private Dictionary<string, string> _configs = new();
@@ -20,9 +18,6 @@ namespace zsotroav
         {
             ConfDir = Path.Combine(ConfDir, appName);
             ConfFile = Path.Combine(ConfDir, "conf.xml");
-            PluginDir = Path.Combine(ConfDir, "Plugins");
-
-            if (!Directory.Exists(PluginDir)) Directory.CreateDirectory(PluginDir);
 
             if (!File.Exists(ConfFile))
             {
@@ -67,13 +62,5 @@ namespace zsotroav
         private void Save() =>
             new XElement("root", _configs.Select(kv => new XElement(kv.Key, kv.Value)))
                 .Save(ConfFile, SaveOptions.OmitDuplicateNamespaces);
-
-        public string[] GetPlugins()
-        {
-            var re = new List<string>();
-            re.AddRange(Directory.GetFiles(PluginDir, "*.dll"));
-            re.AddRange(Directory.GetFiles("resources/Plugins/", "*.dll"));
-            return re.ToArray();
-        }
     }
 }

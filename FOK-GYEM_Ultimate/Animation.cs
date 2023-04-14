@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Runtime.Intrinsics.X86;
 using System.Windows.Forms;
 using PluginBase;
@@ -42,7 +43,7 @@ namespace FOK_GYEM_Ultimate
 
         public void Export(string loc, bool loop, int loopDelay)
         {
-            var template = File.ReadAllText("resources/Arduino/animation_template.txt");
+            var template = File.ReadAllText(ResourceLoader.GetResourcePath("Arduino", "animation_template.txt"));
             template = template.Replace("##FRAME_DATA##", BuildData());
             template = template.Replace("##LOOP##", loop ? "} void loop() {" : "// Loop start");
             template += loop ? "" : "void loop() { }";

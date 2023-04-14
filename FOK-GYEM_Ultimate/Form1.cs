@@ -25,13 +25,17 @@ namespace FOK_GYEM_Ultimate
         public int ModV = Config.ModuleV;
         internal ConfigLoader ConfLoader = new();
         
-        public FormMain()
+        public FormMain(string[] args)
         {
             ConfLoader.Init("FOK-GYEM_ultimate");
             InitializeComponent();
 
             LoadConfig();
-            GenModules(ModCnt,ModCut);
+            if (args.Length == 1 && args[0].Length > 4)
+            {
+                if (args[0][^4..] == ".png" || args[0][^4..] == ".bmp") LoadFromBmpFile(args[0], true);
+                if (args[0][^4..] == ".bin") LoadFromBinFile(args[0], true);
+            } else GenModules(ModCnt,ModCut);
 
             try { PluginsInit(); }
             catch (Exception ex)
@@ -57,7 +61,7 @@ namespace FOK_GYEM_Ultimate
 
         private void PluginsInit()
         {
-            var loadLocations = ConfLoader.GetPlugins();
+            var loadLocations = ResourceLoader.GetResourceListPattern("plugins", "*.dll", strip: false);
             if (loadLocations.Length <= 0) return;
             IEnumerable<IPlugin> tasks = loadLocations.SelectMany(pluginPath =>
             {
@@ -264,8 +268,12 @@ namespace FOK_GYEM_Ultimate
         {
             openFileDialog1.Filter = @"Binary files|*.bin";
             openFileDialog1.ShowDialog();
+            LoadFromBinFile(openFileDialog1.FileName);
+        }
 
-            var loc = openFileDialog1.FileName;
+        private void LoadFromBinFile(string loc, bool force = false)
+        {
+
             if (string.IsNullOrEmpty(loc) || !External.FileExists(loc)) return;
 
             var c = containerPanel.Controls;
@@ -282,7 +290,8 @@ namespace FOK_GYEM_Ultimate
 
             var bits = new BitArray(primary);
 
-            if (bits.Length/(ModV*ModH) != ModCnt) GenModules(bits.Length/(ModV*ModH),0);
+            if (bits.Length / (ModV * ModH) != ModCnt || force) 
+                GenModules(bits.Length / (ModV * ModH), (bits.Length / (ModV * ModH))/2);
 
             for (var i = 0; i < bits.Length; i++)
             {
@@ -296,7 +305,11 @@ namespace FOK_GYEM_Ultimate
         {
             openFileDialog1.Filter = @"Bitmap files|*.bmp|Portable Network Graphics|*.png";
             openFileDialog1.ShowDialog();
-            var loc = openFileDialog1.FileName;
+            LoadFromBmpFile(openFileDialog1.FileName);
+        }
+
+        private void LoadFromBmpFile(string loc, bool force = false)
+        {
             if (string.IsNullOrEmpty(loc) || !External.FileExists(loc)) return;
 
             var bmp = new Bitmap(Image.FromFile(loc));
@@ -306,8 +319,9 @@ namespace FOK_GYEM_Ultimate
                 MessageBox.Show(@"Bitmap dimensions are incorrect", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (bmp.Width / ModH != ModCnt) GenModules(bmp.Width / ModH, bmp.Width / ModH);
-            
+            if (bmp.Width / ModH != ModCnt || force) 
+                GenModules(bmp.Width / ModH, (bmp.Width / ModH)/2);
+
             var c = containerPanel.Controls;
             for (int x = 0; x < ModH * ModCnt; x++)
             {
@@ -392,11 +406,7 @@ namespace FOK_GYEM_Ultimate
 
         #region Panel menu strip
 
-        private void setNewBreakpointToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var formReCut = new FormReCut(this, ModCnt);
-            formReCut.Show();
-        }
+        private void setNewBreakpointToolStripMenuItem_Click(object sender, EventArgs e) => new FormReCut(this, ModCnt).Show();
 
         private void newSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -445,33 +455,9 @@ namespace FOK_GYEM_Ultimate
             SDK.ScreenUpdated(GetBitArray());
         }
 
-        public void TextGen(object sender, EventArgs e)
-        {
-            if (Directory.Exists(@"resources/fonts/"))
-            {
-                var formText = new FormText(this);
-                formText.Show();
-            }
-            else
-            {
-                MessageBox.Show(@"Couldn't find the resources/fonts directory.", @"Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        public void TextGen(object sender, EventArgs e) => new FormText(this).Show();
 
-        private void symbolEditStrip_Click(object sender, EventArgs e)
-        {
-            if (Directory.Exists(@"resources/symbols/"))
-            {
-                var formSymbol= new FormSymbol(this);
-                formSymbol.Show();
-            }
-            else
-            {
-                MessageBox.Show(@"Couldn't find the resources/symbols directory.", @"Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        private void symbolEditStrip_Click(object sender, EventArgs e) => new FormSymbol(this).Show();
 
         #endregion
 
@@ -483,26 +469,15 @@ namespace FOK_GYEM_Ultimate
         private void githubAboutStrip_Click(object sender, EventArgs e) =>
             Process.Start(new ProcessStartInfo("https://github.com/zsotroav/FOK-GYEM_Ultimate") { UseShellExecute = true });
 
-        private void creditsAboutStrip_Click(object sender, EventArgs e)
-        {
-            FormCredits formCredits = new();
-            formCredits.Show();
-        }
+        private void creditsAboutStrip_Click(object sender, EventArgs e) => new FormCredits().Show();
+        
         #endregion
 
         #region Preferences menu strip
 
-        private void setColorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var formColorPref = new FormColorPref(this);
-            formColorPref.Show();
-        }
+        private void setColorToolStripMenuItem_Click(object sender, EventArgs e) => new FormColorPref(this).Show();
 
-        private void setDefaultsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var formSetDefaults = new FormSetDefaults(this);
-            formSetDefaults.Show();
-        }
+        private void setDefaultsToolStripMenuItem_Click(object sender, EventArgs e) => new FormSetDefaults(this).Show();
 
         #endregion
 

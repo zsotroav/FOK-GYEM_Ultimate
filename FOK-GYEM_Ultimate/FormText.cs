@@ -5,7 +5,6 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using zsotroav;
 
 namespace FOK_GYEM_Ultimate
 {
@@ -17,12 +16,12 @@ namespace FOK_GYEM_Ultimate
             _formMain = main as FormMain;
             InitializeComponent();
 
-            string[] fonts = Directory.GetFiles(@"resources/fonts/", "*.bmp");
+            var fonts = ResourceLoader.GetResourceListPattern("fonts", "*.bmp");
             var n = 0;
             foreach (var font in fonts)
             {
-                if (!External.FileExists($@"resources/fonts/{External.NameNoExtFromPath(font)}_structure.txt")) continue;
-                fontCombo.Items.Add(External.NameNoExtFromPath(font));
+                if (ResourceLoader.GetResourcePath("fonts", $"{font}_structure.txt") == "") continue;
+                fontCombo.Items.Add(font);
                 n++;
             }
             if (n == 0)
@@ -44,7 +43,8 @@ namespace FOK_GYEM_Ultimate
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            if (!string.IsNullOrEmpty(fontCombo.Text) && External.FileExists($@"resources/fonts/{fontCombo.Text}.bmp"))
+            if (!string.IsNullOrEmpty(fontCombo.Text) && 
+                ResourceLoader.GetResourcePath("fonts", $"{fontCombo.Text}.bmp") != "")
                 TextGenFun(fontCombo.Text, textBox.Text, (int) OffPxNumeric.Value, centerCheckBox.Checked);
             else MessageBox.Show(@"Font not found", @"Text insert error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Close();
@@ -53,8 +53,8 @@ namespace FOK_GYEM_Ultimate
 
         public void TextGenFun(string font, string text, int offset, bool center)
         {
-            var fontBmp = (Bitmap)Image.FromFile($@"resources/fonts/{font}.bmp");
-            var sr = new StreamReader($@"resources/fonts/{font}_structure.txt", Encoding.UTF8);
+            var fontBmp = (Bitmap)Image.FromFile(ResourceLoader.GetResourcePath("fonts", $"{font}.bmp"));
+            var sr = new StreamReader(ResourceLoader.GetResourcePath("fonts", $"{font}_structure.txt"), Encoding.UTF8);
 
             Dictionary<char, int[]> chars = new();
             var n = 0;
