@@ -6,7 +6,7 @@ using System.IO;
 
 namespace zsotroav
 {
-    internal class External
+    public class External
     {
         public static void SaveBin(string loc, byte[] data)
         {
