@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Intrinsics.X86;
 
 namespace PluginBase
 {
@@ -46,6 +43,40 @@ namespace PluginBase
                 byteIndex++;
             }
             return bytes;
+        }
+
+        public static BitArray FlipVertical(BitArray bits) =>
+            FlipVertical(bits, Config.ModuleH * Config.ModuleCount, Config.ModuleV);
+
+        public static BitArray FlipVertical(BitArray bits, int horizontal, int vertical)
+        {
+            var re = new BitArray(bits.Length);
+
+            for (int i = 0; i < horizontal; i++)
+            for (int j = 0; j < vertical; j++)
+                re[i + j * horizontal] = bits[i + (6 - j) * horizontal];
+
+            return re;
+        }
+
+        public static BitArray FlipHorizontal(BitArray bits) =>
+            FlipHorizontal(bits, 
+                Config.ModuleH * Config.ModuleCount, 
+                Config.ModuleH * Config.ModuleCut, Config.ModuleV);
+
+        public static BitArray FlipHorizontal(BitArray bits, int horizontal, int breakpoint, int vertical)
+        {
+            var re = new BitArray(bits.Length);
+
+            for (int i = 0; i < horizontal; i++)
+            {
+                for (int j = 0; j < vertical; j++)
+                    re[i + j * horizontal] = bits[
+                        ((i >= breakpoint) ? horizontal + breakpoint: breakpoint) - 1 - i
+                        + j * horizontal];
+            }
+
+            return re;
         }
     }
 }

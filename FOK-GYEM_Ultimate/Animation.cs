@@ -88,7 +88,7 @@ namespace FOK_GYEM_Ultimate
         }
 
         public AnimationFrame GetFrameByName(string name) => 
-            AnimationFrames.Where(animationFrame => animationFrame.Name == name).Select(animationFrame => animationFrame).FirstOrDefault();
+            AnimationFrames.FirstOrDefault(animationFrame => animationFrame.Name == name);
         
         public AnimationFrame GetFrameByNumber(int number) => AnimationFrames[number];
 

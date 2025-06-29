@@ -245,9 +245,7 @@ namespace FOK_GYEM_Ultimate
             BitArray output = new(ModH * ModV * ModCnt);
             var c = containerPanel.Controls;
             for (int i = 0; i < ModH * ModV * ModCnt; i++)
-            {
                 output[i] = c.Find(i.ToString(), false)[0].BackColor == ActiveColor;
-            }
 
             return output;
         }
@@ -294,9 +292,7 @@ namespace FOK_GYEM_Ultimate
                 GenModules(bits.Length / (ModV * ModH), (bits.Length / (ModV * ModH))/2);
 
             for (var i = 0; i < bits.Length; i++)
-            {
                 c.Find(i.ToString(), false)[0].BackColor = bits[i] ? ActiveColor : InactiveColor;
-            }
 
             SDK.ScreenUpdated(bits);
         }
@@ -328,7 +324,7 @@ namespace FOK_GYEM_Ultimate
                 for (int y = 0; y < ModV; y++)
                 {
                     var col = bmp.GetPixel(x, y);
-                    var gs = (Int32)(col.R * 0.3 + col.G * 0.59 + col.B * 0.11);
+                    var gs = (int)(col.R * 0.3 + col.G * 0.59 + col.B * 0.11);
                     c.Find((x + y * ModH * ModCnt).ToString(), false)[0].BackColor =
                         Color.FromArgb(gs, gs, gs) == Color.FromArgb(0, 0, 0) ? InactiveColor : ActiveColor;
                 }
@@ -422,36 +418,30 @@ namespace FOK_GYEM_Ultimate
         public void ClearPanel(object sender, EventArgs e)
         {
             foreach (Control c in containerPanel.Controls)
-            {
                 if (c is Panel) c.BackColor = InactiveColor;
-            }
+            
             SDK.ScreenUpdated(new BitArray(Config.ModuleCount*ModH*ModV, false));
         }
         
         public void InvertPanel(object sender, EventArgs e)
         {
             foreach (Control c in containerPanel.Controls)
-            {
                 if (c is Panel) c.BackColor = c.BackColor == InactiveColor ? ActiveColor : InactiveColor;
-            }
+            
             SDK.ScreenUpdated(GetBitArray());
         }
 
-        public void FlipVertically(object sender, EventArgs e)
-        {
-            var copy = new BitArray(ModCnt * ModH * ModV);
-            var c = containerPanel.Controls;
-            for (int i = 0; i < ModH * ModV * ModCnt; i++)
-                copy[i] = c.Find(i.ToString(), false)[0].BackColor == Color.Black;
+        public void FlipVertically(object sender, EventArgs e) =>
+            UpdateScreen(Utils.FlipVertical(GetBitArray()));
 
-            for (int i = 0; i < ModCnt * ModH; i++)
-            {
-                for (int j = 0; j < ModV; j++)
-                {
-                    c.Find((i + j * ModH * ModCnt).ToString(), false)[0].BackColor =
-                        copy[i + (6 - j) * ModH * ModCnt] ? ActiveColor : InactiveColor;
-                }
-            }
+        private void FlipHorizontally(object sender, EventArgs e) => 
+            UpdateScreen(Utils.FlipHorizontal(GetBitArray()));
+
+        private void UpdateScreen(BitArray bits)
+        {
+            var c = containerPanel.Controls;
+            for (var i = 0; i < bits.Length; i++)
+                c.Find(i.ToString(), false)[0].BackColor = bits[i] ? ActiveColor : InactiveColor;
             SDK.ScreenUpdated(GetBitArray());
         }
 
@@ -603,5 +593,6 @@ namespace FOK_GYEM_Ultimate
         }
 
         #endregion
+        
     }
 }

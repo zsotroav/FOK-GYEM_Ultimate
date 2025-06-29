@@ -45,6 +45,7 @@ namespace FOK_GYEM_Ultimate
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.invertEditStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.flipEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.textEditStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.symbolEditStrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -195,6 +196,7 @@ namespace FOK_GYEM_Ultimate
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearEditStrip,
             this.invertEditStrip,
+            this.toolStripMenuItem1,
             this.flipEditStrip,
             this.textEditStrip,
             this.symbolEditStrip});
@@ -216,12 +218,19 @@ namespace FOK_GYEM_Ultimate
             this.invertEditStrip.Text = "Invert";
             this.invertEditStrip.Click += new System.EventHandler(this.InvertPanel);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(154, 22);
+            this.toolStripMenuItem1.Text = "Flip vertically";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.FlipVertically);
+            // 
             // flipEditStrip
             // 
             this.flipEditStrip.Name = "flipEditStrip";
             this.flipEditStrip.Size = new System.Drawing.Size(154, 22);
-            this.flipEditStrip.Text = "Flip vertically";
-            this.flipEditStrip.Click += new System.EventHandler(this.FlipVertically);
+            this.flipEditStrip.Text = "Flip horizontally";
+            this.flipEditStrip.Click += new System.EventHandler(this.FlipHorizontally);
             // 
             // textEditStrip
             // 
@@ -666,6 +675,7 @@ namespace FOK_GYEM_Ultimate
         private System.Windows.Forms.Button animSaveBtn;
         private System.Windows.Forms.Button animRelBtn;
         private System.Windows.Forms.ToolStripMenuItem pluginsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 
